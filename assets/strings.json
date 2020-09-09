@@ -5,9 +5,13 @@
       "path":"http://tvm2.pivotsys.com/hitachiUAT/"
    },
    
+   
    "prod":{
-	 "api":"http://tvm2.pivotsys.com/hitachiapi/api/"
-   },
+      "api":"https://h3dsp.hitachi-america.us/hitachiUAT/api/",
+	"webroot":"https://h3dsp.hitachi-america.us/",
+	"path":"https://h3dsp.hitachi-america.us/hvdt_api/"
+   
+	},
    
    "dev":{
         "api":"http://localhost:8000/api/",
