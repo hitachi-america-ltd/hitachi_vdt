@@ -1,0 +1,425 @@
+button {
+    color: #555;
+    background-color: #ddd;
+    border: 0px;
+    padding: 5px 8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #fff;
+}
+
+/*button.selected {
+    background-color: #fff;
+}*/
+
+button.selected{
+    background-color: #500080;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    border: 1px solid transparent;
+    color: #444;
+}
+
+input.Number {
+    color: #08f!important;
+    font-size: 12px;
+    border: 0px;
+    padding: 2px;
+    cursor: col-resize;
+}
+
+select {
+    color: #666;
+    background-color: #ddd;
+    border: 0px;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+}
+
+select:hover {
+    background-color: #fff;
+}
+
+
+/* UI */
+
+#player {
+    /*position: absolute;*/
+    position: absolute !important;
+    /*top: 32px;*/
+    top: 200px !important;
+    left: 0 !important;
+    right: 300px !important;
+    bottom: 32px !important;
+}
+
+#player>canvas {
+    width: 100% !important;
+    height: 710px !important;
+}
+
+#viewport {
+    /*position: absolute;*/
+    position: relative !important;
+    /*top: 32px;*/
+    /*top: 5px;*/
+    top: 0px;
+    left: 0;
+    right: 300px;
+    bottom: 32px;
+}
+
+#viewport>canvas {
+    width: 100% !important;
+    height: 710px !important;
+}
+
+#viewport #info {
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+#script {
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 300px;
+    bottom: 32px;
+    opacity: 0.9;
+}
+
+#menubar {
+    /*position: absolute;*/
+    position: relative;
+    width: 100%;
+    /*height: 32px;*/
+    min-height: 39px;
+    background: #eee;
+    padding: 0;
+    margin: 0;
+    right: 0;
+    /*top: 0;*/
+    top: 26%;
+}
+
+.menu right>.Checkbox {
+    margin-top: 3%;
+}
+
+#auto_save .Text {
+    margin-top: 3%;
+}
+
+#menubar .menu {
+    font-size: 15px;
+    float: left;
+    cursor: pointer;
+    padding-right: 8px;
+}
+
+#menubar .menu.right {
+    font-size: 15px;
+    float: right;
+    cursor: pointer;
+    padding-right: 0;
+    text-align: right;
+}
+
+#menubar .menu .title {
+    display: inline-block;
+    color: #888;
+    margin: 0;
+    padding: 8px;
+}
+
+#menubar .menu .options {
+    position: absolute;
+    display: none;
+    padding: 5px 0;
+    background: #eee;
+    width: 150px;
+}
+
+#menubar .menu:hover .options {
+    display: block;
+    z-index: 1;
+}
+
+#menubar .menu .options hr {
+    border-color: #ddd;
+}
+
+#menubar .menu .options .option {
+    color: #666;
+    background-color: transparent;
+    padding: 5px 10px;
+    margin: 0 !important;
+}
+
+#menubar .menu .options .option:hover {
+    color: #fff;
+    background-color: #08f;
+}
+
+#menubar .menu .options .option:active {
+    color: #666;
+    background: transparent;
+}
+
+#menubar .menu .options .inactive {
+    color: #bbb;
+    background-color: transparent;
+    padding: 5px 10px;
+    margin: 0 !important;
+}
+
+#toolButton {
+    font-size: 15px;
+}
+
+#zoom {
+    /*position: absolute;*/
+    position: absolute;
+    left: 0;
+    /*top: 32px;*/
+    /*top: 23%;*/
+    top: 406px;
+    bottom: 0;
+    /*overflow: auto;*/
+}
+
+#resetbtn {
+    /*position: absolute;*/
+    position: absolute;
+    left: 0;
+    /*top: 32px;*/
+    /*top: 23%;*/
+    top: 500px;
+    bottom: 0;
+    /*overflow: auto;*/
+}
+
+#reset-btn {
+    margin-left: 4%;
+    background-color: transparent !important;
+}
+
+#freeezbtn-cont {
+    /*position: absolute;*/
+    position: absolute;
+    left: 0;
+    /*top: 32px;*/
+    /*top: 23%;*/
+    top: 550px;
+    bottom: 0;
+    /*overflow: auto;*/
+}
+
+#freeez-btn {
+    margin-left: 3%;
+    background-color: transparent !important;
+}
+
+#two-d-view-container {
+    /*position: absolute;*/
+    position: absolute;
+    left: 0;
+    /*top: 32px;*/
+    /*top: 23%;*/
+    top: 590px;
+    bottom: 0;
+    /*overflow: auto;*/
+}
+
+#side-twod-btn {
+    margin-left: 3%;
+    background-color: transparent !important;
+}
+
+#twodViewBtnSide {
+    margin-top:  300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*padding-left: 5.9%;
+    padding-right: 5.8%;*/
+   /* width:100%;
+    padding-left:3%;*/
+    /*background-color: rgb(255, 255, 255);*/
+}
+
+#zoomIn {
+    margin-left: 4%;
+    background-color: transparent !important;
+}
+
+#zoomOut {
+    margin-left: 4%;
+    background-color: transparent !important;
+}
+
+#sidebar {
+    /*position: absolute;*/
+    position: absolute;
+    right: 0;
+    /*top: 32px;*/
+    /*top: 23%;*/
+    top: 190px;
+    bottom: 0;
+    width: 300px;
+    background: #eee;
+    overflow: auto;
+}
+
+#sidebar * {
+    vertical-align: middle;
+}
+
+#sidebar .Panel {
+    color: #888;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+#sidebar .Panel.collapsed {
+    margin-bottom: 0;
+}
+
+#sidebar .Row {
+    min-height: 20px;
+  
+    margin-bottom: 10px;
+}
+/*#sidebar .Row span{
+    margin-left: 7px;
+}
+
+#sidebar .Row span canvas{
+    width: auto;
+    height: auto;
+}*/
+
+/*viewMode Sidebar Start*/
+#viewSidebar {
+    /*position: absolute;*/
+    position: absolute;
+    right: 0;
+    /*top: 32px;*/
+    /*top: 23%;*/
+    top: 190px;
+    bottom: 0;
+    width: 300px;
+    background: #eee;
+    overflow: auto;
+}
+
+#viewSidebar * {
+    vertical-align: middle;
+}
+
+#viewSidebar .Panel {
+    color: #888;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+#viewSidebar .Panel.collapsed {
+    margin-bottom: 0;
+}
+
+#viewSidebar .Row {
+    min-height: 20px;
+    margin-bottom: 10px;
+}
+/*viewMode Sidebar End*/
+
+#tabs {
+    background-color: #ddd;
+    border-top: 1px solid #ccc;
+}
+
+#tabs span {
+    color: #aaa;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+#tabs span.selected {
+    color: #888;
+    background-color: #eee;
+}
+
+/*#toolbar {
+    position: absolute;
+    left: 0;
+    right: 300px;
+    height: 32px;
+    background: #eee;
+    color: #333;
+}*/
+
+#toolbar {
+    position: fixed;
+    left: 12%;
+    /* right: 300px; */
+    bottom: 3%;
+    height: 32px;
+    background: #eee;
+    color: #333;
+}
+
+#toolbar * {
+    vertical-align: middle;
+}
+
+#toolbar .Panel {
+    padding: 4px;
+    color: #888;
+}
+
+#toolbar button {
+    margin-right: 6px;
+    font-weight: bold !important;
+}
+
+.Outliner {
+    color: #444;
+    background-color: #fff;
+    padding: 0;
+    width: 100%;
+    height: 140px;
+    font-size: 12px;
+    cursor: default;
+    overflow: auto;
+    outline: none !important;
+}
+
+.Outliner .option {
+    padding: 4px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.Outliner .option:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.Outliner .option.active {
+    /*background-color: rgba(0,0,0,0.04);*/
+    background-color: rgb(21, 179, 185);
+}
+
+.enlargeScreenshot {
+    cursor: zoom-in;
+}

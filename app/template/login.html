@@ -1,0 +1,80 @@
+<div>
+		<div ng-controller="loginctrl">
+			 <nav class="navbar navbar-inverse">
+					<div>
+						<div class="navbar-header">
+							
+							 	<a class="navbar-brand " style = "margin-top :2px;" href="#/"> <img src = './assets/img/3DEZ-Red.png' height="50"></a>
+								<a class="navbar-brand " style = "font-size : 24px !important ;margin-top: 16px !important;" href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a>
+								<!--a class="navbar-brand " href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a-->
+							
+						</div>
+						
+						 <ul class="nav navbar-nav navbar-right">
+								
+								<li class="dropdown">
+									 <a class="dropdown-toggle" data-toggle="dropdown" href="">{{"select language" | translate}}
+									 <span class="caret"></span></a>
+									 <ul class="dropdown-menu">
+											<li><a href="" ng-click ="changeLanguage('en')">{{"english" | translate }}</a></li>
+											<li><a href="" ng-click ="changeLanguage('jp')"; >{{"japaneses" | translate }}</a></li>
+									 </ul>
+								</li>
+								<!--li><a href="#signup"><i class="fa  fa-user "></i> {{"Signup" | translate }}</a></li-->
+								
+                    			<!--li><a href="#trail"><i class="fa  fa-user"></i> {{"GetTrailAccount" | translate}}</a></li -->
+
+								<li><a href="#login"><i class="fa  fa-sign-in"></i> {{"Login" | translate }} </a></li>
+						 </ul>
+					</div>
+			 </nav>
+			 <!-- log in -->
+			 <div class="cards container col-md-4 col-sm-12 col-xs-12 cards push-md-5 shadow-effects"  style="background-color: white; " >
+					<div class="cards-block">
+						 <!--Header-->
+						 <div class="forms-header blue-gradient">
+								<h3><i class="fa fa-lock"></i> {{ "Login" | translate }}</h3>
+						 </div>
+						 <!--Body-->
+						 <form name="loginform">
+								<div class="md-forms forms-control">
+									 <i class="fa fa-envelope prefix"></i>
+									 <input class="prem"  name="lemail" style="font-size: 16px;margin-top: 1%" type="email" id="form2" placeholder="{{'Your E-mail' | translate}}" class="forms-control" ng-model="user_email"  required="required">
+									 <span style="color:red; margin-left:10%" ng-show="loginform.lemail.$dirty && loginform.lemail.$invalid" class="">
+									 {{"Email is required!" | translate }}</span>
+									 <label for="form2"></label>
+								</div>
+								<div class="md-forms">
+									 <i class="fa fa-lock prefix"></i>
+									 <input class="prem" style="font-size: 16px;margin-top: 1%" name="lpass" type="password" id="form4" placeholder="{{'Your password' |translate}}" class="forms-control" ng-model="user_password"  required="required">
+									 <span style="color:red; margin-left:10%" ng-show="loginform.lpass.$dirty && loginform.lpass.$invalid" class="">
+									 {{"password is  required!"| translate }}</span>
+									 <label for="form4"></label>
+								</div>
+								<div class="text-center" style = "padding-left :83px">
+									 <span  style =" color:red;font-size: 16px;margin-left: 2%" ng-show="invalid_ceiteria"> {{"invalid credential" | translate }} </span></br>
+									 <button class="btns btns-indigo  btns-indigo" ng-disabled="loginform.$invalid" style="font-size:18px" ng-click="login_fun()">  {{"Sign In" | translate}}</button>
+									 <a href="#forgot"><label  class="forgotstyle"><u style="
+										padding-left: 20px;">{{"Forgot password"| translate }}</u></label></a>
+									 
+									 <fieldset class="forms-group">
+											<!--a href="#forgot"><label for="checkbox1" class="forgotstyle">{{"Forgot password"| translate }}</label></a -->
+									 </fieldset>
+								</div>
+								<hr>
+								
+						 </form>
+						<fieldset class="forms-group"style ="margin-left: 19%;">
+										
+							<input type="checkbox" ng-model="checkboxModelTermsandContition" ></input>
+								<label >	
+									<p> {{"Check to accept the"| translate }}
+										<a style = "color : #ea4646 ;" target="_blank"href="#/terms" > {{"Terms & Conditions" | translate }}</a>	
+									</p>
+								</label>
+						</fieldset>
+					</div>
+			 </div>
+		</div>
+		<!-- login end -->
+ </div>

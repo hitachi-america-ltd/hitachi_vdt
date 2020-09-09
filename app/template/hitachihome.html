@@ -1,0 +1,2556 @@
+
+	<div  ng-controller="myCtrl">
+		<div class="loader">
+			<div class="loading-text">
+				<strong>{{"Loading..." | translate}}</strong>
+			</div>
+		</div>
+		<nav class="navbar navbar-inverse">
+		   <div class="container-fluid">
+			<div class="navbar-header">
+			 <a class="navbar-brand navbar-height" style = "margin-top:0% !important" href="http://www.hitachi-america.us/products/consumer/digitalmedia/3DEZ/" target="_blank"><img src="assets/img/3DEZ-Red.png" height="50" /></a>
+			 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			  <span class="glyphicon glyphicon-menu-hamburger menu-collapse"></span>
+			 </button>
+			</div>
+			<ul class="nav navbar-nav" style ="    padding-left: 29%;">
+				<div style="font-size: 25px;color:white;">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}} </div>
+			</ul>
+			
+			
+			<span id = "container-logo" class = "pull-right" style = "visibility: hidden;" >
+				<img id = "container-logo-img" src = "{{userLogo}}" >
+			</span>
+
+			<div id="welcome" class=" pull-right">
+				 <h5 style="color:white"> 
+					 	<button type="button" class="btn btn-link btn-sm dropdown-toggle custom-user" ng-if="fname != ''" data-toggle="dropdown">
+					 		<i class="fa fa-user-circle"></i> 
+							<strong>{{fname}} {{lname}}</strong>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-right user-dropdown">
+							<li>
+								<button type="button" class="btn btn-info btninfo" ng-click="editMode = false;upgrade_renew=true ;changePrice = false ;changePassword = false" style="text-align: -webkit-left;" data-toggle="modal" data-target="#myAccount">
+									<i class="fa fa-address-card" style></i>
+										{{"My Account" | translate}}
+								</button>
+							</li>
+
+							<li>
+								<button type="button" class="btn btn-info btninfo" style="text-align: -webkit-left;" data-toggle="modal" data-target="#user-statistics">
+									<i class="fa fa-pie-chart"></i> 
+										{{"Account Statistics" | translate}} 
+								</button>
+							</li>
+
+							<li>
+								<button type="button" class="btn btn-info btninfo" ng-click="" style="text-align: -webkit-left;"  data-toggle="modal" data-target="#logout_confirm">
+									<i class="fa fa-sign-out">
+									</i> 
+										{{"Logout" | translate}}
+								</button>
+							</li>
+						</ul>
+				</h5>
+			</div>
+
+		   </div>
+		</nav>
+		<!--top navigation bar END-->
+
+		<div class="container-fluid" id="formConfirmation">
+			<div class="container-fluid project_title_div row">
+			
+				<div class="col-sm-12 col-md-4 proj-title-innerbox">
+					<div class="btn-group">
+						<button type="button" class="btn btn-primary btn-sm dropdown-toggle viewModeTab"  data-toggle="dropdown" ng-disabled="HidefloorDemoBtn || !showEditor">
+							<span class="glyphicon glyphicon-file"></span>
+							{{"Project"  | translate }}
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li>
+								<!--button type="button" class="btn btn-info btninfo" ng-click="" data-toggle="modal" data-target="#newWarn" style="text-align: -webkit-left;" ng-disabled="projectName == '' ">
+									New
+								</button-->
+								<button type="button" class="btn btn-info btninfo" data-toggle="modal" data-target="#CloseWarn" style="text-align: -webkit-left;">
+									{{"New"  | translate}}
+								</button>
+							</li>
+							<li>
+								<button type="button" class="btn btn-info btninfo" ng-click="openProjects();onOpenProjectClicked()" style="text-align: -webkit-left;">
+									{{"Open"  | translate }}
+								</button>
+							</li>
+							<li>
+								<!--button type="button" class="btn btn-info btninfo" data-toggle="modal" data-target="{{save_modal_id}}" style="text-align: -webkit-left;">Save</button-->
+								<button type="button" class="btn btn-info btninfo" style="text-align: -webkit-left;" ng-click="onSaveButtonClicked('save')">{{"Save" | translate }}</button>
+							</li>
+							<li>
+								<!--button type="button" class="btn btn-info btninfo" ng-click="" data-toggle="modal" data-target="#saveAs" style="text-align: -webkit-left;">
+									Save As
+								</button-->
+								<button type="button" class="btn btn-info btninfo" ng-click="onSaveButtonClicked('saveAs')" style="text-align: -webkit-left;">
+									{{"Save As" | translate  }}
+								</button>
+							</li>
+							<li>
+								<button type="button" class="btn btn-info btninfo" ng-click="openProjects();onDeleteProjectClicked();" style="text-align: -webkit-left;">
+									{{"Delete"   | translate }}
+								</button>
+							</li>
+							<li>
+								<button type="button" class="btn btn-info btninfo" ng-click="" data-toggle="modal" data-target="#CloseWarn"style="text-align: -webkit-left;" ng-disabled="projectName == '' ">
+									{{"Close"  | translate  }}
+								</button>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-group">
+						<button type="button" id="export_as" class="btn btn-primary btn-sm dropdown-toggle viewModeTab" data-toggle="dropdown" ng-disabled="HidefloorDemoBtn || !showEditor">
+							<span class="glyphicon glyphicon-export"></span>
+							{{"Export as" | translate }}
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li>
+								<button id='export_pdf' ng-click="generatePDF()" class='btn btn-info btninfo' data-format='pdf' data-name='pdf'>
+									{{"PDF" | translate }}
+								</button>								 
+							</li>				
+							<li>
+								<button id='export_image' class=' btn btn-default btn-info btninfo' data-format='png' value="Save PNG" data-name='snapshot'>
+									{{"Snapshot" | translate }}
+								</button>
+							</li>
+							<li>
+								<button type="button" ng-click="reportGeneration()" ng-hide="hideCameraButton" class='btn btn-default btn-info btninfo'>{{"Generate Report" |  translate}}</button>
+								<button type="button" ng-show="HidefloorDemoBtn" class='btn btn-default btn-info btninfo'><a style="text-decoration: none" ng-show="HidefloorDemoBtn" target="_blank" href = "{{url}}/assets/Hitachi_Simlator_Project_Report.pdf">{{"Generate Report" | translate}}</a></button>
+							</li>		
+						</ul>
+					</div>
+					<div class="btn-group">
+						<button type="button" id="object_list" class="btn btn-primary btn-sm dropdown-toggle viewModeTab" data-toggle="dropdown" ng-disabled="HidefloorDemoBtn || !showEditor">
+							<i class="fa fa-plus">
+							</i>
+							{{"Add Objects" | translate}}
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu" id="objects_dynamic_list">
+							<button type="button" class="btn btn-info btninfo" ng-hide="hideCameraButton" data-toggle="modal" data-target="#select_camera"  ng-click ="checkFileChanged()">{{"Select Camera" | translate}}</button>
+						
+							<button type="button" class="btn btn-info btninfo add-btn" ng-hide="hideCameraButton" ng-click="initcamera()" style="margin-left:0px;">{{"Add Camera"  | translate }}</button>
+
+
+							<button type="button" class="btn btn-info btninfo add-btn" ng-hide="hide3CameraButton" data-toggle="modal" data-target="#select_3camera" style="margin-left:0px;">{{"Add Camera"  | translate }}</button>
+
+							<button type="button" id="map2DObjectBtn" class="btn btn-info btninfo" ng-click="open2DObjectLoad()" ng-hide="Hide2DObjectBtn" style="margin-left:0px;"><span id="2d_object_button">{{"Upload 2D" | translate }}</span></button>
+
+							<button type="button" id="map2DObjectRemoveBtn" class="btn btn-info btninfo" ng-click="removeOverlay()" ng-hide="Hide2DObjectRemoveBtn" style="margin-left:0px;"><span id="2d_object_button">{{"Remove 2D" | translate }}</span></button>
+
+							<button type="button" id="uploadbtn" class="btn btn-info btninfo" data-target="#myModalopen" ng-hide="HideUploadBtn" ng-click="objLoaderModal()" style="text-align: -webkit-left;margin-left:0px;"><span id="upload3D">{{"Upload 3D"| translate }}</span></button>
+
+							<button type="button" id="preloaded_3D" class="btn btn-info btninfo" data-toggle="modal" data-target="#pre_uploaded_models" ng-hide="HideUploadBtn" style="text-align: -webkit-left;margin-left:0px;"><span id="upload3D">{{"Preloaded 3D scenes"  | translate}}</span></button>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="col-sm-12 col-md-4 proj-title-innerbox proj-title-innerbox-acive">
+					 <span class="proj-name"> <strong ng-hide="!showEditor">{{projectName}}</strong><strong id="project-title-3d" ng-hide="showEditor"></strong></span>
+				</div>
+				
+				<div class="col-sm-12 col-md-4 proj-title-innerbox">
+					<div class="pull-right">				
+						<!--******************************************-->
+						<!--button type="button" id="mapfloorbtn" class="btn btn-info btn-sm " ng-click="show3Ddemo()" style="text-align: -webkit-left;"><span id="floor_demo_button">Hitachi Floor Demo</span></button-->
+
+						<button type="button" id="mapviewBtn" class="btn btn-info btn-sm viewModeTab
+						'" ng-click="showmapview()" style="text-align: -webkit-left;"><span id="map3d">{{"Map View" | translate }}</span></button>
+						
+						<!--button type="button" id="map3dbtn" class="btn btn-info btn-sm " ng-click="default3D()" style="text-align: -webkit-left;"><span id="map3d">3D view</span></button-->
+						<!--button type="button" id="map3dbtn" class="btn btn-info btn-sm " style="text-align: -webkit-left;"><span id="map3d">3D view</span> </button-->
+
+						<button type="button" id="edit3dbtn" class="btn btn-info btn-sm " style="text-align: -webkit-left;" ui-sref="3D" ng-click="on3DEditorClicked();showEditor=false"><span>{{"3D Editor"  | translate }}</span> </button>
+
+						<div class="btn-group">
+						<button type="button" class="btn btn-info btn-sm dropdown-toggle viewModeTab" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-help"></span>
+							{{"Help" | translate }}
+							<span class="caret"></span>
+						</button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+							<li>
+								<button type="button" id="mapfloorbtn" class="btn btn-info btninfo" ng-click="show3Ddemo()" style="text-align: -webkit-left;"data-toggle="modal" >
+									<i id="floor_demo_button">
+									</i> 
+										{{"Hitachi Floor Demo"| translate  }}
+								</button>
+							</li>
+							<li>
+								<button type="button" class="btn btn-info btninfo" ng-click="" data-toggle="modal" data-target="#newInfo" style="text-align: -webkit-left;">
+									{{"Contact info" | translate }}
+								</button>
+							</li>
+							<li>
+								<a href="{{url}}/assets/Hitachi_User_Manual_v3.0.pdf" style = "padding: 0px 0px" target="_blank"> 
+                            		<button type="button" class="btn btn-info btninfo" ng-click="" data-toggle="modal" data-target="_blank" style="text-align: -webkit-left;">
+									{{"User Manual" | translate  }}
+									</button>			
+								</a>
+							</li>
+							<li>
+		             <a href="{{url}}/assets/Hitachi_Release_Notes_3.0.pdf" style = "padding: 0px 0px" target="_blank">
+
+								<button type="button" class="btn btn-info btninfo" data-toggle="modal" data-target="#relseNote" style="text-align: -webkit-left;">{{"Release Notes" | translate }}</button></a>
+							</li>
+							<li>
+								<button type="button" class="btn btn-info btninfo" ng-click="" data-toggle="modal" data-target="#relseDate" style="text-align: -webkit-left;">
+									 {{"Release ID & Date" | translate }}
+								</button>
+							</li>
+							
+						</ul>
+                    </div>
+						
+					</div>	
+				</div>
+				
+				
+				<!-- 2D Object Model Loader -->
+				<div class="modal fade modal-project-open" id="2DObjectLoaderModal" role="dialog">
+					 <div class="modal-dialog">
+						  <!-- Modal content-->
+						  <div class="modal-content model_width">
+						   <div class="modal-header  model_color">
+							<button type="button" class="close" data-dismiss="modal">×</button>
+
+							<h4 class="modal-title">{{"Upload 2D Objects" | translate }}</h4>
+						   </div>
+							 <div class="modal-body" id="model_zip">
+							 {{"You can upload 2D Floor Plans or any images as you need." | translate }}
+							 <input  class="form-control_prem"  type="file" id="upload_file"  file-model="myFile"/ value="" ng-model="objectFilePath">
+							<!--span id="sapnfile"ng-hide="file_extension">ONLY ZIP FILE</span-->
+							 <!--div ng-hide="prbar" id="myProgress">
+								<div id="loading-bar-container"></div>
+								</div-->
+
+                             </div>
+                             <span id="falseupload" ng-hide="falsefileformat" style="color:red;font-size: 13px">{{"File format not supported" | translate}}</span>
+                             <div class="modal-footer">
+                            <button class="btn btn-success btn-sm"  ng-click="objectUpload(myFile)">{{"Upload" | translate }}</button>
+                            <button class="btn btn-danger btn-sm"   data-dismiss="modal">{{"Cancel" |translate}}</button>
+                             </div>
+                          </div>
+
+					 </div>
+				</div>
+				
+				
+						<!-- 3D Model Loader -->
+				<div class="modal fade modal-project-open" id="3dLoaderModal" role="dialog">
+					 <div class="modal-dialog">
+						  <!-- Modal content-->
+						  <div class="modal-content model_width">
+						   <div class="modal-header  model_color">
+							<button type="button" class="close" data-dismiss="modal">×</button>
+
+                            <h4 class="modal-title">{{"Upload 3D Model" | translate}}</h4>
+                           </div>
+                             <div class="modal-body" id="model_zip">
+                             {{"Please upload 3D Model as zip file. The folder should contain .obj and .mtl files." | translate }}
+                             <input  class="form-control_prem"  type="file" id="upload_file"  accept=".zip"   file-model="myFile"/ value="" ng-model="bankfilepath">
+                            <span id="sapnfile"ng-hide="file_extension">{{"ONLY ZIP FILE" | translate}}</span>                            
+                            <span id="sapnfile" style="font-size: 12px;" ng-hide="not_correct_file">{{"Your ZIP file doesnot contain the .obj or .mtl file please upload a new ZIP" | translate }}</span>
+                            
+
+							 </div>
+							 <div class="modal-footer">
+							<button class="btn btn-success btn-sm" 	ng-click="fileezt(myFile)">{{"Upload" | translate }}</button>
+							<button class="btn btn-danger btn-sm" 	data-dismiss="modal">{{"Cancel" |translate}}</button>
+							 </div>
+						  </div>
+
+					 </div>
+				</div>
+				
+				<!---Rename camera-->
+				  <div class="modal fade modal-project-open" id="rename" role="dialog">
+					 <div class="modal-dialog">
+						  <!-- Modal content-->
+						  <div class="modal-content model_width">
+						  	<form name="renameForm">
+						   <div class="modal-header  model_color">
+							<button type="button" class="close" data-dismiss="modal">×</button>
+
+							<h4 class="modal-title">{{"Type a name to your camera" | translate  }}</h4>
+						   </div>
+							 <div class="modal-body" id="model_zip">
+							 {{"Please enter a valid name ." | translate}}
+							 <input  class="form-control_prem"  type="text"  ng-model="renamecam" required>
+                              <div>
+						        	{{"select a colour for your camera" | translate }} 
+						        	<input id="color12" type="text" name="color12" value="#333399" />
+						        </div>
+							
+          						 </div>
+							 <div class="modal-footer">
+							<button class="btn btn-success btn-sm" ng-click="camera_name()" ng-disabled="renameForm.$invalid">{{"Add" | translate }}</button>
+							<button class="btn btn-danger btn-sm" 	data-dismiss="modal">{{"Cancel" |translate}}</button>
+							 </div>
+							 </form>
+						  </div>
+
+					 </div>
+				</div>
+				<!---End Rename camera-->
+				<!---End Rename camera-->
+				<div class="modal fade modal-project-open" id="nEWrename" role="dialog">
+				    <div class="modal-dialog">
+				        <!-- Modal content-->
+				    <form name="add_camera_name_color">
+				        <div class="modal-content model_width">
+					        <div class="modal-header  model_color">
+						       <button type="button" class="close" data-dismiss="modal">×</button>
+						       <h4 class="modal-title">{{"Type a name to your camera" | translate  }}</h4>
+					        </div>
+					        <div class="modal-body" id="model_zip">
+									{{"Please enter a valid name ." | translate}}
+						        <input  class="form-control_prem" placeholder="{{'camera name' | translate}}" type="text"  ng-model="renamecam" required>
+						        <div>
+										{{"select a colour for your camera" | translate }} 
+						        	<input id="color1" type="text" name="color1" value="#333399" />
+						        </div>
+					        </div>
+					        <div class="modal-footer">
+						       <button class="btn btn-success btn-sm" ng-click="addcamera()" ng-disabled="add_camera_name_color.$invalid">{{"Add" | translate }}</button>
+						       <button class="btn btn-danger btn-sm"  data-dismiss="modal" ng-click="cancelAddCamera()">{{"Cancel" |translate}}</button>
+					        </div>
+				        </div>
+				    </form>
+				    </div>
+			    </div>
+				<!---End Rename camera-->
+				
+				
+				<!-- Project open MODAL -->
+				<div class="modal fade modal-project-open" id="myModalopen" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content model_width">
+							<div class="modal-header  model_color">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">{{"Select Your Project" | translate }}</h4>
+							</div>
+						   <div class="modal-body">
+								<form action="">
+									<ul>
+										<li ng-repeat="sproj in savedProject">
+											<input type="radio" name="project" ng-model="projectTitle.pname" ng-value="$index" ng-init="$index==0?(projectTitle.pname=0):''"> {{sproj.title}}
+										</li>
+									</ul>
+								</form>
+						   </div>
+						   <div class="modal-footer">
+						   		<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="openProject()" ng-disabled="savedProject.length == 0 || projectTitle.pname<0">
+									<span class="fa fa-folder-open"></span>
+									{{"Open" | translate }}
+								</button>
+						   		<button class="btn btn-danger" data-dismiss="modal">
+						   			<span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" | translate}}</span>
+								</button>
+						   </div>
+						</div>
+					
+					</div>
+				</div>
+				<!-- Project open MODAL -->
+				
+				<!-- Project saveAs MODAL -->
+				<div class="modal fade" id="saveAs" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h4>{{"Save Project As" | translate }}</h4>
+									</div>
+								</div>
+							</div>
+							<form name="saveAsforminput">
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<label for="project-title-saveAs">
+												{{"Enter a title for this project:" | translate }}
+											</label>
+											<br>
+											<input id="project-title-saveAs" class="form-control" name="title" ng-model="projectNameSaveAs" placeholder="{{'Title' | translate }}" value="" required>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-success btn-sm" data-dismiss="modal" ng-disabled="saveAsforminput.$invalid" ng-click="saveProjectAs()">
+											<span class="bootstrap-dialog-button-icon fa fa-check" ></span>{{"Save" | translate }}
+										</button>
+										<button class="btn btn-danger btn-sm" data-dismiss="modal"><span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" | translate}}</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+						</div>
+					</div> 
+				</div>
+				<!-- Project saveAs MODAL -->
+
+				<!-- Project save MODAL -->
+				<div class="modal fade" id="Save" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h4>"{{"Save Project" | translate }}"</h4>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											{{"Save Changes to" | translate }} '{{projectName}}' ?
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-success btn-sm" data-dismiss="modal" ng-click="saveProject()">
+											<span class="bootstrap-dialog-button-icon fa fa-check" ></span>{{"Save" | translate }}
+										</button>
+										<button class="btn btn-danger btn-sm" data-dismiss="modal"><span class="bootstrap-dialog-button-icon fa fa-close" ></span>{{"Cancel" | translate}}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- Project save MODAL -->
+
+				<!-- Project save from upgrade MODAL -->
+				<div class="modal fade" id="Save_Upgrd" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h4>{{"Save Project" | translate }}</h4>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+												{{"Save Changes to" | translate }} '{{projectName}}' ?
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="send_upgrade(upgrd_plan)"><span class="bootstrap-dialog-button-icon fa fa-close" ></span>{{"Cancel" | translate}}
+										</button>
+										<button class="btn btn-success btn-sm" data-dismiss="modal" ng-click="saveProject();send_upgrade(upgrd_plan);">
+											<span class="bootstrap-dialog-button-icon fa fa-check" ></span>{{"Save" | translate }}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- Project save from upgrade MODAL END -->
+
+				<!-- Project exists Warning MODAL -->
+				<div class="modal fade" id="saveWarning" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><span class="fa fa-warning" ></span> {{"Warning" | translate }}!</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+												<h4 id="warn-content">{{"Project already exists. Please choose another name." | translate }}</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm" data-dismiss="modal"><span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" | translate}}</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- Project exists Warning MODAL -->
+
+				<!-- Project DELETE MODAL -->
+				<div class="modal fade modal-project-open" id="deleteModal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<form name='deleteforminput'>
+							<div class="modal-header  model_color">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">{{"Select one to remove" | translate }}</h4>
+							</div>
+						   <div class="modal-body">
+								<form name="projList">
+									<ul>
+										<li ng-repeat="sproj in savedProject">
+											<!--input type="radio" name="project" ng-model="projectTitle.pname" ng-hide="sproj.title == projectName" ng-value="$index"> <span ng-hide="sproj.title == projectName">{{sproj.title}}</span-->
+											<input type="radio" name="project" ng-model="projectTitle.pname" ng-value="$index"> <span>{{sproj.title}}</span>
+										</li>
+									</ul>
+								</form>
+						   </div>
+						   <div class="modal-footer">
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#deleteConfModal" data-dismiss="modal" ng-click="" ng-disabled="savedProject.length == 0 || projectTitle.pname<0"> 
+									<span class="fa fa-trash"></span>
+									{{"Delete" | translate}}
+								</button>
+								<button class="btn btn-danger" data-dismiss="modal">
+						   			<span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" | translate}}</span>
+								</button>
+						   </div>
+						</form>
+						</div>
+					</div>
+				</div>
+				<!-- Project DELETE MODAL -->
+
+				<!-- Project DELETE CONFIRM MODAL -->
+				<div class="modal fade modal-project-open" id="deleteConfModal" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header  model_color">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h3><span class="fa fa-warning" ></span> {{"Warning" | translate }}!</h3>
+							</div>
+						   <div class="modal-body">
+									<h4>{{"Are you sure you want to remove this project?" | translate}}</h4>
+						   </div>
+						   <div class="modal-footer">
+								<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="deleteProject()"> 
+									<span class="fa fa-trash"></span>
+									{{"Yes" | translate }}
+								</button>
+								<button class="btn btn-danger" data-dismiss="modal">
+						   			<span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" | translate}}</span>
+								</button>
+						   </div>
+						</div>
+					
+					</div>
+				</div>
+				<!-- Project DELETE CONFIRM MODAL -->
+
+				<!-- Project CLOSE WARNING MODAL -->
+				<div class="modal fade" id="CloseWarn" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><span class="fa fa-warning"></span> {{"Warning" | translate }}</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<h4>{{"You may loose the changes made. Do you wish to proceed?" | translate }}</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-success btn-sm" data-dismiss="modal" ng-click="createNewProject();">
+											<span class="bootstrap-dialog-button-icon fa fa-check" ></span> {{"Yes" | translate }}
+										</button>
+										<button class="btn btn-danger btn-sm" data-dismiss="modal" ng-click=""><span class="fa fa-close"> {{"No" | translate}} </span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- Project CLOSE WARNING MODAL -->
+
+				<!--3dcamera selecr-->	
+				<div class="modal fade" id="select_3camera" role="dialog">
+					<div class="modal-dialog chumma_modal">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<h4 class="modal-title">{{"Select Camera" | translate }}</h4>
+							</div>
+							<div class="modal-body row">					
+								<div class="col1 col-sm-12 col-md-3" id="manufacturer-list" >
+									<ul class="list list-group man-list" id="csearch" style="height: calc(100% - 20px);"></ul>
+									<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+									<ul class="list-group" id="tp3" ng-click="camera_madel3()"></ul>
+								</div>
+								<div class="col2 col-sm-12 col-md-3" id="model-list" >
+									<input type="text" id="myInput2" ng-hide="subsearch3" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name">
+									<ul class="list-group" id="tps3" ng-hide="subsearch3" ng-click="full_details3()" ></ul>
+								</div>
+								<div class="col3 col-sm-12 col-md-6" id="camera-model" ng-hide="full_cam_details3">
+									<div class="content">
+										<div class="panel panel-default description-panel">
+											<div class="panel-heading">
+												{{"Camera Details" | translate}}
+											</div>
+											<div class="panel-body row">
+												<table class="table table-striped description-table col-sm-12 col-md-3">
+													<tbody>
+														<tr>
+															<td>{{"Model" | translate}}</td>
+															<td class="model-name" id="Model_Name3"></td>
+														</tr>																		
+														<tr>
+															<td>{{"max-resolution" | translate }}</td>
+															<td class="max-resolution" id="red3">  </td>
+														</tr>																		
+														<tr>
+															<td>{{"ir" |translate}}</td>
+															<td class="ir" id="irss3"></td>
+														</tr>																		
+														<tr>
+															<td>{{"imager Size" |translate}}</td>
+															<td class="imager_size" id="image_size 3"></td>
+														</tr>																		
+														<tr>
+															<td>{{"AoV" |translate}}:</td>
+															<td class="aov-text" id="aov3"></td>
+														</tr>															
+														<tr>
+															<td>{{"Focal Length" | translate }}:</td>
+															<td class="focal-length-text" id="focal_length3"></td>
+														</tr>
+													</tbody>
+												</table>
+												<div class="configurations col-sm-12 col-md-4" id="butto">
+													<button class="btn btn-default1" ng-click="initcamera2()"data-dismiss="modal">
+														{{"Select this camera" |translate }}
+													</button>
+												</div>
+												<div class="image camimage col-sm-12 col-md-3" >
+													<div id="image_modal3">
+													</div>
+												</div>
+											</div>
+										</div>											
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close" |translate }}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--3dcamera select-->	
+
+				<!--3dsensor selecr-->	
+				<div class="modal fade" id="select_3sensor" role="dialog">
+					<div class="modal-dialog chumma_modal">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<h4 class="modal-title">{{"Select Sensor" | translate }}</h4>
+							</div>
+							<div class="modal-body row">					
+								<div class="col1 col-sm-12 col-md-3" id="manufacturer-list" >
+									<ul class="list list-group man-list" id="csearch" style="height: calc(100% - 20px);"></ul>
+									<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+									<ul class="list-group" id="tp3" ng-click="camera_madel3()"></ul>
+								</div>
+								<div class="col2 col-sm-12 col-md-3" id="model-list" >
+									<input type="text" id="myInput2" ng-hide="subsearch3" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name">
+									<ul class="list-group" id="tps3" ng-hide="subsearch3" ng-click="full_details3()" ></ul>
+								</div>
+								<div class="col3 col-sm-12 col-md-6" id="camera-model" ng-hide="full_cam_details3">
+									<div class="content">
+										<div class="panel panel-default description-panel">
+											<div class="panel-heading">
+												{{"Sensor Details" | translate}}
+											</div>
+											<div class="panel-body row">
+												<table class="table table-striped description-table col-sm-12 col-md-3">
+													<tbody>
+														<tr>
+															<td>{{"Sensor" | translate}}</td>
+															<td class="model-name" id="Model_Name3"></td>
+														</tr>																		
+														<tr>
+															<td>{{"max-resolution" | translate }}</td>
+															<td class="max-resolution" id="red3">  </td>
+														</tr>																		
+														<tr>
+															<td>{{"ir" |translate}}</td>
+															<td class="ir" id="irss3"></td>
+														</tr>																		
+														<tr>
+															<td>{{"imager Size" |translate}}</td>
+															<td class="imager_size" id="image_size 3"></td>
+														</tr>																		
+														<tr>
+															<td>{{"AoV" |translate}}:</td>
+															<td class="aov-text" id="aov3"></td>
+														</tr>															
+														<tr>
+															<td>{{"Focal Length" | translate }}:</td>
+															<td class="focal-length-text" id="focal_length3"></td>
+														</tr>
+													</tbody>
+												</table>
+												<div class="configurations col-sm-12 col-md-4" id="butto">
+													<button class="btn btn-default1" ng-click="initcamera2()"data-dismiss="modal">
+														{{"Select this sensor" |translate }}
+													</button>
+												</div>
+												<div class="image camimage col-sm-12 col-md-3" >
+													<div id="image_modal3">
+													</div>
+												</div>
+											</div>
+										</div>											
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close" |translate }}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--3dsensor select-->
+
+				<!-- Project select camera MODAL -->
+				<div class="modal fade" id="select_camera" role="dialog">
+					<div class="modal-dialog chumma_modal">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<h4 class="modal-title">{{"Select Camera" | translate }}</h4>
+							</div>
+							<div class="modal-body row">					
+								<div class="col1 col-sm-12 col-md-3" id="manufacturer-list" >
+									<ul class="list list-group man-list" id="csearch" style="height: calc(100% - 20px);"></ul>
+									<input type="text" id="myInputone" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+									<ul class="list-group" id="tp" ng-click="camera_madel()"></ul>
+								</div>
+								<div class="col2 col-sm-12 col-md-3" id="model-list" >
+									<input type="text" id="myInputtwo" ng-hide="subsearch" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name">
+									<ul class="list-group" id="tps" ng-hide="subsearch" ng-click="full_details()" ></ul>
+								</div>
+								<div class="col3 col-sm-12 col-md-6" id="camera-model" ng-hide="full_cam_details">
+									<div class="content">
+										<div class="panel panel-default description-panel">
+											<div class="panel-heading">
+													{{"Camera Details" | translate}}
+											</div>
+											<div class="panel-body row">
+												<table class="table table-striped description-table col-sm-12 col-md-3">
+													<tbody>
+														<tr>
+															<td>{{"Model" | translate}}</td>
+															<td class="model-name" id="Model_Name"></td>
+														</tr>																		
+														<tr>
+															<td>{{"max-resolution" | translate }}</td>
+															<td class="max-resolution"id="red">  </td>
+														</tr>																		
+														<tr>
+															<td>{{"ir" |translate}}</td>
+															<td class="ir" id="irss"></td>
+														</tr>																		
+														<tr>
+															<td>{{"imager Size" |translate}}</td>
+															<td class="imager_size"id="image_size"></td>
+														</tr>																		
+														<tr>
+															<td>{{"AoV" |translate}}:</td>
+															<td class="aov-text"id="aov"></td>
+														</tr>															
+														<tr>
+															<td>{{"Focal Length" | translate }}</td>
+															<td class="focal-length-text" id="focal_length"></td>
+														</tr>
+													</tbody>
+												</table>
+												<div class="configurations col-sm-12 col-md-4" id="butto">
+													<button class="btn btn-default1" ng-click="add_details_table()" data-dismiss="modal">
+															{{"Select this camera" |translate }}
+													</button>
+												</div>
+												<div class="image camimage col-sm-12 col-md-3" >
+													<div id="image_modal">
+													</div>
+												</div>
+											</div>
+										</div>											
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close" | translate }}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Project select camera MODAL -->
+
+				<!-- Project NEW PROJECT WARNING MODAL -->
+				<div class="modal fade" id="newWarn" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3>{{"Warning" | translate}}!</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<h4>{{"Do you wish to save changes?" | translate }}</h4>
+											<br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm"  data-dismiss="modal" ng-click="createNewProject()"><span class="fa fa-close"> {{"No" |translate}} </span>
+										</button>
+										<button class="btn btn-success btn-sm" data-dismiss="modal" ng-click="saveProject();createNewProject();">
+											<span class="bootstrap-dialog-button-icon fa fa-check" ></span>{{"Yes"| translate}}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- Project NEW PROJECT WARNING MODAL -->
+                
+				<!-- Project NEW PROJECT CONTACT INFO MODAL -->
+				<div class="modal fade" id="newInfo" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h4 style = "text-align:center">{{"Contact Information" | translate }}</h4>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group" style = "text-align:center ;">
+											<h6><b>{{"Email to" | translate }}</b> <a href = "mailto:SSGsales@hal.hitachi.com?subject=Hitachi%20DSP%20Enquiry%2FSupport" style ='color:#da1717 !important;font-weight: 700;'>SSGsales@hal.hitachi.com</a> {{"for inquiries and support." | translate }}<br/> <br/> <b>{{"Phone number" | translate}}:</b> <strong> 1-800-HITACHI (1-800-448-2244)</strong></h6>
+											<br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm" data-dismiss="modal"><span class="bootstrap-dialog-button-icon fa fa-close" ></span>{{"Cancel" | translate}}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- Project NEW PROJECT CONTACT INFO MODAL -->
+                
+				<!-- Project REFRESH WARNING MODAL -->
+				<div class="modal fade" id="refreshWarn" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3>{{Warning | translate }}!</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<h4>{{"All unsaved data would be lost! Do you wish to save changes?" | translate }}</h4>
+											<br>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="createNewProject()"><span class="fa fa-close"> {{"No" |translate}} </span>
+										</button>
+										<button class="btn btn-success btn-sm" data-dismiss="modal" ng-click="refreshProject();">
+											<span class="bootstrap-dialog-button-icon fa fa-check" ></span>{{"Yes" | translate }}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- Project REFRESH WARNING MODAL -->
+
+				<!-- NEED PAYED ACCOUNT MODAL -->
+				<div class="modal fade" id="NeedPayedAccount" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa fa-ban" style="font-size:30px"></i> {{"Operation Not Allowed" |  translate }}</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<h4>{{"Please upgrade your account to perform this action." |translate }}</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myAccount" ng-click="upgrade_renew=false ;changePrice = true" data-dismiss="modal">
+											<i class="fa fa-cart-plus"></i> {{"Upgrade Now" |translate}}
+										</button>
+										<button class="btn btn-danger btn-sm" data-dismiss="modal">
+											<i class="fa fa-close"></i> {{"Close" |translate}}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- NEED PAYED ACCOUNT MODAL END-->
+
+				<!-- LOGOUT CONFIRMATION MODAL -->
+				<div class="modal fade" id="logout_confirm" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa  fa-question-circle" style="font-size:30px"></i>{{"Are you sure?" | translate}}</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<h4>{{"Do you wish to log out from your account?" |translate }}</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-success btn-sm" ng-click="userLoggedOut()" data-dismiss="modal">
+											<i class="fa fa-sign-out"></i> {{"Logout Now" |translate}}
+										</button>
+										<button class="btn btn-danger btn-sm" data-dismiss="modal">
+											<i class="fa fa-close"></i> {{"Cancel" |translate }}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- LOGOUT CONFIRMATION MODAL END-->
+
+				<!-- MY ACCOUNT MODAL -->
+				<div class="modal fade" id="myAccount" role="dialog">
+					<div class="modal-dialog account-modal">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa fa-address-card" style="font-size:30px"></i><strong> {{"My Account" | translate}}</strong></h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+
+										<div class="form-group row">
+										<div class="col-sm-12 col-md-6 left-box">
+											<!--h4 class="left-box-head"><strong>Personal Details</strong></h4-->
+											<div class="col-sm-12 col-md-4">
+												<div class="w3-card-4 user-image-card">
+												   <img src = "{{userLogo}}" id = "user-logo" class="user-image" alt="user icon" style = "height: 100%; width: 100%;" >
+												   <div class="w3-container w3-center user-details-card">
+												     <p>{{fname}} {{lname}}</p>
+												   </div>
+											    </div>
+											</div>
+											<div class="col-sm-12 col-md-8 left-box-details">
+											<h3 class="left-box-head"><strong>{{"Personal Details" |translate }}</strong></h3>
+											   	<table class="table table-striped left-box-table" ng-show="!editMode">
+												    <tbody>
+												      <tr>
+												        <td>{{"First name"| translate}}</td>
+												        <td>{{fname}}</td>
+												      </tr>
+												      <tr>
+												        <td>{{"Last Name" | translate}}</td>
+												        <td>{{lname}}</td>
+												      </tr>
+												      <tr>
+												        <td>{{"Email" |translate}}</td>
+												        <td>{{mail}}</td>
+												      </tr>
+												      <tr>
+												        <td>{{"Phone" | translate}}</td>
+												        <td>{{phone}}</td>
+												      </tr>
+												    </tbody>
+											    </table>
+												
+												<form name="userDataForm">
+												<table class="table table-striped left-box-table" ng-show="editMode">
+													    <tbody>
+													      <tr>
+													        <td>{{"First name"| translate}}</td>
+													        <td>
+													        	<input type="text" class="form-control" ng-model="edit_fname" name="firstname" required>
+													        	<span class="validation-info" ng-show="userDataForm.firstname.$invalid">
+													        		{{"This field is required!" |translate}}
+													        	</span>
+													        </td>
+													      </tr>
+													      <tr>
+													        <td>{{"Last Name" | translate}}</td>
+													        <td>
+													        	<input type="text" class="form-control" ng-model="edit_lname" name="lastname" required>
+													        	<span class="validation-info" ng-show="userDataForm.lastname.$invalid">
+																		{{"This field is required!" |translate}}
+													        	</span>
+													        </td>
+													      </tr>
+													      <!--tr>
+													        <td>Email</td>
+													        <td>
+													        	<input type="email" class="form-control" ng-model="edit_mail" name="email" required>
+													        	<span class="validation-info" ng-show="userDataForm.email.$invalid">
+													        		Enter a valid email id!
+													        	</span>
+													        </td>
+													      </tr-->
+													      <tr>
+													        <td>{{"Phone" |translate}}</td>
+													        <td class="tel-table">
+													        	<input type="tel" id="phone" class="tel-td" ng-model="edit_phone" name="phone" required/>
+													        	<span class="validation-info" ng-show="userDataForm.phone.$invalid || userDataForm.phone.$error.minlength ||userDataForm.phone.$error.maxlength">
+													        		{{"Phone number required!" |translate}}
+													        	</span>
+													        </td>
+													      </tr>
+														  <tr>
+													        <td></td>
+													        <td>
+													        	<div class="table-buttons-edit pull-right">
+																	<button class="btn btn-success btn-sm" ng-disabled="userDataForm.$invalid" ng-click="saveProfileData()">
+																		<i class="fa fa-save"></i> {{"Save" |translate}}
+																	</button>
+
+																	<button class="btn btn-info btn-sm" ng-click=" changePrice= false; changePassword=true;upgrade_renew =false; clearFieldForChangePassword()">
+																		<i class="fa fa-edit"></i> {{"Change Password" |translate}}
+																	</button>
+
+																	<button class="btn btn-danger btn-sm" ng-click="editMode = false">
+																		<i class="fa fa-close"></i> {{"Close" |translate}}
+																	</button>
+																</div>
+															</td>
+													      </tr>
+													    </tbody>
+													  
+											    </table>
+												</form>  
+
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-6 left-box" ng-show="upgrade_renew">
+											
+											<div class="col-sm-12 col-md-5 left-box-details">
+												<div ng-if="u_role == '2'">
+													<i class="btry fa fa-battery check"></i>
+													<br>
+													{{"Account Type: Professional" |translate}}
+												</div>
+												<div ng-if="u_role == '1'">
+													<i class="btry fa fa-battery-three-quarters btry-orange"></i>
+													<br>
+													{{"Account Type: Basic" |translate}}
+												</div>
+												<div ng-if="u_role == '0'">
+													<i class="btry fa fa-battery-quarter times"></i>
+													<br>
+													{{"Account Type: Free" |translate}}
+												</div>
+												<button class="btn btn-info btn-sm" ng-click ="upgrade_renew = false; changePrice = true;"><!--#upgradeAccount-->
+													<i class="fa fa-cart-plus"></i> {{"Upgrade/Renew Account" | translate}}
+												</button>
+											</div>
+											
+											<div class="col-sm-12 col-md-6 left-box-details">
+											<h3 class="left-box-head"><strong>{{"Account Details" | translate}}</strong></h3>
+												<table class="table table-striped left-box-table" ng-if="u_role == '2'">
+												    <tbody>
+												      <tr>
+												        <td>{{"2D/Floorplan" | translate }}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+												      <!--tr>
+												        <td>Floorplan</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr-->
+												      <tr>
+												        <td>{{"Save,Open,Delete" | translate}}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+												      <tr>
+												        <td>{{"Export(PDF/Snapshot)"|translate}}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{{"MultipleCamera" |translate }}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{{"3D" |translate}}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{{"Report Generation" | translate }}</td>
+												        <td ><i class="fa fa-check-circle check"></i></td>
+													  </tr>
+													  <tr>
+														  <td>API</td>
+														  <td ng-if="api_access == 'false' || api_access == undefined"><i class="fa fa-times-circle cross"></i></td>
+														  <td ng-if="api_access == 'true'"><i class="fa fa-check-circle check"></i></td>
+													
+													  </tr>
+												    </tbody>
+											    </table>
+											    <table class="table table-striped left-box-table" ng-if="u_role == '1'">
+												    <tbody>
+												      <tr>
+												        <td>{{"2D/Floorplan" |translate}}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+												      <!--tr>
+												        <td>Floorplan</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr-->
+												      <tr>
+												        <td>{{"Save,Open,Delete" | translate }}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+												      <tr>
+												        <td>{{"Export(PDF/Snapshot)" | translate}}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{{"MultipleCamera" | translate}}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+													  <tr>
+												        <td>3D</td>
+												        <td><i class="fa fa-times-circle times"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{{"Report Generation" | translate }}</td>
+												        <td><i class="fa fa-times-circle times"></i></td>
+												      </tr>
+												    </tbody>
+											    </table>
+											    <table class="table table-striped left-box-table" ng-if="u_role == '0'">
+												    <tbody>
+												      <tr>
+												        <td>{{"2D/Floorplan" | translate }}</td>
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr>
+												      <!--tr>
+												        <td>Floorplan</td> 
+												        <td><i class="fa fa-check-circle check"></i></td>
+												      </tr-->
+												      <tr>
+												        <td>{{"Save,Open,Delete" | translate }}</td>
+												        <td><i class="fa fa-times-circle times"></i></td>
+												      </tr>
+												      <tr>
+												        <td>{{"Export(PDF/Snapshot)" | translate }}</td>
+												        <td><i class="fa fa-times-circle times"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{{"MultipleCamera" | translate}}</td>
+												        <td><i class="fa fa-times-circle times"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{{"3D" | translate}}</td>
+												        <td><i class="fa fa-times-circle times"></i></td>
+												      </tr>
+													  <tr>
+												        <td>{"Report Generation | translate"}</td>
+												        <td><i class="fa fa-times-circle times"></i></td>
+												      </tr>
+												    </tbody>
+											    </table>
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-6 left-box" ng-show="changePassword">
+										    <div class="container bootstrap snippet">
+												<div class="row">
+													<div class="col-xs-12 col-sm-12 col-md-6 ">
+														<div class="panel panel-info">
+															<div class="panel-heading">
+																<h3 class="panel-title">
+																	<span class="glyphicon glyphicon-th"></span>{{"Change Password" | translate}}
+																</h3>
+															</div>
+															<div class="panel-body">
+																<div class="row">
+																	<div class="col-xs-6 col-sm-6 col-md-6 separator social-login-box"> <br>
+																		<img alt="" class="img-thumbnail" src={{userLogo}}>
+																	</div>
+																	<div style="margin-top:80px;" class="col-xs-6 col-sm-6 col-md-6 login-box">
+																		<div class="form-group">
+																			<div class="input-group">
+																				<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+																				<input class="form-control" type="password" placeholder="{{'Current Password' |translate }}" ng-model ="changePasswordCurrentPassword">
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<div class="input-group">
+																				<div class="input-group-addon"><span class="glyphicon glyphicon-log-in"></span></div>
+																				<input class="form-control" type="password" placeholder="{{'New Password' |translate }}" ng-model ="changePasswordNewPassword">
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<div class="input-group">
+																				<div class="input-group-addon"><span class="glyphicon glyphicon-log-in"></span></div>
+																				<input class="form-control" type="password" placeholder="{{'Confirm Password' |translate }}" ng-model = "changePasswordConformNewPassword">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="panel-footer">
+																<div class="row">
+																	<div class="col-xs-6 col-sm-6 col-md-6"></div>
+																	<div class="col-xs-6 col-sm-6 col-md-6">
+																		<button class="btn icon-btn-save btn-success" ng-click = "changePasswordUpadte()">
+																				<span class="btn-save-label"><i class="fa fa-save"></i></span> {{"Save" | translate }}</button>
+																		<button class="btn icon-btn-save btn-danger" ng-click = " upgrade_renew = true;  changePassword=false ; changePrice= false; clearFieldForChangePassword();" >
+																				<span class="btn-save-label"><i class="fa fa-close"></i></span> {{"Close" | translate}}</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-sm-12 col-md-6 left-box" ng-show="changePrice">
+											<button class="close pull-right" style="padding-right: 10px;padding-top: 4px" ng-click="upgrade_renew=true ;changePrice = false ">×</button>
+											<div class="pricing-border">
+
+												<div class="row pricing-table-small" id="pricing-table">
+								                    <!--div class="pricing" style="width:50%;"-->
+								                        <div class="col-md-6 col-sm-12 col-xs-12">
+								                        <div class="pricing">
+								                            <div class="pricing-table  shadow-effect">
+								                                <!--div class="pricing-header pricing-header-small" style="background:#ff6f00"-->
+								                            	<div class="pricing-header" style="background:#ff6f00">
+								                                    <p class="pricing-title pricing-title-small">{{"Basic" | translate }}</p>
+								                                    <p class="pricing-rate pricing-rate-small"> </p>
+								                                   
+								                                </div>
+
+								                                <div class="pricing-list pricing-list-small">
+								                                    <ul>
+								                                        <li><i class="fa fa-camera"></i><span>{{"Multiple Cameras" | translate }}</span></li>
+								                                      <li><i class="fa  fa-gear"></i><span>{{"2D Operations" | translate }}</span></li>
+								                                        <li><i class="fa  fa-film "></i><span>{{"Basic 3D" | translate}} </span></li>
+								                                        <li><i class="fa  fa-file"></i><span>{{"No Reports" |translate}}</span></li>
+																		<li><button  style="width: 150px;margin-top: 29px;font-size: 82%;"type="button" ng-click="upgrd_plan='1';selectSaveModal()" class="btns btns-outline-default waves-effect btns-sm">{{"SUBSCRIBE" |translate}}</button></li>
+								                                    </ul>
+								                                </div>
+								                            </div>
+								                        </div>	
+								                        </div>						      
+								                        <div class="col-md-6 col-sm-12 col-xs-12 ">
+								                        <div class="pricing">
+								                            <div class="pricing-table shadow-effect">
+								                                <!--div class="pricing-header pricing-header-small" style="background:#00c851"-->
+								                                <div class="pricing-header" style="background:#00c851">
+								                                    <p class="pricing-title pricing-title-small">{{"Professional" | translate }}</p>
+								                                    <p class="pricing-rate pricing-rate-small"></p>
+								                                   
+								                                </div>
+
+								                                <div class="pricing-list pricing-list-small">
+								                                    <ul>
+								                                        <li><i class="fa fa-camera"></i><span>{{"Multiple Cameras" | translate }}</span></li>
+								                                        <li><i class="fa  fa-gear"></i><span>{{"3D,2D Operations" | translate }}</span></li>
+								                                        <li><i class="fa fa-save"></i><span>{{"Save & Export" | translate}}</span></li>
+								                                        <li><i class="fa fa-file"> </i><span>{{"Report Generation" | translate }}</span></li>
+																		<li><button  style="width: 150px;margin-top: 29px;font-size: 82%;"type="button" ng-click="upgrd_plan='2';selectSaveModal();" class="btns btns-outline-default waves-effect btns-sm">{{"SUBSCRIBE" |translate}}</button></li>
+								                                    </ul>
+								                                </div>
+								                            </div>
+								                        </div>
+								                    </div>
+							                	</div>
+							                </div>	
+										</div>
+										</div>
+
+									</div>
+									<div class = "row">
+										<div class= "col-md-4">
+											<div class = "row">
+												<div class = "col-md-6 set-user-logo" >
+													<label for="user-icon" class = "btn btn-primary">{{"Choose Logo" | translate }}</label>
+													<input type="file" id="user-icon" name="user-icon" style = "visibility: hidden;" onchange = "addUserIcon()" >
+													<button id = "add-icon" ng-click = "addIcon()" class = "btn btn-success" >{{"Upload" | translate }}</button>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-success btn-sm" ng-click="editMode = true;editProfileData()">
+											<i class="fa fa-edit"></i> {{"Edit Details" | translate }}
+										</button>
+										<button class="btn btn-danger btn-sm" data-dismiss="modal">
+											<i class="fa fa-close"></i> {{"Close" |translate }}
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				<!-- MY ACCOUNT MODAL END-->
+
+				<!-- SAVE DURING UPGRADE -->
+					<div class="modal fade" id="saveAs_Upgrade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h4>{{"Save Project Before Proceeding" | translate }}</h4>
+									</div>
+								</div>
+							</div>
+							<form name="saveAsforminput">
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<label for="project-title">
+												{{"Enter a title for this project:" | translate }}
+											</label>
+											<br>
+											<input id="project-title" class="form-control" name="title" ng-model="projectNameSaveAs" placeholder="Title" value="" required>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm" data-dismiss="modal"><span class="bootstrap-dialog-button-icon fa fa-close" ng-click="send_upgrade(upgrd_plan)">{{"Cancel"| translate }}</span>
+										</button>
+										<button class="btn btn-success btn-sm" data-dismiss="modal" ng-disabled="saveAsforminput.$invalid" ng-click="saveProjectAs();send_upgrade(upgrd_plan)">
+											<span class="bootstrap-dialog-button-icon fa fa-check" ></span>{{"Save" | translate}}
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+						</div>
+					</div> 
+				</div>	
+				<!-- SAVE DURING UPGRADE END-->
+
+				<!-- POINT OF INTEREST -->
+					<div class="modal fade" id="point_of_interest" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h4><i class="fa fa-star"></i> {{"Give a title for the location" | translate }}</h4>
+									</div>
+								</div>
+							</div>
+							<form name="pointforminput">
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message">
+										<div class="form-group">
+											<label for="point-title" ng-show="!show_title_used">
+												{{"Enter title:" | translate }}
+											</label>
+											<label for="point-title" ng-show="show_title_used" style="color:red">
+												{{"Title already used! Try another one:" | translate }}
+											</label>
+											<br>
+											<input id="point-title" class="form-control" name="title" ng-model="location_title" placeholder="Title" value="" required>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-success btn-sm"  ng-disabled="pointforminput.$invalid" ng-click="savePointOfInterest(location_title)">
+											<i class="fa fa-check" ></i>{{"Save" | translate }}
+										</button>
+										<button class="btn btn-danger btn-sm" data-dismiss="modal"><span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" | translate }}</span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+						</div>
+					</div> 
+				</div>	
+				<!-- POINT OF INTEREST END-->
+
+				<!-- LOCATION OPEN MODAL -->
+				<div class="modal fade" id="list_locations" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<form name="location_form">
+						<div class="modal-content model_width">
+							<div class="modal-header  model_color">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">{{"Select locations" | translate }}</h4>
+							</div>
+						   <div class="modal-body">
+									<ul>
+										<li ng-repeat="loc in locs track by $index">
+											<input type="radio" name="loc_input"  ng-value="$index" ng-model="$parent.location_index"> {{loc.title}}
+										</li>
+									</ul>
+						   </div>
+						   <div class="modal-footer">
+						   		<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="activateLocationList()" ng-disabled="location_form.$invalid">
+									<span class="fa fa-folder-open"></span>
+									{{"Open" | translate }}
+								</button>
+						   		<button class="btn btn-danger" data-dismiss="modal">
+						   			<span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" |translate }}</span>
+								</button>
+						   </div>
+						</div>
+					</form>
+					</div>
+				</div>
+				<!-- LOCATION OPEN MODAL END -->
+
+				<!-- PRE-UPLOADED MODELS MODAL -->
+				<!--div class="modal fade" id="pre_uploaded_models" role="dialog">
+					<div class="modal-dialog account-modal">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa fa-tv" style="font-size:30px"></i> Select a 3D model</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--div class="col-sm-12 col-md-2">
+										<div class="w3-card-4 user-image-card-3d" ng-click="loadPreuploaded3D('assets/json/heart.json')">
+										   <img src="assets/img/model_3ds.jpg" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> 3DS</strong></p>
+										   </div>
+										</div>
+									</div>
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--div class="col-sm-12 col-md-2">
+										<div class="w3-card-4 user-image-card-3d" ng-click="loadPreuploaded3D('assets/json/globe.json')">
+										   <img src="assets/img/model_dae2.jpg" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> DAE</strong></p>
+										   </div>
+										</div>
+									</div>
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--div class="col-sm-12 col-md-2">
+										<div class="w3-card-4 user-image-card-3d" ng-click="loadPreuploaded3D('assets/json/jeep.json')">
+										   <img src="assets/img/model_dwg.png" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> DWG</strong></p>
+										   </div>
+										</div>
+									</div>
+								<!--/div>
+								<div class="row"-->
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--div class="col-sm-12 col-md-2">
+										<div class="w3-card-4 user-image-card-3d" ng-click="loadPreuploaded3D('assets/json/cr.json')">
+										   <img src="assets/img/soda.png" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> DXF</strong></p>
+										   </div>
+										</div>
+									</div>
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--div class="col-sm-12 col-md-2">
+										<div class="w3-card-4 user-image-card-3d" ng-click="loadPreuploaded3D('assets/json/kl.json')">
+										   <img src="assets/img/gun2.png" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> OBJ</strong></p>
+										   </div>
+										</div>
+									</div>
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--div class="col-sm-12 col-md-2">
+										<div class="w3-card-4 user-image-card-3d" ng-click="loadPreuploaded3D('assets/json/dinoser.json')">
+										   <img src="assets/img/dinoser.jpg" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> JSON</strong></p>
+										   </div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm" data-dismiss="modal">
+											<i class="fa fa-close"></i> Cancel
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div-->
+				<div class="modal fade" id="pre_uploaded_models" role="dialog">
+					<div class="modal-dialog account-modal">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa fa-tv" style="font-size:30px"></i> {{"Select a 3D model" | translate }}</h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--<div class="col-sm-12 col-md-3">
+										<div class="w3-card-4 user-image-card-3d" id="heartjson">
+										   <img src="assets/img/Hitachiwarehouse.jpg" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> {{"Hitachiwarehouse" | translate }} </strong></p>
+										   </div>
+										</div>
+									</div>-->
+									<div class="col-sm-12 col-md-3">
+										<div class="w3-card-4 user-image-card-3d" id="hitachi-conference-room">
+										   <img src="assets/img/hitachi_conference_room.PNG" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> {{"Conference Room" | translate }} </strong></p>
+										   </div>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-3">
+										<div class="w3-card-4 user-image-card-3d" id="hitachi-telecom-room">
+										   <img src="assets/img/hitachi_telecom_room.PNG" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> {{"Telecom Room" | translate }} </strong></p>
+										   </div>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-3">
+										<div class="w3-card-4 user-image-card-3d" id="hitachi-service-center">
+										   <img src="assets/img/service_center.PNG" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> {{"Service Center" | translate }} </strong></p>
+										   </div>
+										</div>
+									</div>
+									<!--div class="col-sm-12 col-md-4"-->
+									<div class="col-sm-12 col-md-3">
+										<div class="w3-card-4 user-image-card-3d"  id='office_preload'>
+										   <img src="assets/img/office.PNG" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> {{"Office" | translate }}</strong></p>
+										   </div>
+										</div>
+									</div>
+									<!--div class="col-sm-12 col-md-4"-->
+									<!--<div class="col-sm-12 col-md-3">
+										<div class="w3-card-4 user-image-card-3d" id="helicopterpreload">
+										   <img src="assets/img/secondFloor.png" class="thumbnail-3D" alt="user icon">
+										   <div class="w3-container w3-center user-details-card">
+											 <p><strong><i class="fa fa-play-circle thumbnail-text"></i> {{"Hitachi second Floor" | translate }}</strong></p>
+										   </div>
+										</div>
+									</div>-->
+								<!--/div>
+								<div class="row"-->
+									<!--div class="col-sm-12 col-md-4"-->
+										<!--<div class="col-sm-12 col-md-3">
+											<div class="w3-card-4 user-image-card-3d" id="hitachi_preload">
+											<img src="assets/img/hitachi.PNG" class="thumbnail-3D" alt="user icon">
+												<div class="w3-container w3-center user-details-card">
+												<p><strong><i class="fa fa-play-circle thumbnail-text"></i> {{"Hitachi Floor" | translate }}</strong></p>
+												</div>
+											</div>
+										</div>-->
+									</div>
+								</div>
+								<div class="modal-footer">
+									<div class="bootstrap-dialog-footer">
+										<div class="bootstrap-dialog-footer-buttons">
+											<button class="btn btn-danger btn-sm" data-dismiss="modal">
+												<i class="fa fa-close"></i> {{"Cancel" | translate }}
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div> 
+					</div>
+				</div>
+				
+				<!-- SCREENSHOT LIST MODELS MODAL END-->
+
+					<div class="modal fade" id="screenShotModel" role="dialog">
+					<div class="modal-dialog account-modal">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" id ='cancelScreenshotbutton'>×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa fa-tv" style="font-size:30px"></i> {{"MySnapshots" | translate }} </h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+							<div id='mainpremn'>
+							
+								</div>
+							
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-primary btn-sm" id='markAllButton'>
+											<i class="material-icons">
+											</i>{{"MarkAll" | translate }}
+										</button>
+										<button class="btn btn-primary btn-sm" id="markButton" >
+											<i class="material-icons">
+											</i> {{"Mark" | translate }}
+										</button>
+										
+										<button class="btn btn-danger btn-sm" id ='cancelScreenshotButton'>
+											<i class="fa fa-close"></i> {{"Cancel" | translate }}
+										</button>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+				</div>
+				<!-- SCREENSHOT LIST MODELS MODAL END-->
+
+				<!-- FLOORPLAN IMAGES LIST MODELS MODAL START-->
+				<div class="modal fade" id="FloorplanModel" role="dialog">
+					<div class="modal-dialog account-modal">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<!-- <div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" id='cancelFloorplanbutton'>×</button>
+									</div> -->
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa fa-tv" style="font-size:30px"></i> {{"Floorplan Images" | translate }} </h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div id='mainFloorplan'>
+				
+								</div>
+				
+								<div class="modal-footer">
+									<div class="bootstrap-dialog-footer">
+										<div class="bootstrap-dialog-footer-buttons">
+											<button class="btn btn-danger btn-sm" id='cancelFloorplanButton'>
+												<i class="fa fa-close"></i> {{"Cancel" | translate }}
+											</button>
+				
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- FLOORPLAN IMAGES LIST MODELS MODAL END-->
+
+				<!-- ENLARGE FLOORPLAN iMAGES MODAL START -->
+
+				<div class="modal fade" id="enlargeFloorplanImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeFloorplanImageModal" aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+					  <div class="modal-content">
+						<div class="modal-header">
+						  <button type="button" class="close" id ="enlargeFloorplanButtonClose" aria-label="Close"><span aria-hidden="true">×</span></button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								 <div class="col-sm-3"></div>
+								 <div class="col-sm-6">
+									<table class="table table-bordered table-hover">
+										   <thead>
+											<tr>
+												   <th>{{"Name" | translate }}</th>
+												   <th id ='floorplanImageName'></th>
+		   
+											  </tr> 
+										</thead>
+	 
+									  </table>
+								 </div>
+							 <div class="col-sm-3"></div>
+							 </div>
+							  <img src="" class="enlargeFlooplanImageModalSource" style="width: 100%;" id ="enlargeFloorplanModal">
+						</div>
+					  </div>
+					</div>
+				</div>
+
+				<!-- ENLARGE FLOORPLAN iMAGES MODAL END -->
+
+				<!-- 360 IMAGES LIST MODAL START-->
+
+				<div class="modal fade" id="ThreeSixtyModel" role="dialog">
+					<div class="modal-dialog account-modal">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<!-- <div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" id='cancelFloorplanbutton'>×</button>
+									</div> -->
+									<div class="bootstrap-dialog-title" id="">
+										<h3><i class="fa fa-tv" style="font-size:30px"></i> {{"360 Images" | translate }} </h3>
+									</div>
+								</div>
+							</div>
+							<div class="modal-body">
+								<div id='mainThreeSixty'>
+				
+								</div>
+				
+								<div class="modal-footer">
+									<div class="bootstrap-dialog-footer">
+										<div class="bootstrap-dialog-footer-buttons">
+											<button class="btn btn-danger btn-sm" id='cancelThreeSixtyButton'>
+												<i class="fa fa-close"></i> {{"Cancel" | translate }}
+											</button>
+				
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 360 IMAGES LIST MODAL END-->
+
+				<!-- ENLARGE 360 IMAGES MODAL START -->
+
+				<div class="modal fade" id="enlargeThreeSixtyImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeThreeSixtyImageModal" aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+					  <div class="modal-content">
+						<div class="modal-header">
+						  <button type="button" class="close" id ="enlargeThreeSixtyButtonClose" aria-label="Close"><span aria-hidden="true">×</span></button>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								 <div class="col-sm-3"></div>
+								 <div class="col-sm-6">
+									<table class="table table-bordered table-hover">
+									  </table>
+								 </div>
+							 <div class="col-sm-3"></div>
+							 </div>
+							  <img src="" class="enlargeThreeSixtyModalSource" style="width: 100%;" id ="enlargeThreeSixtyModal">
+						</div>
+					  </div>
+					</div>
+				</div>
+
+				<!-- ENLARGE 360 IMAGES MODAL START -->
+
+				<!--  Enlarge MODELS MODAL -->
+					
+					<div class="modal fade" id="enlargeImageModal" tabindex="-1" role="dialog" aria-labelledby="enlargeImageModal" aria-hidden="true">
+						<div class="modal-dialog modal-lg" role="document">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <button type="button" class="close" id ="enlargeButtonClose" aria-label="Close"><span aria-hidden="true">×</span></button>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									 <div class="col-sm-3"></div>
+									 <div class="col-sm-6">
+										<table class="table table-bordered table-hover">
+		   									<thead>
+			    								<tr>
+			       									<th>{{"Name" | translate }}</th>
+			       									<th id ='screnshotname'></th>
+		       
+		     									 </tr>
+		     									<tr>
+			       									<th>{{"Position" |translate}}</th>
+			       									<th id ='screnshotposition'></th>
+		       
+		     									</tr> 
+		     									<tr>
+			       									<th>{{"Tilt" |translate}}</th>
+			       									<th id ='screnshottilt'></th>
+		       
+		     									</tr> 
+		    								</thead>
+		 
+		 								 </table>
+ 									</div>
+ 								<div class="col-sm-3"></div>
+ 								</div>
+							  	<img src="" class="enlargeImageModalSource" style="width: 100%;" id ="enlargeModal">
+							</div>
+						  </div>
+						</div>
+					</div>
+				
+				<!--  Enlarge MODELS MODAL END-->	
+					
+					
+				<!-- PRE-UPLOADED MODELS MODAL END-->
+
+				<!---EDITOR 3D UPLOAD MODAL START-->
+				<div class="modal fade editor_3D_upld" id="editor_3D_upld_modal" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content model_width">
+							<div class="modal-header  model_color">
+								<!--button type="button" class="close" data-dismiss="modal">×</button-->
+								<h3 class="modal-title">3D Upload</h3>
+							</div>
+							<div class="modal-body" id="model_zip">
+								<div style="font-size: 15px">
+									Loading 3D view, this may take some time!
+								</div>
+								<div id="editor_3D_upld_body_cntnt">
+									<strong>Uploading to server...</strong>
+								</div>
+							</div>
+							<div class="modal-footer">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--EDITOR 3D UPLOAD MODAL END-->
+
+				<!---DROP BOX MODAL START-->
+				<div class="modal fade editor_3D_upld" id="editor_drop_box_modal" role="dialog">
+					<div class="modal-dialog">
+						
+						<div class="modal-content model_width">
+							<div class="modal-header  model_color">
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<h3 class="modal-title">{{"Upload Options"  |translate}}</h3>
+							</div>
+							<div class="modal-body" id="modal_drop_box">
+								<div style="font-size: 15px">
+									<form class="form-horizontal">
+										<fieldset>
+										<div class="form-group">
+										  <label class="col-md-2 control-label" for="text_url">{{"URL"  |translate}}</label>  
+										  <div class="col-md-8">
+										  <input id="text_url" name="text-url" type="text" placeholder="{{'Paste your 3D model URL here' |translate}}" class="form-control input-md">
+										 
+										  </div>
+										  <button id="btn_url_submit" name="Upload" class="btn btn-primary">{{"Upload"  |translate}}</button>
+										</div>
+
+										<div class="form-group">
+										  <div class="text-center">										  	
+										  	{{"OR"  |translate}}	
+										  </div>
+										</div>
+
+										<div class="form-group">
+										   
+										  <div class="text-center">
+										  	<div id="drop_box_button">
+											</div>
+										  </div>
+										</div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-danger btn-sm" data-dismiss="modal">
+									<i class="fa fa-close"></i> {{"Close"  |translate}}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--DROP BOX MODAL END -->
+
+				<!--MODAL FOR EXPORTING PROJECT TO LOCAL DRIVE/THIRD PARTY DRIVE START-->
+				<div id="export-project-modal" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+				
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Export Project</h4>
+							</div>
+							<div class="modal-body">
+								<div class="text-center">
+										<button id="export-local-drive" class="btn btn-primary">Export to Local Drive/Network</button>
+								</div>
+								<hr>
+								<div class="text-center">
+										<button id="export-dropbox-btn" class="btn btn-primary">Export to DropBox</button>
+								</div>
+							</div>
+							<div class="modal-footer ">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+				
+					</div>
+				</div>
+				<!--MODAL FOR EXPORTING PROJECT TO LOCAL DRIVE/THIRD PARTY DRIVE END-->
+				<!--MODAL FOR IMPORTING PROJECT TO LOCAL DRIVE/THIRD PARTY DRIVE START-->
+				<div id="import-project-modal" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+							<!-- Modal content-->
+							<div class="modal-content import-project">
+									<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">{{'Import Project' | translate}}</h4>
+									</div>
+									<div class="modal-body">
+											<div><label >{{'Import from Local Drive/Network' | translate}}</label></div>
+											<div class = "col-sm-10">
+													<input id="local-new-projname" class="form-control input-sm" placeholder="{{'Enter a new project name' | translate}}" >
+											</div>
+											<div><button id="import-local-drive" class="btn btn-primary btn-sm">{{'Choose File' | translate}}</button></div>
+											<hr>
+											<div><label >{{'Import from DropBox' | translate}}</label></div>
+											<div class="col-sm-10">
+													<input id="dropbox-new-projname" class="form-control input-sm" placeholder="{{'Enter a new project name' | translate}}" >
+											</div>
+											<div><button id="import-dropbox-btn" class="btn btn-primary btn-sm">{{'Choose File' | translate}}</button></div>
+									</div>
+									<div class="modal-footer ">
+											<button type="button" class="btn btn-danger" data-dismiss="modal">{{'Close ' | translate}}</button>
+									</div>
+							</div>
+					</div>
+				</div>
+				<!--MODAL FOR IMPORTING PROJECT TO LOCAL DRIVE/THIRD PARTY DRIVE END-->
+				<!--MODAL FOR CHOOSING PROJECT NAME START-->
+				<!-- <div id="newname-project-modal" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+							
+							<div class="modal-content">
+									<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Type a name for the new Project</h4>
+									</div>
+									<div class="modal-body">
+											
+													<div>Name :</div><input type = "text" class = "form-control input-sm" id="project-name-new" >
+											
+									</div>
+									<div class="modal-footer ">
+											<button type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+									</div>
+							</div>
+					</div>
+				</div> -->
+				<!--MODAL FOR CHOOSING PROJECT NAME END-->
+
+				<!-- STATISTICS MODAL WINDOW START -->
+				<div id="user-statistics" class="modal fade" role="dialog">
+					<div class="modal-dialog account-modal">
+
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h3 class="modal-title"><span class="fa fa-pie-chart"></span>{{"Account Statistics"  |translate}}</h3>
+							</div>
+							<div class="modal-body">
+								
+								<div class="row">
+									<div class="text-center font-20px">
+										{{"Storage Statistics"  |translate}}
+										<button class="btn btn-default" id="stats-refresh-btn">
+											<span class="fa fa-refresh"></span>
+										</button>
+									</div>
+									<div class="col-sm-12 col-md-6 storage-statistics-2-cols" id="storage-per-user-statistics">
+				
+										<!--strong>Data cannot be displayed</strong-->
+										<div id="total-user-storage">
+											<p class="no-data-warning-statistics">{{"Nothing to display here! click on the refresh button above"  |translate}}</p>
+										</div>
+
+									</div>
+									<div class="col-sm-12 col-md-6 storage-statistics-2-cols" id="storage-per-project-statistics">
+				
+										<!--strong>Data cannot be displayed</strong-->
+										<div id="total-project-storage">
+											<p class="no-data-warning-statistics">{{"The storage details of the current project will appear here. If you have opened a project, click the refresh button!"  |translate}}</p>
+										</div>
+
+									</div>
+								</div>
+								
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">{{"Close"  |translate}}</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!--STATISTICS MODAL WINDOW END-->
+			
+		
+		<!--div class="container-fluid" id="formConfirmation" style="display:none"-->
+			<div  id="mapfloor3D" class="row" ng-show="showEditor">
+			
+				<!-- left_view START -->
+				<div class="left_view col-sm-12 col-md-2">
+				<form name="left_form">	
+					<ul class="list-group">
+					  <li class="list-group-item">
+						  <table class="table">
+								<tr>
+								  <td>{{"Resolution"  |translate}}</td>
+								  <td>
+									 <select class="form-control font" ng-model="datas.selectedresolutions" required ng-options="option.value as option.text for option in resolutions" ng-change="ppff()" ></select>
+									
+								  </td>
+								</tr>
+								<tr>
+									<td> {{ppf}} </td>
+									<td>
+										<input type="number" step="0.01" class="form-control input-sm" id="ppf-input"ng-model="cppf" ng-change="ppfwidth();" required/>
+										<span class="invalid" ng-hide="span_invalid">{{"Invalid input"  |translate}}</span>
+									</td>									
+								</tr>
+						  </table>
+					  </li>
+					</ul>  
+					
+					<ul class="list-group">
+					  <li class="list-group-item">
+						  <table class="table">
+								<tr>
+								  <td>{{Imager_Size_orginal}}</td>
+								  <td colspan="2">
+									 <span ng-hide="image_sizer_span" style="color:blue;">{{buttonname}}</span>
+									 <select class="form-control font" ng-model="data.selectedOption" required ng-options="option.value as option.name for option in availableOptions" ng-hide="image_sizer" ng-change="aov()"></select>
+								  </td>
+								</tr>
+								<tr>
+									<td> {{"Focal Length"  |translate}} </td>
+									<td>
+										<input type="number" step="0.01" class="form-control input-sm"  ng-model="focallength" id="focal-length-input" ng-change="change_focal_length()" />
+										<span class="invalid" ng-hide="span_focal_invalid">{{"Invalid input"  |translate }}</span>
+									</td>
+									<td>mm</td>
+								</tr>
+								<tr>
+									<td> {{"Angle of View"  |translate}} </td>
+									<td>
+										<input type="number" step="0.01" class="form-control input-sm"  ng-model="result_aov" id="aov-input" ng-change="focal_length()"/>
+										<span class="invalid" ng-hide="span_aov_invalid">{{"Must be between 1 and 180"  |translate}}</span>
+									</td>
+									<td><span class="font-17">&deg;</span></td>
+								</tr>
+						  </table>
+					  </li>
+					</ul> 
+					
+					<ul class="list-group">
+					  <li class="list-group-item">
+						  <table class="table">
+								<tr>
+									<td>{{"Distance" | translate}}</td>
+									<td>
+										<input type="number" step="0.01" class="form-control input-sm" ng-model="distance" id="distance-input" ng-change="distances()"/>
+										<span class="invalid" ng-hide="span_distance_invalid">{{"Invalid input"  |translate}}</span>
+									</td>
+									<td>{{unit}}</td>
+								</tr>
+								<tr>
+									<td>{{"Width"| translate }}</td>
+									<td>
+										<input type="number" step="0.01" class="form-control input-sm" ng-model="width" id="width-input" ng-change="widths()"/>
+										<span class="invalid" ng-hide="span_width_invalid">{{"Invalid input" | translate}}</span>
+									</td>
+									<td>{{unit}}</td>
+								</tr>
+								<tr>
+								  <td>{{"Unit" | translate}}</td>
+								  <td colspan="2">
+									  <select class="form-control font" id="unit" ng-model="unit" ng-change="unitConvert()">
+										  <option value = "ft">{{"Imperial" | translate}}</option>
+										  <option value = "m">{{"Metric" |translate}}</option>
+									  </select>
+								  </td>
+								</tr>
+						  </table>
+					  </li>
+					</ul>
+					
+					<ul class="list-group">
+
+					  <li class="list-group-item">
+					 <span style="color:red;"> {{"Operational for the 3D camera placement and 3D simulated FOV (Future release)" |translate }} 
+					  </span>
+						  <table class="table">
+								<tr>
+									<td>{{"Camera Height" | translate }}</td>
+									<td>
+										<input type="number" step="0.01" class="form-control input-sm" placeholder="" id="cam-height-input"ng-model="cameraheight" ng-change="cTilt()"/>
+										<span class="invalid" ng-hide="span_camera_invalid">{{"Invalid input" |translate}}</span>
+									</td>
+									<td>{{unit}}</td>
+								</tr>
+								<tr>
+									<td>{{"Scene Height"  | translate}}</td>
+									<td>
+										<input type="number" step="0.01" class="form-control input-sm" placeholder="" id="scene-height-input" ng-model="sceneheight" ng-change="sTilt()"/>
+										<span class="invalid" ng-hide="span_sheight_invalid">{{"Invalid input" | translate}}</span>
+									</td>
+									<td>{{unit}}</td>
+								</tr>
+								<tr>
+									<td>{{"Tilt" |translate}}</td>
+									<td>
+										<input type="number" class="form-control input-sm" placeholder="" id="tilt-input" ng-model="Tilt" ng-change="Tilts()"/>
+									</td>
+									<td><span class="font-17">&deg;</span></td>
+								</tr>
+						  </table>
+					  </li>
+					</ul>
+				</form>	
+				</div>
+				<!-- left_view END -->
+				
+				<div id="mapview" ng-show="ShowMapView" class="right_view col-sm-12 col-md-10">
+					<div class="col-sm-12 col-md-8" id="map-location-search-box">
+						<!--div class="location-input" id="location_container"-->
+							<!--input id="pac-input"  type="text" class="form-control font select-location" placeholder="Enter a location" autocomplete="off"-->
+						<!--/div-->
+						<div id="map" ng-init="loadLocation()"></div>
+					</div>
+					<div style="color:black;"> {{StreetView}}</div>
+					<div class="col-sm-12 col-md-3 image-results" id="scenes">
+							<div class="row" id ="streetview" ng-hide="hideDynamicStreet">
+								<img  class="streetview-image" id ="streetview-image" style="clip: rect(38.5px auto 263.5px auto); " src="https://maps.googleapis.com/maps/api/streetview?key=AIzaSyCFW1G080NFMVFuIXKLouPSM3lTGm9X8J8&amp;size=640x483&amp;location=40.76200623199031,-73.95792075257623&amp;heading=140.01337608699498&amp;fov=40&amp;pitch=0.00&quot"/>
+								<div class="row padding-both">
+									{{"Current FOV" | translate }} : 
+									<input type="text" class="fov-field" ng-model="result_aov" ng-change="focal_length()" disabled>
+									<!--button type="button" class="plus-button" ng-click="plus_aov()"><i class='fa  fa-plus'></i></button-->
+									<button type="button" class="plus-button" on-mouse-hold="plus_aov"><i class='fa  fa-plus'></i></button>
+									<!--button type="button" class="minus-button"ng-click="minus_aov()" ><i class='fa  fa-minus'></i></button-->
+									<button type="button" class="minus-button" on-mouse-hold="minus_aov" ><i class='fa  fa-minus'></i></button>
+									
+								</div>
+							</div>
+							<div class="row" id ="streetview_static" ng-hide="!hideDynamicStreet">
+								<div id="static_image" ng-mouse-wheel-up="staticPlus()" ng-mouse-wheel-down="staticMinus()">
+								</div>
+								<div class="row padding-both">
+									{{"Current FOV" | translate}} : 
+									<input type="number" class="fov-field" disabled  ng-model="result_aov">
+									
+									<button type="button" class="plus-button" on-mouse-hold="staticPlus"><i class='fa  fa-plus'></i></button>
+									
+									<button type="button" class="minus-button" on-mouse-hold="staticMinus" ><i class='fa  fa-minus'></i></button>
+									
+								</div>
+							</div>
+							<div class="row" style="padding-bottom:20px">
+								<div class="col-sm-4 col-md-4">
+									<div class="row padding-both-20">
+										<i class='fa fa-sun-o'></i>
+										{{"Day Mode" |translate}}
+									</div>
+									<div class="row">
+										<img style="width: 92%; height: 150px" class="day-image" src="assets/img/ppf_preview/{{timg}}"/>
+									</div>	
+								</div>
+								<div class="col-sm-4 col-md-4">
+									<div class="row padding-both">
+										<span class="glyphicon glyphicon-camera"></span>
+									</div>
+									<div class="row">									
+										{{"Details" | translate}}<br>
+										 {{ppf}}<br>
+										{{cppf}}<br>
+										{{"Distance is" |translate}}<br>
+										{{distance}}<br>
+										<!--button type="button" class="plus-button" ng-click="plus_distance()"><i class='fa  fa-plus'></i></button>
+									    <button type="button" class="minus-button" ng-click="minus_distance()" ><i class='fa  fa-minus'></i></button><br-->
+									    <button type="button" class="plus-button" on-mouse-hold="plus_distance"><i class='fa  fa-plus'></i></button>
+									    <button type="button" class="minus-button" on-mouse-hold="minus_distance" ><i class='fa  fa-minus'></i></button><br>
+										
+									</div>	
+								</div>
+								<div class="col-sm-4 col-md-4">
+									<div class="row padding-both-20">
+										<i class="fa  fa-moon-o"></i>
+										{{"Night Mode" |translate }}
+									</div>
+									<div class="row">
+										<img style="width: 92%; height: 150px" class="night-image " src="assets/img/ppf_preview/ppf_night_{{app_fov_image}}.jpg"/>
+									</div>	
+								</div>
+							</div>
+					</div>	
+				</div>
+
+				<!-- TO LOAD t OrbitControls = require( 'three-orbit-controls' )( THREE );DVIEW   ng-mouse-wheel-up="move_3d_object_up()" ng-mouse-wheel-down="move_3d_object_down()"-->
+				<div id="3dview" ng-show="Show3DView" class="col-sm-12 col-md-8" ng-mouse-wheel-up="move_3d_object_up()" ng-mouse-wheel-down="move_3d_object_down()" style="background-color:black">
+					<div id="orbit"></div>
+				</div>
+
+				<div id="3dprogress" ng-show="Show3DViews" class="right_view col-sm-12 col-md-10" style="background-color:red">Initializing...</div>
+				<!-- TO LOAD 3DVIEW-->
+
+				<!--3d default-->
+
+				<div id="default3d" ng-show="ShowDefault3D" class="right_view col-sm-12 col-md-10">
+                 <div class="col-sm-12 col-md-10" >
+						<div id="panoramafo" ng-mouse-wheel-up="fovWheelUp()" ng-mouse-wheel-down="fovWheelDown()"></div>
+				 </div>
+				</div>
+				<!--3d default End-->
+                   
+				<!-- Hitachi Floor Demo START-->
+				<div id="floorDemo" ng-show="ShowFloorView" class="right_view col-sm-12 col-md-10">
+					<div class="col-sm-12 col-md-7" id="map-location">
+						<div id="panorama"></div>
+					</div>
+					<div class="col-sm-12 col-md-3 image-results-floor" id="scenes" style="margin-left:20px;">
+							<div class="row" id ="streetview">
+								<div class="col-sm-12 col-md-12" id="panoramafov" ng-hide="panomafov_hide" ng-mouse-wheel-up="fovWheelUp()" ng-mouse-wheel-down="fovWheelDown()">
+										 <!--div id="controls">
+							                <div class="ctrl" id="zoom-in">+</div>
+							                <div class="ctrl" id="zoom-out">−</div>
+							             </div-->
+								</div>
+								<div class="col-sm-12 col-md-12" id="panoramafov_duplicate" ng-hide="panomafov_hide_duplicate" ><img class="resize_fit_center" src="assets/img/hitachi_entrance.png" height="367px" width="350px"/></div>
+							</div>
+							<div class="row" style="margin-bottom: 16px;">
+								<div class="col-sm-12 col-md-4">
+								</div>
+								<div id="controls" class="col-sm-12 col-md-4">
+							            <div class="ctrl" id="zoom-in" ng-click="floor_zoomin()"><i class='fa  fa-plus'></i></div>
+							            <div class="ctrl" id="zoom-out" ng-click="floor_zoomout()"><i class='fa  fa-minus'></i></div>
+							    </div>
+							    <div class="col-sm-12 col-md-4">
+								</div>
+							</div> 
+							<div class="row" style="padding-bottom:20px">
+								<div class="col-sm-4 col-md-4">
+									<div class="row padding-both-20">
+										<i class='fa fa-sun-o'></i>
+										{{"Day Mode" | translate}}
+									</div>
+									<div class="row">
+										<img style="width: 92%; height: 150px" class="day-image" src="assets/img/ppf_preview/{{timg}}"/>
+									</div>	
+								</div>
+								<div class="col-sm-4 col-md-4">
+									<div class="row padding-both">
+										<span class="glyphicon glyphicon-camera"></span>
+									</div>
+									<div class="row">									
+										{{"Details" |translate}}<br>
+										 {{ppf}}<br>
+										{{cppf}}<br>
+										{{"Distance is" |translate}}<br>
+										{{distance}}<br>
+									    <button type="button" class="plus-button" on-mouse-hold="plus_distance"><i class='fa  fa-plus'></i></button>
+									    <button type="button" class="minus-button" on-mouse-hold="minus_distance" ><i class='fa  fa-minus'></i></button><br>
+										
+									</div>	
+								</div>
+								<div class="col-sm-4 col-md-4">
+									<div class="row padding-both-20">
+										<i class="fa  fa-moon-o"></i>
+										{{"Night Mode" |translate}}
+									</div>
+									<div class="row">
+										<img style="width: 92%; height: 150px" class="night-image " src="assets/img/ppf_preview/ppf_night_{{app_fov_image}}.jpg"/>
+									</div>	
+								</div>
+							</div>
+					</div>	
+				</div>
+				<!-- Hitachi Floor Demo END-->
+				
+			</div>
+
+			<div class="row" id="editor-container-body" ng-show="!showEditor">
+				<div ui-view>
+					
+				</div>
+			</div>
+	<!-- share model -->
+			 <div class="modal fade df" id="premm" role="dialog">
+			     <div class="modal-dialog modal-md">
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">{{"Upload And Share" |translate}} </h4>
+			        </div>
+
+			        <div class="modal-body" style="font-size:16px">
+
+                 	 {{"Export and Upload the Scene You Want To Share"| translate}}
+
+
+			         <input type="file" class='form-control_prem' id= 'sharefile'></input>
+			         <div class="form-group" id="urlid">
+						<label for="usr">{{"URl To Share"| translate}}</label>
+						<a><input type="text"  class="form-control" id="urlinput"></input></a>
+						</div>
+	
+
+			        </div>
+			        <div class="modal-footer">
+			        	<button type="button" class="btn btn-success premshareupload" id="uploadsharebutton" >Upload</button>
+			          <button type="button" class="btn btn-danger"  data-dismiss="modal">{{"Close" |translate}}</button>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+          <!-- share model end -->  	<!-- Project relseDate MODAL -->
+
+
+
+				<div class="modal fade" id="relseDate" role="dialog">
+					<div id ="relDate" class="modal-dialog">
+						<div class="modal-content model_width">
+							<div class="modal-header model_color">
+								<div class="bootstrap-dialog-header">
+									<div class="bootstrap-dialog-close-button" style="display: block;">
+										<button class="close" data-dismiss="modal">×</button>
+									</div>
+									<div class="bootstrap-dialog-title" id="">
+										<h4 style = "text-align:center">{{"Release ID & Date" |translate}}</h4>
+									</div>
+								</div>
+							</div>
+							
+							<div class="modal-body">
+								<div class="bootstrap-dialog-body">
+									<div class="bootstrap-dialog-message" style = "text-align:center">
+												<h6><b>{{"Release ID:"   | translate}}</b> 3.0</h6>                                         
+												<h6><b>{{"Date:" |translate}}</b> 19 May 2020</h6>								
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="bootstrap-dialog-footer">
+									<div class="bootstrap-dialog-footer-buttons">
+										<button class="btn btn-danger btn-sm" data-dismiss="modal"><span class="bootstrap-dialog-button-icon fa fa-close">{{"Cancel" | translate }}</span>
+										</button>
+										
+									</div>
+								</div>
+							</div>
+						
+						</div>
+					</div> 
+				</div>
+				<!-- Project relseDate MODAL END-->
+        
+		</div>
+        <!--div id = "usrmanual">
+        	<a href="{{url}}/assets/Hitachi_UI_Help_v1.4.pdf" target="_blank" style="margin-left: 60%;" ></a><br/>
+        </div-->
+		<div class="overlay">
+         <div id="loading-img"> </div>
+        </div>
+	</div>
+	<script>
+	 $( document ).ready(function() {
+		$("#phone").intlTelInput({
+			   allowDropdown: true,
+			  // autoHideDialCode: false,
+			  // autoPlaceholder: "off",
+			  // dropdownContainer: "body",
+			  // excludeCountries: ["us"],
+			   formatOnDisplay: true,
+			  // geoIpLookup: function(callback) {
+			  //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+			  //     var countryCode = (resp && resp.country) ? resp.country : "";
+			  //     callback(countryCode);
+			  //   });
+			  // },
+			 initialCountry: "JP",
+			  // nationalMode: false,
+			  // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+			  // placeholderNumberType: "MOBILE",
+			  // preferredCountries: ['cn', 'jp'],
+			  // separateDialCode: true,
+			  utilsScript: "assets/js/utils.js"
+			});
+		});
+		</script>
+		
+  
+
+

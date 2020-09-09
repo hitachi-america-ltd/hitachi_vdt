@@ -1,0 +1,397 @@
+<div >
+       <nav class="navbar navbar-inverse">
+          <div>
+            <div class="navbar-header">
+                <a class="navbar-brand " style = "margin-top :2px;" href="#/"> <img src = './assets/img/3DEZ-Red.png' height="50"></a>
+                <a class="navbar-brand " style = "font-size : 24px !important ;margin-top: 16px !important;" href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+              <!--li><a href="#signup"><i class="fa  fa-user "></i> Sign Up</a></li-->
+              <!--li><a href="#trail"><i class="fa  fa-user"></i> {{"GetTrailAccount" | translate}}</a></li-->
+
+              <li><a href="#login"><i class="fa  fa-sign-in"></i> Login</a></li>
+            </ul>
+          </div>
+       </nav>
+      <div ng-controller="sharectrl">
+        <div id="3dview" ng-show="Show3DView" class="col-sm-12 col-md-8" ng-mouse-wheel-up="move_3d_object_up()" ng-mouse-wheel-down="move_3d_object_down()" style="background-color:black">
+					<div id="orbit"></div>
+				</div>
+			</div>
+ </div>
+ <div id="editorElement">
+ 				<div class="modal fade editor_3D_upld" id="editor_3D_upld_modal" role="dialog">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content model_width">
+							<div class="modal-header  model_color">
+								<!--button type="button" class="close" data-dismiss="modal">×</button-->
+								<h3 class="modal-title">3D Upload</h3>
+							</div>
+							<div class="modal-body" id="model_zip">
+								<div style="font-size: 15px">
+									Loading 3D view, this may take some time!
+								</div>
+								<div id="editor_3D_upld_body_cntnt">
+									<strong>Uploading to server...</strong>
+								</div>
+							</div>
+							<div class="modal-footer">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+        <div class="overlay" style=" background: #e9e9e9; display: none;position: fixed;top: 0;right: 0;bottom: 0;left: 0;opacity: 0.8;z-index: 1;">
+          <div id="loading-img" style="background: url(assets/img/cube.gif) center center no-repeat;height: 100%; z-index: 20;"> </div>
+        </div>
+  <script>
+
+      window.URL = window.URL || window.webkitURL;
+      window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+
+      Number.prototype.format = function (){
+        return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+      };
+      
+      var languageData = new language();
+      //console.log(languageData.lngdata);
+      var multipleLanguage = languageData.lngdata
+      var config = new mainconfig()
+      var editor = new Editor(config , multipleLanguage);
+
+      //
+      var oExplorer = new ObjectExplorer( editor );
+      //
+
+     // var menubar = new Menubar( editor );
+      //document.body.appendChild( menubar.dom );
+     // document.getElementById('editorElement').appendChild(menubar.dom);
+
+      var viewport = new Viewport( editor );
+      //document.body.appendChild( viewport.dom );
+      document.getElementById('editorElement').appendChild(viewport.dom);
+
+      var sidebar = new Sidebar( editor );
+
+      //document.body.appendChild( sidebar.dom );
+      //document.getElementById('editorElement').appendChild(sidebar.dom);
+
+     // var script = new Script( editor );
+      //document.body.appendChild( script.dom );
+     // document.getElementById('editorElement').appendChild(script.dom);
+
+      var player = new Player( editor );
+      //document.body.appendChild( player.dom );
+      document.getElementById('editorElement').appendChild(player.dom);
+
+      var toolbar = new Toolbar( editor );
+      //document.body.appendChild( toolbar.dom );
+      //document.getElementById('editorElement').appendChild(toolbar.dom);
+      /*MODIFIED TO INCLUDE MEASUREMENT TOOL START*/
+      var measurement = new Measurement( editor );
+      //document.body.appendChild( toolbar.dom );
+      //measurement.dom.style.display = "none";
+      //document.getElementById('editorElement').appendChild(measurement.dom);
+
+      var modal = new UI.Modal();
+      //document.body.appendChild( modal.dom );
+      document.getElementById('editorElement').appendChild(modal.dom);
+
+      /*MODIFIED TO INCLUDE PROGRESSBAR START*/
+      var editorHtml = document.getElementById('editorElement');
+
+      editor.progressBar = new UI.CreateProgress(0, 100,'progress-content');
+
+      editorHtml.appendChild(editor.progressBar.dom);
+
+      editor.progressBar.init();
+      /*MODIFIED TO INCLUDE PROGRESSBAR END*/
+      THREE.Cache.enabled = false;
+
+      editor.rotationControls = new RotationControls( editor );
+      editor.translationControls = new TranslationControls( editor );
+      var logger = new Logger();
+		  logger.setReqPath( editor.api );
+
+			var commonControls = new CommonControls(editor);
+      editor.commonMeasurements = commonControls;
+
+      //
+      /*get current positon */
+      editor.currentPosition  = new CurrentPossition ( editor );
+      editor.currentPosition.create();
+
+      editor.setTheme( editor.config.getKey( 'theme' ) );
+
+      /*editor.storage.init( function () {
+
+        editor.storage.get( function ( state ) {
+
+          if ( isLoadingFromHash ) return;
+
+          if ( state !== undefined ) {
+
+            editor.fromJSON( state );
+
+          }
+
+          var selected = editor.config.getKey( 'selected' );
+
+          if ( selected !== undefined ) {
+
+            editor.selectByUuid( selected );
+
+          }
+
+        } );
+
+        //
+
+        var timeout;
+
+        function saveState( scene ) {
+
+          if ( editor.config.getKey( 'autosave' ) === false ) {
+
+            return;
+
+          }
+
+          clearTimeout( timeout );
+
+          timeout = setTimeout( function () {
+
+            editor.signals.savingStarted.dispatch();
+
+            timeout = setTimeout( function () {
+
+              editor.storage.set( editor.toJSON() );
+
+              editor.signals.savingFinished.dispatch();
+
+            }, 100 );
+
+          }, 1000 );
+
+        };
+
+        var signals = editor.signals;
+
+        signals.geometryChanged.add( saveState );
+        signals.objectAdded.add( saveState );
+        signals.objectChanged.add( saveState );
+        signals.objectRemoved.add( saveState );
+        signals.materialChanged.add( saveState );
+        signals.sceneBackgroundChanged.add( saveState );
+        signals.sceneFogChanged.add( saveState );
+        signals.sceneGraphChanged.add( saveState );
+        signals.scriptChanged.add( saveState );
+        signals.historyChanged.add( saveState );
+
+        signals.showModal.add( function ( content ) {
+
+          modal.show( content );
+
+        } );
+
+      } );*/
+
+      //
+
+      document.addEventListener( 'dragover', function ( event ) {
+
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
+
+      }, false );
+
+      /*document.addEventListener( 'drop', function ( event ) {
+
+        event.preventDefault();
+
+        if ( event.dataTransfer.files.length > 0 ) {
+
+          editor.loader.loadFile( event.dataTransfer.files[ 0 ] );
+
+        }
+
+      }, false );*/
+
+      document.addEventListener( 'keydown', function ( event ) {
+
+        switch ( event.keyCode ) {
+
+          case 8: // backspace
+
+            event.preventDefault(); // prevent browser back
+
+          case 46: // delete
+
+            var object = editor.selected;
+
+            if ( confirm( 'Delete ' + object.name + '?' ) === false ) return;
+
+            var parent = object.parent;
+            if ( parent !== null ) editor.execute( new RemoveObjectCommand( object ) );
+
+            break;
+
+          case 90: // Register Ctrl-Z for Undo, Ctrl-Shift-Z for Redo
+
+            if ( event.ctrlKey && event.shiftKey ) {
+
+              editor.redo();
+
+            } else if ( event.ctrlKey ) {
+
+              editor.undo();
+
+            }
+
+            break;
+
+          case 87: // Register W for translation transform mode
+
+            editor.signals.transformModeChanged.dispatch( 'translate' );
+            editor.rotationControls.hide();
+            editor.translationControls.show();
+
+            break;
+
+          case 69: // Register E for rotation transform mode
+
+            editor.signals.transformModeChanged.dispatch( 'rotate' );
+            //Replaced default rotation controls with new RotationControls
+            editor.rotationControls.show();
+            editor.translationControls.hide();
+            //document.getElementById( 'toolbar-translate' ).classList.remove( 'selected' );
+            //document.getElementById( 'toolbar-rotate' ).classList.remove( 'selected' );
+            //document.getElementById( 'toolbar-scale' ).classList.remove( 'selected' );
+            //document.getElementById( 'toolbar-rotate' ).classList.add( 'selected' );
+
+            break;
+
+          case 82: // Register R for scaling transform mode
+
+            editor.signals.transformModeChanged.dispatch( 'scale' );
+            editor.rotationControls.hide();
+            editor.translationControls.hide();
+
+            break;
+
+        }
+
+      }, false );
+
+      function onWindowResize( event ) {
+
+        editor.signals.windowResize.dispatch();
+
+      }
+
+      window.addEventListener( 'resize', onWindowResize, false );
+
+      onWindowResize();
+
+      //
+
+      var isLoadingFromHash = false;
+      var hash = window.location.hash;
+
+      /*if ( hash.substr( 1, 5 ) === 'file=' ) {
+
+        var file = hash.substr( 6 );
+
+        if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
+
+          var loader = new THREE.FileLoader();
+          loader.crossOrigin = '';
+          loader.load( file, function ( text ) {
+
+            editor.clear();
+            editor.fromJSON( JSON.parse( text ) );
+
+          } );
+
+          isLoadingFromHash = true;
+
+        }
+
+      }*/
+
+      // VR
+
+      var groupVR;
+
+      // TODO: Use editor.signals.enteredVR (WebVR 1.0)
+
+      editor.signals.enterVR.add( function () {
+
+        if ( groupVR === undefined ) {
+
+          groupVR = new THREE.HTMLGroup( viewport.dom );
+          editor.sceneHelpers.add( groupVR );
+
+          var mesh = new THREE.HTMLMesh( sidebar.dom );
+          mesh.position.set( 15, 0, 15 );
+          mesh.rotation.y = - 0.5;
+          groupVR.add( mesh );
+
+          var signals = editor.signals;
+
+          function updateTexture() {
+
+            mesh.material.map.update();
+
+          }
+
+          signals.objectSelected.add( updateTexture );
+          signals.objectAdded.add( updateTexture );
+          signals.objectChanged.add( updateTexture );
+          signals.objectRemoved.add( updateTexture );
+          signals.sceneGraphChanged.add( updateTexture );
+          signals.historyChanged.add( updateTexture );
+
+        }
+
+        groupVR.visible = true;
+
+      } );
+
+      editor.signals.exitedVR.add( function () {
+
+        if ( groupVR !== undefined ) groupVR.visible = false;
+
+      } );
+
+      /*MODIFIED TO ADD AN OVERLAY UNTIL PAGE LOAD START*/
+      var adjustEditorWindow = function() {
+
+          setTimeout(function() {
+              onWindowResize();
+          }, 500);
+          setTimeout(function() {
+
+              $(".loader").fadeOut("slow");
+              //fromSharedUrl = false;
+
+          }, 1000);
+
+      }
+      adjustEditorWindow();
+      /*MODIFIED TO ADD AN OVERLAY UNTIL PAGE LOAD END*/
+      oExplorer.generateTree( editor.scene );//Added to generate the initial object tree
+      //setTimeout(function(){ onWindowResize();}, 500);
+
+    var skyColor = 0xffffff;
+		var groundColor = 0xffffff;
+		var intensity = 1;
+		var light = new THREE.HemisphereLight( skyColor, groundColor, intensity );
+		light.name = 'HemisphereLight';
+    light.position.set( 0, 1100, 0 );
+		editor.arraylight.push(light)
+		editor.execute( new AddObjectCommand( light ) );
+
+  </script>
+</div>

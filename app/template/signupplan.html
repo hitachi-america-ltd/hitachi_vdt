@@ -1,0 +1,91 @@
+<div >
+        <div ng-controller="singuppricingplanctrl">
+           <nav class="navbar navbar-inverse">
+              <div>
+                 <div class="navbar-header">
+                                <a class="navbar-brand " style = "margin-top :2px;" href="#/"> <img src = './assets/img/3DEZ-Red.png' height="50"></a>
+                                <a class="navbar-brand " style = "font-size : 24px !important ;margin-top: 16px !important;" href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a>
+                 </div>
+                 <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                       <a class="dropdown-toggle" data-toggle="dropdown" href="">{{"select language" | translate}}
+                       <span class="caret"></span></a>
+                       <ul class="dropdown-menu">
+                          <li><a href="" ng-click ="changeLanguage('en')">{{"english" | translate }}</a></li>
+                          <li><a href="" ng-click ="changeLanguage('jp')"; >{{"japaneses" | translate }}</a></li>
+                       </ul>
+                    </li>
+                    <!--li><a href="#signup"><i class="fa  fa-user "></i> {{"Signup" | translate }}</a></li-->
+                    <li><a href="#login"><i class="fa  fa-sign-in"></i> {{"Login" | translate }}</a></li>
+                 </ul>
+              </div>
+           </nav>
+           <div ng-cloak>
+              <div >
+                 <div class="container" style="font-size:17px;margin-left:6%;">
+                    {{"Select any of the plan for using the HITACHI DESIGN SIMULATOR PLATFORM" | translate }} 
+                 </div>
+              </div>
+              <div class="container push-md-55" style=" margin-left:6%;">
+                 <section id="pricing-table" >
+                    <div class="container" >
+                       <div class="row">
+                          <div class="pricing">
+                             <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="pricing-table shadow-effect">
+                                   <div class="pricing-header" style="background:#ff4444">
+                                      <p class="pricing-title">{{"FREE PLAN" | translate }}</p>
+                                      <!--p class="pricing-rate">$0 </p-->
+                                   </div>
+                                   <div class="pricing-list">
+                                      <ul>
+                                         <li><i class="fa fa-camera "></i><span>{{"Single Camera" | translate}}</span></li>
+                                         <li><i class="fa fa-gear"></i><span>{{"Basic 2D Operations" | translate}}</span></li>
+                                         <li><i class="fa  fa-film"></i><span>{{"NO 3D Operations" | translate }}</span></li>
+                                         <li><i class="fa  fa-file"></i><span>{{"No Reports" | translate}}</span></li>
+                                         <li><button  style="width: 150px;margin-top: 29px;font-size: 82%;"type="button" ng-click="singupfreeplan_fun()" class="btns btns-outline-default waves-effect btns-sm">{{"SUBSCRIBE" | translate }}</button></li>
+                                      </ul>
+                                   </div>
+                                </div>
+                             </div>
+                             <div class="col-md-4 col-sm-12 col-xs-12  ">
+                                <div class="pricing-table  shadow-effect">
+                                   <div class="pricing-header" style="background:#ff6f00">
+                                      <p class="pricing-title">{{"BASIC PLAN" | translate}}</p>
+                                      <!--p class="pricing-rate">$20 </p-->
+                                   </div>
+                                   <div class="pricing-list">
+                                      <ul>
+                                         <li><i class="fa fa-camera"></i><span>{{"Multiple Cameras" | translate}}</span></li>
+                                         <li><i class="fa  fa-gear"></i><span>{{"2D Operations" | translate}}</span></li>
+                                         <li><i class="fa  fa-film "></i><span>{{"Basic 3D" | translate }} </span></li>
+                                         <li><i class="fa  fa-file"></i><span>{{"No Reports" |translate }}</span></li>
+                                         <li><button  style="width: 150px;margin-top: 29px;font-size: 82%;"type="button" ng-click="signupbasicplan_fun()" class="btns btns-outline-default waves-effect btns-sm">{{"SUBSCRIBE" | translate }}</button></li>
+                                      </ul>
+                                   </div>
+                                </div>
+                             </div>
+                             <div class="col-md-4 col-sm-12 col-xs-12">
+                                <div class="pricing-table shadow-effect">
+                                   <div class="pricing-header" style="background:#00c851">
+                                      <p class="pricing-title">{{"PROFESSIONAL PLAN" | translate }}</p>
+                                      <!--p class="pricing-rate">$80 </p-->
+                                   </div>
+                                   <div class="pricing-list">
+                                      <ul>
+                                         <li><i class="fa fa-camera"></i><span>{{"Multiple Cameras" |translate}}</span></li>
+                                         <li><i class="fa  fa-gear"></i><span>{{"3D,2D Operations" |translate}}</span></li>
+                                         <li><i class="fa fa-save"></i><span>{{"Save & Export" | translate}}</span></li>
+                                         <li><i class="fa fa-file"> </i><span>{{"Report Generation" | translate}}</span></li>
+                                         <li><button  style="width: 150px;margin-top: 29px;font-size: 82%;"type="button" ng-click="signupprofessionalplan_fun()" class="btns btns-outline-default waves-effect btns-sm">{{"SUBSCRIBE" | translate }}</button></li>
+                                      </ul>
+                                   </div>
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </section>
+              </div>
+           </div>
+        </div>

@@ -1,0 +1,1792 @@
+<div>
+    <div ng-controller="adminCtrl" ng-init="totalCamers();totalUsers();totalProjects();totalServerStorage();">
+
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+
+                    <a class="navbar-brand " style = "margin-top :2px;" href="#/"> <img src = './assets/img/3DEZ-Red.png' height="50"></a>
+                    <a class="navbar-brand " style = "font-size : 24px !important ;margin-top: 16px !important;" href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a>
+
+            </div>
+        </nav>
+
+        <div class="container" style="width :100% !important" >
+            <div class="row">
+                <div class="col-sm-6 col-md-3 col-xm-12" style="background-color:#0c9096; height: 98vh;">
+                    <div class="row">
+                        <div class="logo" style="text-align: center;font-size:36px;height: 58px;text-align: center;">
+                            <i class=" fa fa-user"> {{"Admin" | translate}}</i>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="list-group adminfontSize">
+                        <a href="#admin" class=" fa fa-th list-group-item adminboderlistRemove" ng-click="showDashboad();">{{"DashBoard" | translate }}</a>
+                        <a href="#admin" class=" fa fa-user list-group-item adminboderlistRemove" ng-click="showMyaccount();"> {{"Admin Profile" | translate }}</a>
+                        <a href="#admin" class=" fa fa-camera list-group-item adminboderlistRemove" ng-click="addCamera();">  {{"Add Camera" | translate }}</a>
+                        <a href="#admin" class=" fa fa-camera list-group-item adminboderlistRemove" ng-click="addSensor();">  {{"Add 3D LiDAR" | translate }}</a>
+                        <a href="#admin" class=" fa fa-camera list-group-item adminboderlistRemove" ng-click="addSmartSensor();">  {{"Add Smart Sensor" | translate }}</a>
+                        <a href="#admin" class=" fa fa-camera list-group-item adminboderlistRemove" ng-click="getallcamera(1);">  {{"Manage Camera" | translate }}</a>
+                        <!--a href="#admin" class=" fa fa-floppy-o list-group-item adminboderlistRemove">  Storage</a-->
+                        <a href="#admin" class=" fa fa-th-list list-group-item adminboderlistRemove" ng-click="getUsersList();">  {{"User List" | translate }} </a>
+                        <a href="#admin" class=" fa fa-th-list list-group-item adminboderlistRemove" ng-click="matterportUrlList();">  {{"Matterport" | translate }} </a>
+                        <a href="#admin" class=" fa fa-plus list-group-item adminboderlistRemove" ng-click="createTrailAccount()">  {{"Create Trial Account" | translate }}  </a>
+                        <a href="#admin" class=" fa fa-power-off list-group-item adminboderlistRemove"  data-toggle="modal" data-target="#logout_confirmAdmin">  {{"Logout"| translate }}  </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-9 col-xm-12" style="background-color: #ece8e8;height: 98vh; overflow: auto;">
+                    <!--camera Add main list -->
+                    <div ng-show="AddcameraMain">
+                        <div class="modal-body" style="margin-top: 0%;">
+                            <h3>{{"ADD NEW CAMERA" | translate}}</h3>
+                            <hr>
+                            <div>
+                                <div class="btn-group"><button class="btn btn-default" id="addeachspeccamadmin" style="display: block;" ng-click="addCamerafromInput();">{{"Add Camera Spec" | translate}}</button><button class="btn btn-default" id="addxmlfileadmin" style="display: block;" ng-click="addCameraFromFile();">{{"Add Details from File" | translate }}</button></div>
+
+                                <div class="container-fluid" id="eachSpecadmin" ng-show="cameraFromInput">
+                                        <h3 style="text-align: center; margin-bottom: 3%;"> {{"PLEASE ADD THE DETAILS OF CAMERA" | translate }}</h3>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Brand Name" | translate}}</label>
+                                                            <input class="form-control" id="brandnameadmin" ng-model="cameraBrandName">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Model Name" | translate}}</label>
+                                                            <input class="form-control" id="modelnamedmin" ng-model="cameraModelName"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Horizontal AOV" | translate}}</label>
+                                                            <input class="form-control" id="horizontalAovAdmin" type="number" min="0" max="179" value="60"
+                                                                ng-model="cameraHorizontalAov">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Min Horizontal AOV" | translate}}</label>
+                                                            <input class="form-control" id="minhorizontalAovAdmin" type="number" value="30" ng-model="cameraMinHorizontalAov">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class = "required" >{{"Resolution Width" | translate}}</label>
+                                                            <input class="form-control" id="resolutionwidthAdmin" type="number" value="1920" ng-model="cameraResolutionWidth">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required" >{{"Resolution Height" | translate}}</label>
+                                                            <input class="form-control" id="resolutionheightAdmin" type="number" value="1080" ng-model="cameraResolutionHeight"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Lens Type" | translate}}</label>
+                                                            <input class="form-control" id="LensTypeAdmin" ng-model="lensTypeAdminInput">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Camera Type" | translate}}</label>
+                                                            <select id="cameraTypeadmin" class="form-control">
+                                                                <option value="Box">{{"Box" | translate}}</option>
+                                                                <option value="Box Lite">{{"BoxLite" | translate}}</option>
+                                                                <option value="Covert">{{"Covert" | translate}}</option>
+                                                                <option value="Covert Lite">{{"CovertLite" | translate}}</option>
+                                                                <option value="Dome">{{"Dome" | translate}}</option>
+                                                                <option value="Dome Lite">{{"DomeLite" | translate}}</option>
+                                                                <option value="Fixed Dome">{{"FixedDome" | translate}}</option>
+                                                                <option value="PTZ">{{"PTZ" | translate}}</option>
+                                                                <option value="PTZ Lite">{{"PTZLite" | translate}}</option>
+                                                                <option value="Bullet">{{"Bullet" | translate}}</option>
+                                                                <option value="Bullet Lite">{{"BulletLite" | translate}}</option>
+                                                                <option value="IP">{{"IP" | translate}}</option>
+                                                                <option value="Day/Night">{{"Day/Night" | translate}}</option>
+                                                                <option value="Thermal">{{"Thermal" | translate}}</option>
+                                                                <option value="Wireless">{{"Wireless" | translate}}</option>
+                                                                <option value="Fisheye">{{"Fisheye" | translate}}</option>
+                                                                <option value="Panorama">{{"Panorama" | translate}}</option>
+                                                                <!-- <option value="LiDAR">{{"LiDAR" | translate}}</option>
+                                                                <option value="LiDAR Lite">{{"LiDARLite" | translate}}</option> -->
+                                                            </select></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Default FOV" | translate}}</label>
+                                                            <select class="form-control" id="DefaultFovAdmin" ng-model="defaultFovAdminInput">
+                                                                <option value="Left">{{"Left" | translate}}</option>
+                                                                <option value="Right">{{"Right" | translate}}</option>
+                                                                <option value="Top">{{"Top" | translate}}</option>
+                                                                <option value="Bottom" ng-selected="true">{{"Bottom" | translate}}</option>
+                                                                <option value="Front">{{"Front" | translate}}</option>
+                                                                <option value="Back">{{"Back" | translate}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Optical Zoom" | translate}}</label>
+                                                            <input class="form-control" id="OpticalZoomAdmin" placeholder="Eg: 2x" ng-model="opticalZoomAdminInput">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Digital Zoom" | translate}}</label>
+                                                            <input class="form-control" id="DigitalZoomAdmin" placeholder="Eg: 4x" ng-model="digitalZoomAdminInput">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label >{{"Max V-AOV" | translate}}</label>
+                                                            <input class="form-control" id="MaxvAovAdmin" type="number" ng-model="max_vertical_aov">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label >{{"Min V-AOV" | translate}}</label>
+                                                            <input class="form-control" id="MinAovAdmin" type="number" ng-model="min_vertical_aov">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card" id="cardAddCameraadmin"><img class="card-img-top img-thumbnail" src="assets/img/Cam_VX_3PV_B_I.png"
+                                                id="cardthumpimgAddadmin">
+                                            <div class="card-body  cardbodyAdd"><label for="filesAdadmin" class="btn btn-primary" id="changeImageButttonAddadmin">{{"Change
+                                                    Image" | translate}}</label><input id="filesAdadmin" type="file" style="visibility: hidden;" onchange="angular.element(this).scope().chnageImag(this)"></div>
+                                        </div><button class="btn btn-success pull-right submitbutto" id="addspeceachCameraSubmitadmin" style="display: block;"
+                                            ng-click="submitnewCameraSpec();">{{"submit" | translate}}</button>
+                                    </div>
+
+                                <div class="container" id="fileXmlSpecadmin" ng-show="cameraFromFile">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <h3>{{"PLEASE SELECT THE EXCEL FILE" | translate}}</h3>
+                                        <div class="form-group">
+                                            <div class="input-group input-file"><input class="form-control choosexmlinput" id="addFileInputadmin" accept=".xlsx" type="file"></div>
+                                        </div>
+                                        <div class="form-group"><button class="btn btn-primary pull-right" id="submitFileButtonadminadmin" ng-click = "cameraspecToDbFromFile();">{{"submit" | translate}}</button><button class="btn btn-danger" id="resetFileButtonadmin" ng-click ="resetFileBtn();">{{"Reset" | translate}}</button></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--camera Add main list -->
+
+                    <!--camera Add Sensor list -->
+                    <div ng-show="AddSensorMain">
+                        <div class="modal-body" style="margin-top: 0%;">
+                            <h3>{{"ADD NEW SENSOR" | translate}}</h3>
+                            <hr>
+                            <div>
+                                <div class="btn-group"><button class="btn btn-default" id="add-sensor-admin" style="display: block;" ng-click="addSensorFromInput();">{{"Add Sensor Spec" | translate}}</button><button class="btn btn-default" id="add-xml-file-admin" style="display: block;" ng-click="addSensorFromFile();" ng-show=false>{{"Add Details from File" | translate }}</button></div>
+
+                                <div class="container-fluid" id="eachSpecadmin" ng-show="sensorFromInput">
+                                        <h3 style="text-align: center; margin-bottom: 3%;"> {{"PLEASE ADD THE DETAILS OF SENSOR" | translate }}</h3>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Brand Name" | translate}}</label>
+                                                            <input class="form-control" id="sensor-brand-name" ng-model="sensorBrandName">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Model Name" | translate}}</label>
+                                                            <input class="form-control" id="sensor-model-name" ng-model="sensorModelName"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Horizontal AOV" | translate}}</label>
+                                                            <input class="form-control" id="sensor-horizontal-aov" type="number" min="0" max="179" value="60">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Min Horizontal AOV" | translate}}</label>
+                                                            <input class="form-control" id="senor-horizontal-min-aov" type="number" value="30" ng-model="sensorMinHorizontalAov">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class = "required" >{{"Resolution Width" | translate}}</label>
+                                                            <input class="form-control" id="sensor-resolution-width" type="number" value="1920" ng-model="sensorResolutionWidth">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required" >{{"Resolution Height" | translate}}</label>
+                                                            <input class="form-control" id="sensor-resolution-height" type="number" value="1080" ng-model="sensorResolutionHeight"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Lens Type" | translate}}</label>
+                                                            <input class="form-control" id="sensor-lens-type" ng-model="sensorLensType">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"SensorCategory" | translate}}</label>
+                                                            <select id="sensor-category" class="form-control">
+                                                                <option value="Hitachi LFOM5">{{"Hitachi LFOM5" | translate}}</option>
+                                                                <option value="Intel RealSense L515">{{"Intel RealSense L515" | translate}}</option>
+                                                                <option value="HLS-LFOM1">{{"HLS-LFOM1" | translate}}</option>
+                                                                <option value="HLS-LFOM3">{{"HLS-LFOM3" | translate}}</option>
+                                                            </select></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Default FOV" | translate}}</label>
+                                                            <select class="form-control" id="sensor-default-fov" ng-model="sensorDefaultFov">
+                                                                <option value="Left">{{"Left" | translate}}</option>
+                                                                <option value="Right">{{"Right" | translate}}</option>
+                                                                <option value="Top">{{"Top" | translate}}</option>
+                                                                <option value="Bottom" ng-selected="true">{{"Bottom" | translate}}</option>
+                                                                <option value="Front">{{"Front" | translate}}</option>
+                                                                <option value="Back">{{"Back" | translate}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Optical Zoom" | translate}}</label>
+                                                            <input class="form-control" id="sensor-optical-zoom" placeholder="Eg: 2x" ng-model="sensorOpticalZoom">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Digital Zoom" | translate}}</label>
+                                                            <input class="form-control" id="sensor-digital-zoom" placeholder="Eg: 4x" ng-model="sensorDigitalZoom">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label >{{"Max V-AOV" | translate}}</label>
+                                                            <input class="form-control" id="sensor-max-aov" type="number" ng-model="sensorMaxAov">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label >{{"Min V-AOV" | translate}}</label>
+                                                            <input class="form-control" id="sensor-min-aov" type="number" ng-model="sensorMinAov">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card" id="sensor-add-image"><img class="card-img-top img-thumbnail" src="assets/img/lidar_black_256.png"
+                                                id="sensor-thumbnail-image">
+                                            <div class="card-body  cardbodyAdd"><label for="image-file-selection" class="btn btn-primary" id="sensor-change-thumbnail-image">{{"Change
+                                                    Image" | translate}}</label><input id="image-file-selection" type="file" style="visibility: hidden;" onchange="angular.element(this).scope().changeSensorImage(event)"></div>
+                                        </div><button class="btn btn-success pull-right submitbutto" id="add-new-sensor-admin" style="display: block;"
+                                            ng-click="submitNewSensorSpec();">{{"submit" | translate}}</button>
+                                    </div>
+
+                                <div class="container" id="sensor-file-xml" ng-show="sensorFromFile">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <h3>{{"PLEASE SELECT THE EXCEL FILE" | translate}}</h3>
+                                        <div class="form-group">
+                                            <div class="input-group input-file"><input class="form-control choosexmlinput" id="add-sensor-input" accept=".xlsx" type="file"></div>
+                                        </div>
+                                        <div class="form-group"><button class="btn btn-primary pull-right" id="add-sensor-input-dile" ng-click = "sensorSpecToDbFile();">{{"submit" | translate}}</button><button class="btn btn-danger" id="resetFileButtonadmin" ng-click ="resetFileBtn();">{{"Reset" | translate}}</button></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--camera Add Sensor list -->
+                    <div ng-show="AddSmartSensor">
+                        <div class="modal-body" style="margin-top: 0%;">
+                            <h3>{{"ADD NEW SMART SENSOR" | translate}}</h3>
+                            <hr>
+                            <div>
+                                <div class="btn-group"><button class="btn btn-default" id="add-smart-sensor-admin" style="display: block;" ng-click="addSmartSensorFromInput();">{{"Add Smart Sensor Spec" | translate}}</button><button class="btn btn-default" id="add-smart-sensor-category" style="display: block;" ng-click="addSmartSensorCategory();">{{"Add Smart Sensor Category" | translate}}</button><button class="btn btn-default" id="add-xml-file-admin" style="display: block;" ng-click="addSensorFromFile();" ng-show=false>{{"Add Details from File" | translate }}</button></div>
+
+                                <div class="container-fluid" id="smart-sensor-spec" ng-show="smartSensorFromInput">
+                                        <h3 style="text-align: center; margin-bottom: 3%;"> {{"PLEASE ADD THE DETAILS OF SMART SENSOR" | translate }}</h3>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Brand Name" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-brand-name" ng-model="smartSensorBrandName" required>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Model Name" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-model-name" ng-model="smartSensorModelName" required></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Radius" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-radius" type="text" ng-model="smartSensorCoverage" placeholder="1-100">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Height" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-height" type="text" ng-model="smartSensorHeight" placeholder="1-50">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class = "required" >{{"Category" | translate}}</label>
+                                                            <select id="smart-sensor-category" ng-model="smartSensorCategory" class="form-control" onchange="angular.element(this).scope().getApplicationType(event)" >
+                                                                <option ng-repeat="option in smartSensorCategoryArray" value="{{option}}">{{option}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required" >{{"Application Type" | translate}}</label>
+                                                            <select id="smart-sensor-application-type" class="form-control" ng-model="smartSensorApplicationType">
+                                                                <option data-ng-repeat="options in smartSensorApplicationTypeArray[smartSensorCategory]"  value="{{options}}">{{options}}</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Connection Type" | translate}}</label>
+                                                            <select id="smart-sensor-connection-type" ng-model="smartSensorConnectionType" class="form-control">
+                                                                <option value="Wired">Wired</option>
+                                                                <option value="Wireless">Wireless</option>
+                                                                <option value="Battery">Battery</option>
+                                                                <option value="PoE">PoE</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Angle" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-angle" type="text" ng-model="smartSensorAngle" placeholder="0-360">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"Wifi" | translate}}</label>
+                                                            <input type="checkbox"  id="smart-sensor-wifi" ng-model="smartSensorWifi">
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"Bluetooth" | translate}}</label>
+                                                            <input type="checkbox" id="smart-sensor-bluetooth" ng-model="smartSensorBluetooth">
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"P2P" | translate}}</label>
+                                                            <input type="checkbox"  id="smart-sensor-P2P" ng-model="smartSensorP2P">
+                                                            
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"ZigBee" | translate}}</label>
+                                                            <input type="checkbox"  id="smart-sensor-zigbee" ng-model="smartSensorZigBee">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card" id="smart-sensor-add-image"><img class="card-img-top img-thumbnail" src="assets/img/lidar_black_256.png"
+                                                id="smart-sensor-thumbnail-image">
+                                            <div class="card-body  cardbodyAdd"><label for="smart-image-file-selection" class="btn btn-primary" id="smart-sensor-change-thumbnail-image">{{"Change
+                                                    Image" | translate}}</label><input id="smart-image-file-selection" type="file" style="visibility: hidden;" onchange="angular.element(this).scope().changeSmartSensorImage(event, 'new')"></div>
+                                        </div><button class="btn btn-success pull-right submitbutto" id="add-new-smart-sensor-admin" style="display: block;"
+                                            ng-click="submitNewSmartSensorSpec();">{{"submit" | translate}}</button>
+                                    </div>
+
+                                    <div class="container-fluid" id="smart-sensor-category" ng-show="smartSensorCategoryFlag">
+                                        <h3 style="text-align: center; margin-bottom: 3%;"> {{"ADD THE SMART SENSOR Category/ Application Type" | translate }}</h3>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class = "required" >{{"Category" | translate}}</label>
+                                                            <select id="add-smart-sensor-category" ng-model="smartSensorCategory" class="form-control" onchange="angular.element(this).scope().getApplicationType(event)" >
+                                                                <option ng-repeat="option in smartSensorCategoryArray" value="{{option}}">{{option}}</option>
+                                                                <option value="Others">Others</option>
+                                                            </select>
+                                                        </div>
+                                                        <div ng-show="smartSensorCategory == 'Others'">
+                                                            <div class="col-sm-6">
+                                                                <label class="required">{{"New Category" | translate}}</label>
+                                                                <input class="form-control" id="add-smart-sensor-category" type="text" ng-model="newSmartSensorCategory" required>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <label class="required">{{"New Application Type" | translate}}</label>
+                                                                <input class="form-control" id="add-smart-sensor-application-type" type="text" ng-model="newSmartSensorApplicationType" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6" ng-show="smartSensorCategory != 'Others'">
+                                                            <label class="required" >{{"Application Type" | translate}}</label>
+                                                            <select id="smart-sensor-application-type" class="form-control" ng-model="smartSensorApplicationType">
+                                                                <option data-ng-repeat="options in smartSensorApplicationTypeArray[smartSensorCategory]"  value="{{options}}">{{options}}</option>
+                                                                <option value="Others">Others</option>
+                                    
+                                                            </select>
+                                                        </div>
+                                                        <div ng-show="smartSensorApplicationType == 'Others'">
+                                                            <div class="col-sm-6">
+                                                                <label class="required">{{"New Application Type" | translate}}</label>
+                                                                <input class="form-control" id="add-smart-sensor-application-type" type="text" ng-model="newSmartSensorApplicationType" required>
+                                                            </div>
+                                                        </div>
+                                    
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <button class="btn btn-success pull-right submitbutto" id="add-new-smart-sensor-category" style="display: block;"
+                                            ng-click="submitNewSmartSensorCategory();">{{"submit" | translate}}</button>
+                                    </div>
+
+                                <div class="container" id="sensor-file-xml" ng-show="sensorFromFile">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <h3>{{"PLEASE SELECT THE EXCEL FILE" | translate}}</h3>
+                                        <div class="form-group">
+                                            <div class="input-group input-file"><input class="form-control choosexmlinput" id="add-sensor-input" accept=".xlsx" type="file"></div>
+                                        </div>
+                                        <div class="form-group"><button class="btn btn-primary pull-right" id="add-sensor-input-dile" ng-click = "sensorSpecToDbFile();">{{"submit" | translate}}</button><button class="btn btn-danger" id="resetFileButtonadmin" ng-click ="resetFileBtn();">{{"Reset" | translate}}</button></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--camera Add Sensor list -->
+
+                    <!--admin profile -->
+                    <div ng-show="myaccount">
+                        <div class="col-sm-12 col-md-3 col-xm-12 " style="margin-top: 63px;">
+                            <div class="w3-card-4">
+                                <img src="assets/img/sample-user.jpg" class="user-image" alt="user icon">
+                                <div class="w3-container w3-center user-details-card">
+                                    <p class="ng-binding">{{adminFirstName}} {{adminLastName}}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h3> {{"Welcome Admin !!" | translate }}</h3>
+                            </div>
+                            <div>
+                                <a href="{{adminUrl}}/assets/Hitachi_Admin_Manual.pdf" style = "padding: 0px 0px" target="_blank"> 
+                                    <button type="button" class="btn btn-info btninfo" ng-click="" data-toggle="modal" data-target="_blank" style="text-align: -webkit-center;">
+                                    {{"User Manual" | translate  }}
+                                    </button>			
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-xm-12 ">
+                            <table class="table table-striped" style="margin-top: 29%;font-size: 13px;" ng-show="detailsMyaccount">
+                                <tbody>
+                                    <tr>
+                                        <td>{{"First name" | translate}}</td>
+                                        <td>{{adminFirstName}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>{{"Last Name" | translate }}</td>
+                                        <td>{{adminLastName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{"Email" | translate }}</td>
+                                        <td>{{adminEmail}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{"Log Email " | translate}}</td>
+                                        <td>{{logEmailAddress}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{"Phone" | translate}}</td>
+                                        <td>{{adminPhone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div class="table-buttons-edit pull-right">
+                                                <!--button class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save</button-->
+                                                <button class="btn btn-success btn-sm" ng-click="editmyAccount();"><i class="fa fa-edit"></i> {{"Edit" | translate }}</button>
+
+                                                <button class="btn btn-info btn-sm" ng-click="changePasswordData();"><i class="fa fa-edit"></i> {{"Change Password" | translate }}</button>
+                                                <!--button class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Close</button-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <form name="userDataFormAdmin">
+                                <table class="table table-striped left-box-table" style="margin-top: 29%;font-size: 13px;" ng-show="enableEdit">
+                                    <tbody>
+                                        <tr>
+                                            <td>{{"First name" | translate}}</td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="edit_fname" name="firstname" required>
+                                                <span class="validation-info" ng-show="userDataFormAdmin.firstname.$invalid">
+                                                {{"This field is required!" | translate}}
+                                            </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Last Name" | translate }}</td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="edit_lname" name="lastname" required>
+                                                <span class="validation-info" ng-show="userDataFormAdmin.lastname.$invalid">
+                                                {{"This field is required!" | translate}}
+                                            </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Log Email" | translate }}</td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="edit_LogEmail" name="LogEmail" required>
+                                                <span class="validation-info" ng-show="userDataFormAdmin.LogEmail.$invalid">
+                                                {{"This field is required!" | translate}}
+                                            </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>{{"Phone" | translate}}</td>
+                                            <td class="tel-table">
+                                                <input type="text" id="phone" class="tel-td" ng-model="edit_phone" name="phone" required/>
+                                                <span class="validation-info" ng-show="userDataFormAdmin.phone.$invalid || userDataFormAdmin.phone.$error.minlength ||userDataFormAdmin.phone.$error.maxlength">
+                                                {{"Phone number required!" | translate }}
+                                            </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="table-buttons-edit pull-right">
+                                                    <button class="btn btn-success btn-sm" ng-disabled="userDataFormAdmin.$invalid" ng-click="saveProfileData()">
+                                                    <i class="fa fa-save"></i> {{"Save" | translate}}
+                                                </button>
+
+                                                    <button class="btn btn-danger btn-sm" ng-click=" enableEdit = false;detailsMyaccount =true ;changePassword =false; ">
+                                                    <i class="fa fa-close"></i> {{"Close" | translate }}
+                                                </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </form>
+
+                            <form name="userDataFormChangePassAdmin">
+                                <table class="table table-striped left-box-table" style="margin-top: 29%;font-size: 13px;" ng-show="changePassword">
+                                    <tbody>
+                                        <tr>
+                                            <td>{{"Current Password" | translate }}</td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="currentPassword" name="CurrentPassword" required>
+                                                <span class="validation-info" ng-show="userDataFormChangePassAdmin.CurrentPassword.$invalid">
+                                                    {{"This field is required!" | translate }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"New Password" | translate }}</td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="newPassword" name="NewPassword" required>
+                                                <span class="validation-info" ng-show="userDataFormChangePassAdmin.NewPassword.$invalid">
+                                                    {{"This field is required!" | translate }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Confirm Password" | translate }}</td>
+                                            <td>
+                                                <input type="text" class="form-control" ng-model="conformPassword" name="ConformPassword" required>
+                                                <span class="validation-info" ng-show="userDataFormChangePassAdmin.ConformPassword.$invalid">
+                                                    {{"This field is required!" | translate}}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="table-buttons-edit pull-right">
+                                                    <button class="btn btn-success btn-sm" ng-disabled="userDataFormChangePassAdmin.$invalid" ng-click ="updatePassword();">
+                                                        <i class="fa fa-save"></i> {{"update" | translate}}
+                                                    </button>
+
+
+                                                    <button class="btn btn-danger btn-sm" ng-click="enableEdit = false;detailsMyaccount =true ;changePassword =false;">
+                                                        <i class="fa fa-close"></i> {{"Close" | translate}}
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <!--userlist -->
+                    <div ng-show="userlist">
+                        <table class="table table-striped left-box-table">
+                           
+                            <tr ng-repeat="x in allUsers">
+
+                                <td>{{ x.firstname }} {{ x.lastname }} </td>
+
+                                <td>{{ x.email }}</td>
+
+                                <td>
+                                    <div class="form-group">
+
+                                      <label for="sel1" style ="padding-left: 25%;"> Log Filter</label>
+
+                                      <select class="form-control" id= {{x._id}} >
+
+                                        <option>Today</option>
+                                        <option>Last Day</option>
+                                        <option>Last Week</option>
+                                        <option>Last Month</option>
+                                        <option>Last 6 Month</option>
+
+                                      </select>
+
+                                    </div>
+                                </td>
+                                 <!--td>
+                                    <div class="form-group">
+
+                                      <label for="sel1"></label>
+
+                                      <select class="form-control" id="selectAdate">
+
+                                        <option>Export Logs</option>
+
+                                        <option>
+                                            <button class = "btn btn-info" id ={{x._id}}><i class="fa fa-eye"></i> View Logs</button>
+                                        </option>
+
+                                        <option>
+
+                                            <button class = "btn btn-info" id ={{x._id}}><i class="fa fa-envelope"></i> Download Logs</button>
+                                        </option>
+
+                                        <option>
+                                            <button class = "btn btn-info" id ={{x._id}}><i class="fa fa-envelope"></i> Email Logs</button>
+                                        </option>
+
+                                      </select>
+
+                                    </div>
+                                </td-->
+                                 <td>
+                                     
+                                    <div class="dropdown">
+                                        <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Export Logs
+                                                <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                                <li id ={{x._id}}  ng-click="viewLogs( x._id,x.email )"><a>View Logs</a></li>
+                                                <li id ={{x._id}}   ng-click="downloadLogs( x._id , x.firstname, x.email  )"><a >Download Logs</a></li>
+                                                <li id ={{x._id}}   ng-click="emailLogs( x._id, x.email, x.firstname )"><a >Email Logs</a></li>
+                                        </ul>
+                                    </div>
+
+                                 </td>   
+                                <!--td><button class = "btn btn-info" id ={{x._id}}><i class="fa fa-eye"></i> View Logs</button></td>
+
+                                 <td><button class = "btn btn-info" id ={{x._id}}><i class="fa fa-envelope"></i> Download Logs</button></td>
+
+                                <td><button class = "btn btn-info" id ={{x._id}}><i class="fa fa-envelope"></i> Email Logs</button></td -->
+
+                                <td><button class = "btn btn-info"   ng-click = 'getuserStorage(x._id)' ><i class="fa fa-info-circle"></i>             {{"User Info" |translate }}</button></td>
+
+                                <td>    
+                                    <div>Send Logs</div>
+                                    <label class="switchToogle">
+                                      <input type="checkbox" id = 'toogle' ng-checked="x.sendLog" ng-model ="interpretation[$index + 1]" ng-click = "sendActivityLogFlag(x._id , interpretation[$index + 1] , x.firstname )">
+                                      <span class="sliderToogle round" ></span>
+                                    </label>
+                                </td>
+
+                                <td><button class="btn btn-danger" id={{x.email}} ng-click ="removeUser(x.email);"><i class="fa fa-window-close"></i></button></td>
+
+                                
+
+                        
+                            </tr>
+                        </table>
+                    </div>
+                <!--userlist -->
+                <div ng-show = "createTrailAccountDiv">
+
+                    
+                    <div class="cards container col-md-6 col-sm-12 col-xs-12 cards  shadow-effects" style="background-color: white; margin-top: 17% ; margin-left: 198px;" >
+                        <div class="cards-block">
+                                <!--Header-->
+                                <div class="forms-header blue-gradient">
+                                     <h3><i class="fa fa-lock"></i> {{"GetTrailAccount" | translate}}
+                                     </h3>
+                                </div>
+                                <!--Body-->
+                                <form name='forgotForm'>
+                                     <div class="md-forms forms-control">
+                                            <i class="fa fa-envelope prefix"></i>
+                                            <input name="lemaile" style="font-size: 16px;margin-top: 1%" type="email" id="form2" placeholder="{{'Email' | translate }}" class="prem forms-control" ng-model = "trailEmail" required="required">
+                                     </div>
+                                     <div class="text-center">
+                                            <button class="btns btns-indigo" ng-disabled="forgotForm.$invalid" style="font-size:16px" ng-click="generateTrailAccount()">{{"submit" | translate }}</button>
+                                            <hr>
+                                            <fieldset class="forms-group">
+                                            </fieldset>
+                                     </div>
+                                </form>
+                         </div>
+                    </div>
+
+                
+                </div>   
+                <!--Cameralist -->
+                <div ng-show = "CameraListlist">
+                    <div class="btn-group" style ="margin-bottom: 6px;">
+
+                        <button class="btn btn-default" id="addninCAmera" style="display: block;" ng-click ="getallcamera(1);" >{{"Admin Camera" |translate}} </button>
+
+                        <button class="btn btn-default" id="admin-sensors" style="display: block;" ng-click ="getallcamera(2);" >{{"Admin 3D LiDAR Sensor" |translate}} </button>
+
+                        <button class="btn btn-default" id="admin-smart-sensors" style="display: block;" ng-click ="getAdminSmartSensorList(5)" >{{"Admin Smart Sensors" |translate}} </button>
+
+                        <button class="btn btn-default" ng-click="allUsersCamera(3);" id="allcamera" style="display: block;" >{{"Other Cameras" |translate }} </button>
+
+                        <button class="btn btn-default" ng-click="allUsersCamera(4);" id="all-sensors" style="display: block;" >{{"Other 3D LiDAR Sensor" |translate }} </button>
+
+                        <button class="btn btn-default" id="user-smart-sensors" style="display: block;" ng-click ="getUserSmartSensorList(6)" >{{"Other Smart Sensors" |translate}} </button>
+                    </div>
+
+                    <table class="table table-striped left-box-table" ng-show ='manageCameraOrSensor == 1'>
+                        <tr style = "font-family: fantasy;font-size: 23px;">
+                            <td>{{"Brand"  |translate }}</td>
+                            <td>{{"Model"  |translate  }}</td>
+                            <td>{{"Horizontal AOV"  |translate }}</td>
+                            <td>{{"Type"  |translate }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <tr ng-repeat="x in allCameras">
+                        <td>{{ x.spec.manufacturer }}</td>
+                        <td>{{ x.spec.model }}</td>
+                        <td>{{ x.spec.children[0].horizontal_aov }}</td>
+                        <td>{{ x.spec.children[0].form_factor }}</td>
+                        <td><button class = "btn btn-info" data-ng-click= "EditAdminCamera($event, manageCameraOrSensor)"  data-toggle="modal" data-target="#editCameraDetails"  id ={{x._id}}><i class="fa fa-pencil"></i>  {{"Edit Camera" | translate }}</button></td>
+                        <td><button class = "btn btn-info" data-ng-click= "viewCurrentCameraDetails($event)" data-toggle="modal" data-target="#viewCameraDetails" id ={{x._id}}> <i class="fa fa-eye"></i>   {{"View Camera" |translate}} </button></td>
+                        <td><button class = "btn btn-danger" data-ng-click= "removeAdminCamera(x._id)" id ={{x._id}}><i class="fa fa-window-close"></i></button></td>
+                        
+                    </tr>
+                    </table>
+                    <table class="table table-striped left-box-table" ng-show ='manageCameraOrSensor == 2'>
+                        <tr style = "font-family: fantasy;font-size: 23px;">
+                            <td>{{"Brand"  |translate }}</td>
+                            <td>{{"Model"  |translate  }}</td>
+                            <td>{{"Horizontal AOV"  |translate }}</td>
+                            <td>{{"Type"  |translate }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <tr ng-repeat="x in allSensors">
+                        <td>{{ x.spec.manufacturer }}</td>
+                        <td>{{ x.spec.model }}</td>
+                        <td>{{ x.spec.children[0].horizontal_aov }}</td>
+                        <td>{{ "3D LiDAR" }}</td>
+                        <td><button class = "btn btn-info" data-ng-click= "EditAdminCamera($event, manageCameraOrSensor)"  data-toggle="modal" data-target="#editCameraDetails"  id ={{x._id}}><i class="fa fa-pencil"></i>  {{"EditSensor" | translate }}</button></td>
+                        <td><button class = "btn btn-info" data-ng-click= "viewCurrentCameraDetails($event)" data-toggle="modal" data-target="#viewCameraDetails" id ={{x._id}}> <i class="fa fa-eye"></i>   {{"ViewSensor" |translate}} </button></td>
+                        <td><button class = "btn btn-danger" data-ng-click= "removeAdminCamera(x._id)" id ={{x._id}}><i class="fa fa-window-close"></i></button></td>
+                        
+                    </tr>
+                    </table>
+                    <table class="table table-striped left-box-table" ng-show ='manageCameraOrSensor == 5'>
+                        <tr style = "font-family: fantasy;font-size: 23px;">
+                            <td>{{"Brand"  |translate }}</td>
+                            <td>{{"Model"  |translate  }}</td>
+                            <td>{{"Category"  |translate }}</td>
+                            <td>{{"Application Type"  |translate }}</td>
+                            <td>{{"Connection Type"}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <tr ng-repeat="x in adminSmartSensors">
+                        <td>{{ x.spec.sensorBrand }}</td>
+                        <td>{{ x.spec.sensorModel }}</td>
+                        <td>{{ x.spec.sensorCategory }}</td>
+                        <td>{{ x.spec.sensorSubCategory }}</td>
+                        <td>{{ x.spec.sensorConnection }}</td>
+                        <td><button class = "btn btn-info" data-ng-click= "editSmartSensor(x)"  data-toggle="modal" data-target="#editSmartSensor"  id ={{x._id}}><i class="fa fa-pencil"></i>  {{"Edit Smart Sensor" | translate }}</button></td>
+                        <td><button class = "btn btn-info" data-ng-click= "viewCurrentSmartSensorDetails(x)" data-toggle="modal" data-target="#viewSmartSensor" id ={{x._id}}> <i class="fa fa-eye"></i>   {{"View Smart Sensor" |translate}} </button></td>
+                        <td><button class = "btn btn-danger" data-ng-click= "removeAdminSmartSensor(x._id)" id ={{x._id}}><i class="fa fa-window-close"></i></button></td>
+                        
+                    </tr>
+                    </table>
+                    <table class="table table-striped left-box-table" ng-show ='manageCameraOrSensor == 3'>
+                        <tr style = "font-family: fantasy;font-size: 23px;">
+                                <td>{{"Brand"  |translate }}</td>
+                                <td>{{"Model"  |translate  }}</td>
+                                <td>{{"Horizontal AOV"  |translate }}</td>
+                                <td>{{"Type"  |translate }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                        </tr>
+                    <tr ng-repeat="x in allCameraArray">
+                        <td>{{ x.spec.manufacturer }}</td>
+                        <td>{{ x.spec.model }}</td>
+                        <td>{{ x.spec.children[0].horizontal_aov }}</td>
+                        <td>{{ x.spec.children[0].form_factor }}</td>
+                        <td>
+                            <button class = "btn btn-info" data-ng-click= "viewCurrentCameraDetails($event)" data-toggle="modal" data-target="#viewCameraDetails" id ={{x._id}}><i class="fa fa-eye"></i> {{"View Camera" |translate}}</button></td>
+                        <td><button class = "btn btn-success" data-ng-click= "updatecameraToCommon($event)" id ={{x._id}}>{{"Add To Admin" |translate}}</button></td>
+                        
+                    </tr>
+                    </table>
+                    <table class="table table-striped left-box-table" ng-show ='manageCameraOrSensor == 4'>
+                        <tr style = "font-family: fantasy;font-size: 23px;">
+                                <td>{{"Brand"  |translate }}</td>
+                                <td>{{"Model"  |translate  }}</td>
+                                <td>{{"Horizontal AOV"  |translate }}</td>
+                                <td>{{"Type"  |translate }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                        </tr>
+                    <tr ng-repeat="x in allSensorArray">
+                        <td>{{ x.spec.manufacturer }}</td>
+                        <td>{{ x.spec.model }}</td>
+                        <td>{{ x.spec.children[0].horizontal_aov }}</td>
+                        <td>{{ "3D LiDAR" }}</td>
+                        <td>
+                            <button class = "btn btn-info" data-ng-click= "viewCurrentCameraDetails($event)" data-toggle="modal" data-target="#viewCameraDetails" id ={{x._id}}><i class="fa fa-eye"></i> {{"ViewSensor" |translate}}</button></td>
+                        <td><button class = "btn btn-success" data-ng-click= "updatecameraToCommon($event)" id ={{x._id}}>{{"Add To Admin" |translate}}</button></td>
+                        
+                    </tr>
+                    </table>
+                    <table class="table table-striped left-box-table" ng-show ='manageCameraOrSensor == 6'>
+                        <tr style = "font-family: fantasy;font-size: 23px;">
+                            <td>{{"Brand"  |translate }}</td>
+                            <td>{{"Model"  |translate  }}</td>
+                            <td>{{"Category"  |translate }}</td>
+                            <td>{{"Application Type"  |translate }}</td>
+                            <td>{{"Connection Type"}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <tr ng-repeat="x in userSmartSensors">
+                        <td>{{ x.spec.sensorBrand }}</td>
+                        <td>{{ x.spec.sensorModel }}</td>
+                        <td>{{ x.spec.sensorCategory }}</td>
+                        <td>{{ x.spec.sensorSubCategory }}</td>
+                        <td>{{ x.spec.sensorConnection }}</td>
+                        
+                        <td><button class = "btn btn-info" data-ng-click= "viewCurrentSmartSensorDetails(x)" data-toggle="modal" data-target="#viewSmartSensor" id ={{x._id}}> <i class="fa fa-eye"></i>   {{"View Smart Sensor" |translate}} </button></td>
+                        <td><button class = "btn btn-success" data-ng-click= "updateSmartSensor(x._id)" id ={{x._id}}>{{"Add To Admin" |translate}}</button></td>
+                        
+                    </tr>
+                    </table>
+                    </div>
+                    <!--Cameralist -->
+                    <!-- Matterport -->
+                    <div ng-show = "matterportDetail">
+                        <div class="btn-group" style ="margin-bottom: 6px;">
+    
+                            <button class="btn btn-default" id="matterport-url-button-id" style="display: block;" ng-click ="getMatterportDetails();" >{{"Matterport URLs" |translate}} </button>
+    
+                            <button class="btn btn-default" id="generate-matterport-unique-id" style="display: block;" ng-click ="generateUniqueId();" >{{"GenerateUniqueID" |translate}} </button>
+
+                        </div>
+                    </div>
+                    <div ng-show="matterport" style="background-color: white;">
+                        <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xm-12" style=" margin-top: 3%;" ng-show="matterportUrlDetails">
+                        
+                            <h3 style="font-size: 20px;text-align: center;">{{"Matterport API Tracker"|translate}}</h3>
+                             <h4 style="font-size: 14px;text-align: left;">{{"Total Active Projects:" |translate }} {{matterportDetails.length}} </h4>
+                             <h4 style="font-size: 14px;text-align: center;">{{"Total Retrieved Project via API:"|translate }} {{matterportDetails.length}}</h4>
+                             <h4 style="font-size: 14px;text-align: left;">{{"Used Public API Token: 0 "|translate }}</h4>
+                            <div>
+                                <table class="table table-striped left-box-table"  style="margin-top: 3%;font-size: 13px;">
+                                    <tr>
+                                      <th style="text-align: center;">{{ "Serial No"  |translate }}</th>
+                                      <th style="text-align: left;">{{ "Published Project URLs"  |translate }}</th>
+                                      <th style="text-align: center;">{{ "API Retrieval Date/Time"  |translate }}</th>
+                                      <th style="text-align: center;">{{ "Project Creation Date/Time" | translate }}</th>                            
+                                      <th style="text-align: center;">{{ "Assigned Token"  |translate }}</th>
+                                      <th style="text-align: center;">{{ "Project Acceptance Date/Time"  |translate }}</th>
+                                      <th style="text-align: center;">{{ "Recipient End-user ID"  |translate }}</th>
+                                      <th style="text-align: center;">{{ "Access"  |translate }}</th>
+                                    </tr>
+                                    <tr ng-repeat="response in matterportDetails track by $index">
+                                        <td style="text-align: center;">{{ $index + 1}}</td>
+                                        <td style="text-align: left;">{{ matterportUrl + response.modelId }}</td>
+                                        <td style="text-align: center;">{{ response.created }}</td>
+                                        <td style="text-align: center;">{{ response.projectCreatedDate }}</td>
+                                        <td style="text-align: center;">{{ response.matId }}</td>
+                                        <td style="text-align: center;">{{ response.projectAcceptanceDate }}</td>
+                                        <td style="text-align: center;">{{ response.endUserId }}</td>
+                                        <td style="text-align: center;"><button class="btn btn-success" ng-click="reAcceptUrl(response.modelId);">Re-Accept</button></td>
+                                        
+
+                                    </tr>
+                                   
+                                </table>
+                            </div>
+                         
+
+                      </div>
+                     
+                    </div>
+                    <div class="container" id="generate-id-matterport" ng-show="generateTokenMatterportDiv">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h3>{{"GenerateUniqueID" | translate}}</h3>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label class="form-control" style="width: 250px;" id="matterportID" >{{matterportId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" id="generateIdButton" ng-click = "generateRandomMatterportId();">{{"Generate" | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xm-12" style=" margin-top: 3%;" ng-show="matterportIdTable">
+                        
+                        <h3 style="font-size: 20px;text-align: center;">{{"Matterport Unique ID List"|translate}}</h3>
+                        <div>
+                            <table class="table table-striped left-box-table" style="margin-top: 3%;font-size: 13px;">
+                                <tr>
+                                  <th style="text-align: center;">{{ "Serial No"  |translate }}</th>
+                                  <th style="text-align: center;">{{ "Matterport Ids"  |translate }}</th>
+                                  <th style="text-align: center;">{{ "Date"  |translate }}</th>
+                                </tr>
+                                <tr ng-repeat="response in uniqueIdListdata track by $index">
+                       
+                                    <td style="text-align: center;">{{ $index + 1}}</td>
+                                    <td style="text-align: center;">{{ response.matterportId }}</td>
+                                    <td style="text-align: center;">{{ response.created }}</td>
+                                    
+
+                                </tr>
+                               
+                            </table>
+                        </div>
+                     
+
+                  </div>
+                    <!--DashBoad-->
+                    <div ng-show = "dashboad">
+                    <div class = "row">
+                    <div class="col-md-12 col-sm-12 col-xm-12" style=" margin-top: 7%;">
+                        <div class="w3-card-4" style="background-color: #ffffff ; height : 500 px;min-height: 417px;">
+                            <div class="w3-container">
+                            
+                            <div id = "totalServerStorage" style="width: 700px; height:350px;margin-left: 12%">
+                                
+                            </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class = "row">
+                    <div class="col-md-6 col-sm-12 col-xm-12"  style=" margin-top: 7%;">
+                        <div class="w3-card-4" style="background-color: #ffffff ;     min-height: 179px;">
+                            <div class="w3-container">
+                            <h3 class="fa fa-floppy-o" style="font-size: 29px; text-align: center;padding-left: 27%;">   {{"Total Capacity" | translate }}</h3>
+                            <hr>
+                            <h4 style="text-align: center;">{{SeverTotalSize}} {{"GB" | translate}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xm-12"  style=" margin-top: 7%;">
+                        <div class="w3-card-4" style="background-color:#ffffff;     min-height: 179px;">
+                            <div class="w3-container">
+                            <h3 class="fa fa-file-o" style="font-size: 29px; text-align: center;padding-left: 27%;">  {{"Total Project" | translate}} </h3>
+                            <hr>
+                            <h4 style="text-align: center;">{{totalNumberOfProject}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xm-12"  style=" margin-top: 7%;">
+                        <div class="w3-card-4" style="background-color: #ffffff ;     min-height: 179px;">
+                            <div class="w3-container">
+                            <h3 class="fa fa-camera" style="font-size: 29px; text-align: center;padding-left: 27%;">   {{"Total Cameras" | translate }} </h3>
+                            <hr>
+                            <h4 style="text-align: center;">{{totalNumberOfCam}} {{"Types" | translate}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xm-12" style=" margin-top: 7%;">
+                        <div class="w3-card-4" style="background-color: #ffffff ;     min-height: 179px;">
+                            <div class="w3-container">
+                            <h3 class="fa fa-user" style="font-size: 29px; text-align: center;padding-left: 27%;">   {{"Total Users" | translate}} </h3>
+                            <hr>
+                            <h4 style="text-align: center;"> {{totalNumberOfUsers}} {{"People" | translate}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+                
+            </div>
+            <!-- Modal view Camera -->
+    <div class="modal fade" id="viewCameraDetails" role="dialog">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{manageCameraOrSensor == 3 ? "Camera Details" : "Sensor Details"}}</h4>
+            </div>
+            <div class="modal-body">
+                <img src={{currentCameraDataDetails.spec.children[0].image_url}} class="img-rounded" alt="Cinque Terre" width="304" height="236" style="margin-left: 28%;">
+            <div style = "padding: 11px;">
+                    <table class="table table-striped left-box-table">
+                            <tr>
+                                <td>{{"Brand Name" | translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.manufacturer}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Model Name" | translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.model}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Horizontal AOV" | translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].horizontal_aov}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Min Horizontal AOV" | translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].min_horizontal_aov}}</td>
+                            </tr>
+                            <tr>
+                        
+                                <td>{{"Resolution Width" | translate }}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].resolutionWidth}}</td>
+                            </tr>
+                            <tr>
+                        
+                                <td>{{"Resolution Height" | translate }}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].resolutionHeight}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Lens Type"| translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].cam_lens}}</td>
+                            </tr>
+                            <tr ng-show="manageCameraOrSensor == 1">
+                                <td>{{"Type" | translate }}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].form_factor}}</td>
+                            </tr>
+                            <tr ng-show="manageCameraOrSensor == 2">
+                                <td>{{"Sensor Category" | translate }}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].sensorCategory}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Default FOV"| translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].def_fov}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Optical Zoom"| translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].zoom_optical}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Digital Zoom"| translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].zoom_digital}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Max V-AOV"| translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].max_vertical_aov}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{"Min V-AOV"| translate}}</td>
+                                <td>{{currentCameraDataDetails.spec.children[0].min_vertical_aov}}</td>
+                            </tr>
+                        </table>
+            </div>
+            
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close" |translate }}</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Modal view Camera -->
+                <!-- Modal view Smart Sensor -->
+                <div class="modal fade" id="viewSmartSensor" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{"Smart Sensor Details"}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <img src="assets/img/{{selectedSmartSensor.spec.sensorImageUrl}}"  class="img-rounded" alt="Cinque Terre" width="304" height="236" style="margin-left: 28%;">
+                        <div style = "padding: 11px;">
+                                <table class="table table-striped left-box-table">
+                                        <tr>
+                                            <td>{{"Brand Name" | translate}}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorBrand}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Model Name" | translate}}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorModel}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Radius" | translate}}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorCoverage}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Height" | translate}}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorHeight}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Angle" | translate}}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorAngle}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{"Category" | translate}}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorCategory}}</td>
+                                        </tr>
+                                        <tr>
+                                    
+                                            <td>{{"Application Type" | translate }}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorSubCategory}}</td>
+                                        </tr>
+                                        <tr>
+                                    
+                                            <td>{{"Connection Type" | translate }}</td>
+                                            <td>{{selectedSmartSensor.spec.sensorConnection}}</td>
+                                        </tr>
+                                        <tr>
+                                    
+                                            <td>{{"Connection Support" | translate }}</td>
+                                            <td>{{selectedSmartSensor.spec.checkedTypes.toString()}}</td>
+                                        </tr>
+                                    </table>
+                        </div>
+                        
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close" |translate }}</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- Modal view Smart Sensor -->
+                <div class="modal fade" id="editSmartSensor" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button id="smartSensorClose" type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">{{"Smart Sensor Details"}}</h4>
+                            </div>
+                            <div class="modal-body" style="margin-top: 0%;">
+                                <h3>{{"EDIT SMART SENSOR" | translate}}</h3>
+                                <hr>
+                                <div>
+                                    <div class="container-fluid" id="smart-sensor-spec" ng-show="manageCameraOrSensor == 5">
+                                        <h3 style="text-align: center; margin-bottom: 3%;"> {{"PLEASE EDIT THE DETAILS OF SMART SENSOR" | translate }}</h3>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Brand Name" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-brand-name" ng-model="smartSensorBrandName" required>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Model Name" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-model-name" ng-model="smartSensorModelName" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Radius" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-radius" type="text" ng-model="smartSensorCoverage" placeholder="1-100">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Height" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-height" type="text" ng-model="smartSensorHeight" placeholder="1-50">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Category" | translate}}</label>
+                                                            <select id="smart-sensor-category" ng-model="smartSensorCategory" class="form-control" onchange="angular.element(this).scope().getApplicationType(event)">
+                                                                <option ng-repeat="option in smartSensorCategoryArray" value="{{option}}">{{option}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="required">{{"Application Type" | translate}}</label>
+                                                            <select id="smart-sensor-application-type" class="form-control" ng-model="smartSensorApplicationType">
+                                                                <option data-ng-repeat="options in smartSensorApplicationTypeArray[smartSensorCategory]" value="{{options}}">{{options}}</option>
+                
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Connection Type" | translate}}</label>
+                                                            <select id="smart-sensor-connection-type" ng-model="smartSensorConnectionType" class="form-control">
+                                                                <option value="Wired">Wired</option>
+                                                                <option value="Wireless">Wireless</option>
+                                                                <option value="Battery">Battery</option>
+                                                                <option value="PoE">PoE</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label>{{"Angle" | translate}}</label>
+                                                            <input class="form-control" id="smart-sensor-angle" type="text" ng-model="smartSensorAngle" placeholder="0-360">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div>
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"Wifi" | translate}}</label>
+                                                            <input type="checkbox"  id="smart-sensor-wifi" ng-model="smartSensorWifi">
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"Bluetooth" | translate}}</label>
+                                                            <input type="checkbox" id="smart-sensor-bluetooth" ng-model="smartSensorBluetooth">
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"P2P" | translate}}</label>
+                                                            <input type="checkbox"  id="smart-sensor-P2P" ng-model="smartSensorP2P">
+                                                            
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label style="margin-right: 10px;font-size: 14px;">{{"ZigBee" | translate}}</label>
+                                                            <input type="checkbox"  id="smart-sensor-zigbee" ng-model="smartSensorZigBee">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                        <div class="card" id="smart-sensor-add-image"><img class="card-img-top img-thumbnail" src="assets/img/{{selectedSensorImage}}" id="edit-smart-sensor-thumbnail-image">
+                                            <div class="card-body  cardbodyAdd"><label for="edit-smart-sensor-image" class="btn btn-primary" id="smart-sensor-edit-thumbnail-image">{{"Change
+                                                Image" | translate}}</label><input id="edit-smart-sensor-image" type="file" style="visibility: hidden;" onchange="angular.element(this).scope().changeSmartSensorImage(event, 'edit')"></div>
+                                        </div>
+                                        <button class="btn btn-success pull-right submitbutto" id="edit-new-smart-sensor-admin" style="display: block;" ng-click="updateNewSmartSensorSpec(selectedSmartSensor._id);">{{"submit" | translate}}</button>
+                                    </div>
+                
+                                </div>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+    <!-- Modal for edit Camera -->
+    <div class="modal fade" id="editCameraDetails" role="dialog">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{ manageCameraOrSensor == 1 ? "Edit Camera Details" : "EditSensorDetails" | translate}}</h4>
+            <!-- "Edit Camera Details" | translate -->
+            </div>
+            <div class="modal-body">
+            <div style = "padding: 11px;">
+                <table class="table table-striped left-box-table" >
+                    <tr>
+                            <td><label class="required">{{"Brand Name" | translate}}</label></td>
+                        <td> <input  ng-model ="EditcurrentCameraDataDetails.spec.manufacturer" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
+                            <td><label class="required">{{"Model Name" | translate}}</label></td>
+                        <td> <input type="text" ng-model = "EditcurrentCameraDataDetails.spec.model" class="form-control"></td>
+                    </tr>
+                    <tr>
+                            <td><label class="required">{{"Horizontal AOV" | translate}}</label></td>
+                        <td> <input id="edit-admincamera-horizontalaov" ng-model ="EditcurrentCameraDataDetails.spec.children[0].horizontal_aov" class="form-control"></td>
+                    </tr>
+                    <tr>
+                            <td>{{"Min Horizontal AOV" | translate}}</td>
+                        <td> <input id="edit-admincamera-minhorizontalaov" ng-model ="EditcurrentCameraDataDetails.spec.children[0].min_horizontal_aov" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required">{{"Resolution Width" |translate }}</label></td>
+                        <td> <input type="text" id="edit-admincamera-resolution-width" ng-model ="EditcurrentCameraDataDetails.spec.children[0].resolutionWidth" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required">{{"Resolution Height" |translate }}</label></td>
+                        <td> <input type="text" id="edit-admincamera-resolution-height" ng-model ="EditcurrentCameraDataDetails.spec.children[0].resolutionHeight" class="form-control"></td>
+                    </tr>
+                    <tr ng-if="manageCameraOrSensor == 1">
+                        <td><label class="required">{{"Type" | translate }}</label></td>
+                        <td> <select id="edit-admincamera-cameratype" ng-model = "EditcurrentCameraDataDetails.spec.children[0].form_factor" class="form-control">
+
+                            <option value="Box">{{"Box" | translate}}</option>
+                            <option value="Box Lite">{{"BoxLite" | translate}}</option>
+                            <option value="Covert">{{"Covert" | translate}}</option>
+                            <option value="Covert Lite">{{"CovertLite" | translate}}</option>
+                            <option value="Dome">{{"Dome" | translate}}</option>
+                            <option value="Dome Lite">{{"DomeLite" | translate}}</option>
+                            <option value="Fixed Dome">{{"FixedDome" | translate}}</option>
+                            <option value="PTZ">{{"PTZ" | translate}}</option>
+                            <option value="PTZ Lite">{{"PTZLite" | translate}}</option>
+                            <option value="Bullet">{{"Bullet" | translate}}</option>
+                            <option value="Bullet Lite">{{"BulletLite" | translate}}</option>
+                            <option value="IP">{{"IP" | translate}}</option>
+                            <option value="Day/Night">{{"Day/Night" | translate}}</option>
+                            <option value="Thermal">{{"Thermal" | translate}}</option>
+                            <option value="Wireless">{{"Wireless" | translate}}</option>
+                            <option value="Fisheye">{{"Fisheye" | translate}}</option>
+                            <option value="Panorama">{{"Panorama" | translate}}</option>
+                            <!-- <option value="LiDAR">{{"LiDAR" | translate}}</option>
+                            <option value="LiDAR Lite">{{"LiDARLite" | translate}}</option> -->
+                            </select></td>
+                    </tr>
+                    <tr ng-if="manageCameraOrSensor == 2">
+                        <td><label class="required">{{"Sensor Category" | translate }}</label></td>
+                        <td> <select id="edit-admin-sensor" ng-model = "EditcurrentCameraDataDetails.spec.sensorCategory" class="form-control">
+
+                            <option value="Hitachi LFOM5">{{"Hitachi LFOM5" | translate}}</option>
+                            <option value="Intel RealSense L515">{{"Intel RealSense L515" | translate}}</option>
+                            <option value="HLS-LFOM1">{{"HLS-LFOM1" | translate}}</option>
+                            <option value="HLS-LFOM3">{{"HLS-LFOM3" | translate}}</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>{{"Lens Type"| translate}}</td>
+                        <td> <input ng-model ='EditcurrentCameraDataDetails.spec.children[0].cam_lens' class="form-control"></td>
+                    </tr>   
+                    <tr>
+                            <td>{{"Default FOV"| translate}}</td>
+                        <td><select id="edit-admincamera-deffov" ng-model ='EditcurrentCameraDataDetails.spec.children[0].def_fov' class="form-control">
+                                <option value="Left">{{"Left" | translate}}</option>
+                                <option value="Right">{{"Right" | translate}}</option>
+                                <option value="Top">{{"Top" | translate}}</option>
+                                <option value="Bottom">{{"Bottom" | translate}}</option>
+                                <option value="Front">{{"Front" | translate}}</option>
+                                <option value="Back">{{"Back" | translate}}</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required">{{"Optical Zoom"| translate}}</label></td>
+                        <td> <input id="edit-admincamera-opticalzoom" ng-model ='EditcurrentCameraDataDetails.spec.children[0].zoom_optical' class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label class="required">{{"Digital Zoom"| translate}}</label></td>
+                        <td> <input id="edit-admincamera-digitalzoom" ng-model ='EditcurrentCameraDataDetails.spec.children[0].zoom_digital' class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label >{{"Max V-AOV"| translate}}</label></td>
+                        <td> <input id="edit-admincamera-maxvaov" ng-model ='EditcurrentCameraDataDetails.spec.children[0].max_vertical_aov' class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label >{{"Min V-AOV"| translate}}</label></td>
+                        <td> <input id="edit-admincamera-minvaov" ng-model ='EditcurrentCameraDataDetails.spec.children[0].min_vertical_aov' class="form-control"></td>
+                    </tr>
+                </table>
+                
+            </div>
+
+            <div class="card" id="cardAddCameraadmin" ng-if="manageCameraOrSensor == 1"><img class="card-img-top img-thumbnail" src="assets/img/Cam_VX_3PV_B_I.png" id="editCardthumpimgAddadmin">
+                <div class="card-body  cardbodyAdd">
+                    <label for="editfilesAdadmin" class="btn btn-primary" id="changeImageButttonAddadmin">{{"Change Image" | translate }}</label>
+                    <input id="editfilesAdadmin" type="file" style="visibility: hidden;" onchange="angular.element(this).scope().ChangeEditImg(this)">
+                </div>
+            </div>
+            <div class="card" id="cardAddCameraadmin" ng-if="manageCameraOrSensor == 2"><img class="card-img-top img-thumbnail" src="assets/img/lidar_black_256.png" id="edit-sensor-image-thumbnail">
+                <div class="card-body  cardbodyAdd">
+                    <label for="edit-sensor-image" class="btn btn-primary" id="changeImageButttonAddadmin">{{"Change Image" | translate }}</label>
+                    <input id="edit-sensor-image" type="file" style="visibility: hidden;" onchange="angular.element(this).scope().editSensorImage(event)">
+                </div>
+            </div>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-success" ng-click ="updateDevice(manageCameraOrSensor)" data-dismiss="modal">{{"update" | translate }}</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">{{"Close" | translate}}</button>
+            </div>
+        </div>
+        </div>
+    </div>
+        <!-- Modal for edit Camera -->
+    <!-- Modal ecah user storage -->
+    <div class="modal fade" id="eachUserStorage" role="dialog">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"> {{"Account Statistics" | translate}} </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class = "col-sm-12 col-xm-12 col-md-6" id="adminEachTotal-user-storage" style = "width: 500px;height: 300px!important;">
+                        <p class="no-data-warning-statistics">Please Wait a moment </p>
+                    </div>
+                    <div class="col-md-5 col-xm-12 col-xm-12" style ="border: 1px solid #e6e4e4 ;height: 284px;">
+                        <h4 style="text-align: center;"><b>{{"User Details" | translate }}</b></h4><hr>
+
+                                    <table class="table table-striped left-box-table" >
+                    <tr>
+                        <td>{{"Name"| translate }}</td>
+                        <td>{{getInfoCurrentUser.firstname}}  {{getInfoCurrentUser.lastname}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{"Email" | translate }}</td>
+                        <td>{{getInfoCurrentUser.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{"Phone" |translate }}</td>
+                        <td>{{getInfoCurrentUser.phone}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{"Number of Project" |translate }}</td>
+                        <td>{{getInfoCurrentUserProject}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{"Number of user added camera" | translate}}</td>
+                        <td> {{getInfoCurrentUserCamera.length}} </td>
+                    </tr>
+                    <tr>
+                  
+                        <td>Enable Api</td>
+                        <td ng-if="getInfoCurrentUser.viewmode != true" style="color:white"><button id="apiControlButton"  ng-style="{
+                            'background-color':       {Enable: 'green', Disable: 'red'}[ viewmode ]
+                         }" ng-click="grantApiAccess(getInfoCurrentUser)">{{viewmode}}</button></td>
+                         <td ng-if="getInfoCurrentUser.viewmode == true">Disabled For View Mode Users</td>
+                    </tr>
+                    <tr>
+                  
+                        <td>Enable Matterport Access</td>
+                        <td style="color:white"><button id="matterportControlButton"  ng-style="{
+                            'background-color':       {Enable: 'green', Disable: 'red'}[ matterport ]
+                         }" ng-click="grantMatterportAccess(getInfoCurrentUser)">{{matterport}}</button></td>
+                    </tr>
+                    
+                </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{"Close" | translate }}</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+        <!-- Modal ecah user storage -->
+                        <!-- LOGOUT CONFIRMATION MODAL -->
+                    <div class="modal fade" id="logout_confirmAdmin" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content model_width">
+                                <div class="modal-header model_color">
+                                    <div class="bootstrap-dialog-header">
+                                        <div class="bootstrap-dialog-close-button" style="display: block;">
+                                            <button class="close" data-dismiss="modal">×</button>
+                                        </div>
+                                        <div class="bootstrap-dialog-title" id="">
+                                            <h3><i class="fa  fa-question-circle" style="font-size:30px"></i> {{"Are you sure?" | translate}}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="bootstrap-dialog-body">
+                                        <div class="bootstrap-dialog-message">
+                                            <div class="form-group">
+                                                <h4>{{"Do you wish to log out from your account?" | translate}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="bootstrap-dialog-footer">
+                                        <div class="bootstrap-dialog-footer-buttons">
+                                            <button class="btn btn-success btn-sm" ng-click="userLoggedOut()" data-dismiss="modal">
+                                                <i class="fa fa-sign-out"></i> {{"Logout Now" | translate}}
+                                            </button>
+                                            <button class="btn btn-danger btn-sm" data-dismiss="modal">
+                                                <i class="fa fa-close"></i> {{"Cancel" | translate}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <!-- LOGOUT CONFIRMATION MODAL END-->
+                    <!-- model for view active logs-->
+                        <div class="modal fade" id="viewActiveLog" role="dialog">
+                    <div class="modal-dialog">
+    
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">View Activity logs</h4>
+                </div>
+                <div class="modal-body" style = "height: 500px; overflow: scroll;">
+                  <!--p id = "viewAtivitylogPara">{{ viewActiveLogResponce }}</p-->
+                  <p id = "viewAtivitylogPara"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+                    <!-- model for view active logs-->
+
+
+
+    </div>
+    </div>
+</div>
+
+ <script>
+
+    var cameraTypeSelect = document.getElementById("cameraTypeadmin");
+    var cameraDefFov = document.getElementById("DefaultFovAdmin");
+    var cameraOptical = document.getElementById("OpticalZoomAdmin");
+    var cameraDigital = document.getElementById("DigitalZoomAdmin");
+    var cameraResolutionWidth = document.getElementById( "resolutionwidthAdmin" );
+    var cameraResolutionHeight = document.getElementById( "resolutionheightAdmin" );
+    var cameraHorizontalAOV = document.getElementById( "horizontalAovAdmin" );
+    var cameraMinHorizontalAOV = document.getElementById('minhorizontalAovAdmin');
+
+    var cameraMaxVerticalAOV = document.getElementById('MaxvAovAdmin');
+    var cameraMinVerticalAOV = document.getElementById('MinAovAdmin');
+
+    cameraTypeSelect.addEventListener('change', function( event ){
+        if( cameraTypeSelect.value == "Panorama" ){
+            cameraDefFov.value ="Right";
+            cameraDefFov.disabled = true;
+            cameraHorizontalAOV.value = 180;
+            cameraHorizontalAOV.disabled = true;
+            cameraMinHorizontalAOV.disabled = true;
+            cameraMaxVerticalAOV.disabled = true;
+            cameraMinVerticalAOV.disabled = true;
+            cameraResolutionWidth.disabled = true;
+            cameraResolutionHeight.disabled = true;
+            cameraOptical.value = "2x";
+            cameraOptical.disabled = true;
+            cameraDigital.value = "4x"
+            cameraDigital.disabled = true;
+        }
+        else if( cameraTypeSelect.value == "Fisheye" ){
+            cameraDefFov.disabled = false;
+            cameraResolutionWidth.disabled = false;
+            cameraResolutionHeight.disabled = false;            
+            cameraHorizontalAOV.value = 179;
+            cameraHorizontalAOV.disabled = true;
+            cameraMinHorizontalAOV.disabled = true;
+            cameraMaxVerticalAOV.disabled = true;
+            cameraMinVerticalAOV.disabled = true;
+            cameraOptical.disabled = false;
+            cameraDigital.disabled = false;
+
+        }
+        else if( cameraTypeSelect.value == "Dome" ){
+            cameraDefFov.value ="Bottom";
+            cameraDefFov.disabled = true; 
+            cameraResolutionWidth.disabled = false;
+            cameraResolutionHeight.disabled = false;
+            cameraHorizontalAOV.disabled = false;
+            cameraMinHorizontalAOV.disabled = false;
+            cameraMaxVerticalAOV.disabled = false;
+            cameraMinVerticalAOV.disabled = false;
+            cameraOptical.disabled = false;
+            cameraDigital.disabled = false;           
+        }
+        else if( cameraTypeSelect.value == "PTZ" ){
+            cameraDefFov.value ="Right";
+            cameraDefFov.disabled = true; 
+            cameraResolutionWidth.disabled = false;
+            cameraResolutionHeight.disabled = false;
+            cameraHorizontalAOV.disabled = false;
+            cameraMinHorizontalAOV.disabled = false;
+            cameraMaxVerticalAOV.disabled = false;
+            cameraMinVerticalAOV.disabled = false;
+            cameraOptical.disabled = false;
+            cameraDigital.disabled = false;           
+        }
+        else{
+            cameraDefFov.disabled = false;
+            cameraResolutionWidth.disabled = false;
+            cameraResolutionHeight.disabled = false;
+            cameraHorizontalAOV.disabled = false;
+            cameraMinHorizontalAOV.disabled = false;
+            cameraMaxVerticalAOV.disabled = false;
+            cameraMinVerticalAOV.disabled = false;
+            cameraOptical.disabled = false;
+            cameraDigital.disabled = false;
+        }
+    });
+
+    var cameraTypeSelectEdit = document.getElementById("edit-admincamera-cameratype");
+    var cameraDefFovEdit = document.getElementById("edit-admincamera-deffov");
+    var cameraOpticalEdit = document.getElementById("edit-admincamera-opticalzoom");
+    var cameraDigitalEdit = document.getElementById("edit-admincamera-digitalzoom");
+    var cameraResolutionWidthEdit = document.getElementById( "edit-admincamera-resolution-width" );
+    var cameraResolutionHeightEdit = document.getElementById( "edit-admincamera-resolution-height" );
+    var cameraHorizontalAOVEdit = document.getElementById( "edit-admincamera-horizontalaov" );
+    var cameraMinHorizontalAOVEdit = document.getElementById( "edit-admincamera-minhorizontalaov" );
+
+    var cameraMaxVerticalAOVEdit = document.getElementById('edit-admincamera-maxvaov');
+    var cameraMinVerticalAOVEdit = document.getElementById('edit-admincamera-minvaov');
+
+    cameraTypeSelectEdit.addEventListener('change', function( event ){
+        if( cameraTypeSelectEdit.value == "Panorama" ){
+            cameraDefFovEdit.value ="Right";
+            cameraDefFovEdit.disabled = true;
+            cameraHorizontalAOVEdit.value = 180;
+            cameraHorizontalAOVEdit.disabled = true;
+            cameraMinHorizontalAOVEdit.value= null;
+            cameraMinHorizontalAOVEdit.disabled = true;
+            cameraMaxVerticalAOVEdit.disabled = true;
+            cameraMinVerticalAOVEdit.disabled = true;
+            cameraResolutionWidthEdit.disabled = true;
+            cameraResolutionHeightEdit.disabled = true;
+            cameraOpticalEdit.value = "2x";
+            cameraOpticalEdit.disabled = true;
+            cameraDigitalEdit.value = "4x"
+            cameraDigitalEdit.disabled = true;
+        }
+        else if( cameraTypeSelectEdit.value == "Fisheye" ){
+            cameraDefFovEdit.disabled = false;
+            cameraResolutionWidthEdit.disabled = false;
+            cameraResolutionHeightEdit.disabled = false;
+            cameraHorizontalAOVEdit.value = 179;
+            cameraHorizontalAOVEdit.disabled = true;
+            cameraMinHorizontalAOVEdit.value = 10;
+            cameraMinHorizontalAOVEdit.disabled = true;
+            cameraMaxVerticalAOVEdit.disabled = true;
+            cameraMinVerticalAOVEdit.disabled = true;
+            cameraOpticalEdit.disabled = false;
+            cameraDigitalEdit.disabled = false;
+        }
+        else if( cameraTypeSelectEdit.value == "Dome" ){
+            cameraDefFovEdit.value ="Bottom";
+            cameraDefFovEdit.disabled = true;  
+            cameraResolutionWidthEdit.disabled = false;
+            cameraResolutionHeightEdit.disabled = false;
+            cameraHorizontalAOVEdit.disabled = false;
+            cameraMinHorizontalAOVEdit.disabled = false;
+            cameraMaxVerticalAOVEdit.disabled = false;
+            cameraMinVerticalAOVEdit.disabled = false;
+            cameraOpticalEdit.disabled = false;
+            cameraDigitalEdit.disabled = false;          
+        }
+        else if( cameraTypeSelectEdit.value == "PTZ" ){
+            cameraDefFovEdit.value ="Right";
+            cameraDefFovEdit.disabled = true;  
+            cameraResolutionWidthEdit.disabled = false;
+            cameraResolutionHeightEdit.disabled = false;
+            cameraHorizontalAOVEdit.disabled = false;
+            cameraMinHorizontalAOVEdit.disabled = false;
+            cameraMaxVerticalAOVEdit.disabled = false;
+            cameraMinVerticalAOVEdit.disabled = false;
+            cameraOpticalEdit.disabled = false;
+            cameraDigitalEdit.disabled = false;          
+        }
+        else{
+            cameraDefFovEdit.disabled = false;
+            cameraResolutionWidthEdit.disabled = false;
+            cameraResolutionHeightEdit.disabled = false;
+            cameraHorizontalAOVEdit.disabled = false;
+            cameraMinHorizontalAOVEdit.disabled = false;
+            cameraMaxVerticalAOVEdit.disabled = false;
+            cameraMinVerticalAOVEdit.disabled = false;
+            cameraOpticalEdit.disabled = false;
+            cameraDigitalEdit.disabled = false;
+        }
+    });
+       $( document ).ready(function() {
+        $("#phone").intlTelInput({
+               allowDropdown: true,
+              // autoHideDialCode: false,
+              // autoPlaceholder: "off",
+              // dropdownContainer: "body",
+              // excludeCountries: ["us"],
+               formatOnDisplay: true,
+              // geoIpLookup: function(callback) {
+              //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+              //     var countryCode = (resp && resp.country) ? resp.country : "";
+              //     callback(countryCode);
+              //   });
+              // },
+             initialCountry: "JP",
+              // nationalMode: false,
+              // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+              // placeholderNumberType: "MOBILE",
+              // preferredCountries: ['cn', 'jp'],
+              // separateDialCode: true,
+              utilsScript: "assets/js/utils.js"
+            });
+        });
+       </script>

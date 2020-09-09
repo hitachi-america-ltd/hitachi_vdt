@@ -1,0 +1,17 @@
+{
+   "uat":{
+      "api":"http://tvm2.pivotsys.com/hitachiUAT/api/",
+      "webroot":"http://tvm2.pivotsys.com/UAThitachi/",
+      "path":"http://tvm2.pivotsys.com/hitachiUAT/"
+   },
+   
+   "prod":{
+	 "api":"http://tvm2.pivotsys.com/hitachiapi/api/"
+   },
+   
+   "dev":{
+        "api":"http://localhost:8000/api/",
+        "webroot":"http://tvm2.pivotsys.com/UAThitachi/",
+        "path":"http://localhost:8080/test_api/"
+    }
+}

@@ -1,0 +1,403 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	margin: 0;
+	overflow: hidden;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #ccc;
+}
+
+button {
+	position: relative;
+}
+
+textarea {
+	tab-size: 4;
+	white-space: pre;
+	word-wrap: normal;
+}
+
+	textarea.success {
+		border-color: #8b8 !important;
+	}
+
+	textarea.fail {
+		border-color: #f00 !important;
+		background-color: rgba(255,0,0,0.05);
+	}
+
+textarea, input { outline: none; } /* osx */
+
+.Panel {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+
+	/* No support for these yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+/* CodeMirror */
+
+.CodeMirror {
+
+	position: absolute !important;
+	top: 37px;
+	width: 100% !important;
+	height: calc(100% - 37px) !important;
+
+}
+
+	.CodeMirror .errorLine {
+
+		background: rgba(255,0,0,0.25);
+
+	}
+
+	.CodeMirror .esprima-error {
+
+		color: #f00;
+		text-align: right;
+		padding: 0 20px;
+
+	}
+
+/* outliner */
+
+#outliner .option {
+
+	border: 1px solid transparent;
+}
+
+#outliner .option.drag {
+
+	border: 1px dashed #999;
+
+}
+
+#outliner .option.dragTop {
+
+	border-top: 1px dashed #999;
+
+}
+
+#outliner .option.dragBottom {
+
+	border-bottom: 1px dashed #999;
+
+}
+
+#outliner .type {
+	position:relative;
+	top:-2px;
+	padding: 0 2px;
+	color: #ddd;
+}
+
+#outliner .type:after {
+	content: '■';
+}
+
+#outliner .Scene {
+	color: #ccccff;
+}
+
+#outliner .Object3D {
+	color: #aaaaee;
+}
+
+#outliner .Mesh {
+	color: #8888ee;
+}
+
+#outliner .Line {
+	color: #88ee88;
+}
+
+#outliner .LineSegments {
+	color: #88ee88;
+}
+
+#outliner .Points {
+	color: #ee8888;
+}
+
+/* */
+
+#outliner .PointLight {
+	color: #dddd00;
+}
+#strongcamera{
+	color:black !important;
+	font-weight: bold;
+	
+}
+#strongGroup{
+	color:black !important;
+	font-weight: bold;
+	
+}
+#hemisphereLight{
+
+	display: none !important;
+}
+.typePerspectiveCamera{
+
+	position:relative;
+	top:-2px;
+	padding: 0 2px;
+	
+}
+.typeGroup{
+
+	position:relative;
+	top:-2px;
+	padding: 0 2px;
+	
+}
+.typeMesh{
+
+	position:relative;
+	top:-2px;
+	padding: 0 2px;
+	
+}
+.typeScene{
+
+	position:relative;
+	top:-2px;
+	padding: 0 2px;
+	
+}
+
+
+/* */
+
+#outliner .Geometry {
+	color: #88ff88;
+}
+
+#outliner .BoxGeometry {
+	color: #bbeebb;
+}
+
+#outliner .TorusGeometry {
+	color: #aaeeaa;
+}
+
+/* */
+
+#outliner .Material {
+	color: #ff8888;
+}
+
+#outliner .MeshPhongMaterial {
+	color: #ffaa88;
+}
+
+/* */
+
+#outliner .Script:after {
+	content: '{...}' /* ❮/❯ */
+}
+#cardEditCamera{
+	width:20rem;
+	margin-left:4%;
+	margin-top:2%;
+	border: 2px solid #cccccc;
+	box-shadow: 2px 2px 9px 1px #cccccc;
+	height:auto;
+    width: 200px !important;
+}
+
+#cardEditSensor{
+	width:20rem;
+	margin-left:4%;
+	margin-top:2%;
+	border: 2px solid #cccccc;
+	box-shadow: 2px 2px 9px 1px #cccccc;
+	height:auto;
+    width: 200px !important;
+}
+
+#changeImageButttonEdit{
+
+	margin-top: 3%;
+	margin-left: 19%;
+	margin-bottom: -6%;
+	
+}
+#cardthumpimgEdit{
+	
+	border: 0px solid #ddd !important;
+	min-width: 100%;
+    min-height: 197px;
+	
+}	
+#cardthumpimgEditSensor{
+	
+	border: 0px solid #ddd !important;
+	min-width: 100%;
+    min-height: 197px;
+	
+}	
+.cardbodyEdit{
+	
+	border-top: 2px solid #cccccc;
+	
+}	
+#cardAddCamera{
+	width:20rem;
+	margin-left:4%;
+	margin-top:2%;
+	border: 2px solid #cccccc;
+	box-shadow: 2px 2px 9px 1px #cccccc;
+	height:auto;
+    width: 200px !important;
+}
+
+#cardAddSensor{
+	width:20rem;
+	margin-left:4%;
+	margin-top:2%;
+	border: 2px solid #cccccc;
+	box-shadow: 2px 2px 9px 1px #cccccc;
+	height:auto;
+    width: 200px !important;
+}
+
+#smart-sensor-card{
+	width:20rem;
+	margin-left:4%;
+	margin-top:2%;
+	border: 2px solid #cccccc;
+	box-shadow: 2px 2px 9px 1px #cccccc;
+	height:auto;
+    width: 200px !important;
+}
+
+#cardAddCameraadmin{
+	width:20rem;
+	margin-left:2%;
+	margin-top:2%;
+	border: 2px solid #cccccc;
+	box-shadow: 2px 2px 9px 1px #cccccc;
+	height:auto;
+    width: 200px !important;
+}
+
+#changeImageButttonAdd{
+
+	margin-top: 3%;
+	margin-left: 19%;
+	margin-bottom: -6%;
+	
+}
+#changeImageButttonAddSensor{
+
+	margin-top: 3%;
+	margin-left: 19%;
+	margin-bottom: -6%;
+	
+}
+
+#smart-sensor-image{
+
+	margin-top: 3%;
+	margin-left: 19%;
+	margin-bottom: -6%;
+	
+}
+
+#changeImageButttonAddadmin{
+
+	margin-top: 3%;
+	margin-left: 19%;
+	margin-bottom: -6%;
+	
+}
+#cardthumpimgAdd{
+	
+	border: 0px solid #ddd !important;
+	min-width: 100%;
+    min-height: 197px;
+	
+}	
+#cardthumpimgAddadmin{
+	
+	border: 0px solid #ddd !important;
+	min-width: 100%;
+    min-height: 197px;
+	
+}	
+#editCardthumpimgAddadmin{
+	
+	border: 0px solid #ddd !important;
+	min-width: 100%;
+    min-height: 197px;
+	
+}	
+.cardbodyAdd{
+	
+	border-top: 2px solid #cccccc;
+	
+}
+
+.smart-sensor-heading{
+	text-align: center;
+    margin-bottom: 3%;
+}
+.smart-sensor-inputs{
+
+	width : 70% !important;
+
+}
+
+.connetion-type-select{
+
+	width: 54% !important;
+    margin-left: -16px;
+
+}
+
+.input-unit{
+
+	margin-top: 5px;	
+
+}
+
+.smart-sensor-div{
+
+	padding-left: 5% !important;
+
+}
+
+.sensor-checkboxes{
+
+	display: inline;
+	margin-right: 10px !important;
+
+}
+
+.smart-sensor-rows{
+
+	margin-bottom : 17px !important;
+
+}
+
+#edit-remove-div{
+	
+	margin-top: -2%;
+    float: right;
+
+}
+
+#edit-sensor{
+
+	margin-left: 2px;
+
+}

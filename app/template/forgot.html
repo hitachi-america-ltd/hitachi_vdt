@@ -1,0 +1,51 @@
+<div id="black" ng-controller="forgotctrl" >
+		<nav class="navbar navbar-inverse">
+			 <div>
+					<div class="navbar-header">
+							<a class="navbar-brand " style = "margin-top :2px;" href="#/"> <img src = './assets/img/3DEZ-Red.png' height="50"></a>
+							<a class="navbar-brand " style = "font-size : 24px !important ;margin-top: 16px !important;" href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a>
+					</div>
+					<ul class="nav navbar-nav navbar-right">
+						 <li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="">{{"select language" | translate}}
+								<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									 <li><a href="" ng-click ="changeLanguage('en')">{{"english" | translate }}</a></li>
+									 <li><a href="" ng-click ="changeLanguage('jp')"; >{{"japaneses" | translate }}</a></li>
+								</ul>
+						 </li>
+						 <!--li><a href="#signup"><i class="fa  fa-user "></i> {{"Signup" | translate }}</a></li -->
+
+                    	<!--li><a href="#trail"><i class="fa  fa-user"></i> {{"GetTrailAccount" | translate}}</a></li-->
+
+						 <li><a href="#login"><i class="fa  fa-sign-in"></i> {{"Login" | translate }}</a></li>
+					</ul>
+			 </div>
+		</nav>
+		<div class="cards container col-md-4 col-sm-12 col-xs-12 cards push-md-5 shadow-effects" style="background-color: white; " >
+			 <div class="cards-block">
+					<!--Header-->
+					<div class="forms-header blue-gradient">
+						 <h3><i class="fa fa-lock"></i> {{"Forgot password" | translate}}
+						 </h3>
+					</div>
+					<!--Body-->
+					<form name='forgotForm'>
+						 <div class="md-forms forms-control">
+								<i class="fa fa-envelope prefix"></i>
+								<input class="prem"  name="lemaile" style="font-size: 16px;margin-top: 1%" type="email" id="form2" placeholder="{{'Your E-mail' | translate }}" class="forms-control" ng-model="forgotemail"  required="required">
+						 </div>
+						 <div class="md-forms forms-control">
+								<i class="fa fa-envelope prefix"></i>
+								<input class="prem"  name="cemaile" style="font-size: 16px;margin-top: 1%" type="email" id="form3" placeholder="Confirm E-mail " class="forms-control" ng-model="confirmForgotEmail"  required="required">
+						 </div>
+						 <div class="text-center">
+								<button class="btns btns-indigo" ng-disabled="forgotForm.$invalid" style="font-size:16px" ng-click="forgot_fun()">{{"submit" | translate }}</button>
+								<hr>
+								<fieldset class="forms-group">
+								</fieldset>
+						 </div>
+					</form>
+			 </div>
+		</div>
+ </div>

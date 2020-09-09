@@ -1,0 +1,1873 @@
+<div id="editorElement"  ng-controller="editorControl" >
+
+    <!--MODIFIED FOR SMALL PLAYER DIV START-->
+    <div id="player_wrapper" class="ui-widget-content" style="display: none;">
+        <strong style="text-align:center;">{{"Simulatedviewoftheselectedcamera" | translate }}</strong>
+        <div id="player_preview">
+        </div>
+    </div>
+    <!--MODIFIED FOR SMALL PLAYER DIV END-->
+    <!--MODIFIED FOR SMALL PLAYER DIV START-->
+    <div id="player_wrapper_2d" class="ui-widget-content" style="display: none;">
+        <strong style="text-align:center;">{{"Simulated2Dview" | translate}}</strong>
+        <div class="pull-right" id='closeTwodViewSide'>X</div>
+        <div class="col-md-8" id="player_preview_2d"></div>
+        <div class="row" style="margin: 0%;background-color: #ffffff;">
+                <div class="col-md-1"></div>
+                <div class=" col-md-10 btn-group" id="twodViewBtnSide"> </div>
+                <div class="col-md-1"></div>
+            
+        </div>
+       
+       
+    </div>
+    <!--MODIFIED FOR SMALL PLAYER DIV END-->
+
+    <!-- MODIFIED TO INCLUDE PROJECT SAVE WITHOUT BASEMODAL START-->
+    <div class="modal fade" id="proj3d-nobasemodel" role="dialog">
+        <form id="save-project-details-form" name="save-proj-modal-form" data-toggle="validator" data-disable="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{"SaveProject" | translate}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--form name="save-proj-modal-form" id="save-project-details-form" data-toggle="validator"-->
+                        <div class="form-group">
+                            <label for="proj-save-name">{{"ProjectName" | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-save-name" name="project_save_name" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-save-desc">{{"Description" | translate}}</label>
+                            <input type="textarea" class="form-control" rows="5" id="proj-save-desc" name="project_save_desc" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-save-loc">{{"ProjectLocation" | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-save-loc" name="project_save_location" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-save-company">{{"Company" | translate}}</label>
+                            <input type="text" class="form-control" id="proj-save-company" name="project_save_company" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-save-company-contact">{{"Email" | translate}}:</label>
+                            <input type="email" class="form-control" id="proj-save-company-contact" name="project_save_company_contact" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <!--/form-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="save-nobasemodel-button" class="btn btn-success">{{"Save" | translate}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{"Cancel" | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <!-- MODIFIED TO INCLUDE PROJECT SAVE WITHOUT BASEMODAL END-->
+
+    <!-- MODIFIED TO INCLUDE CREATE USER FOR VIEW MODE START-->
+    <div class="modal fade" id="createUserModal" role="dialog">
+        <form id="create-user-form" name="create-user-form" >
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close close-create-user" >&times;</button>
+                        <h4 class="modal-title">Create User</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="create-user-firstname">Firstname</label>
+                            <input type="text" class="form-control" id="create-user-firstname" name="create-user-firstname" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="create-user-lastname">Lastname</label>
+                            <input type="textarea" class="form-control" rows="5" id="create-user-lastname" name="create-user-lastname" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="create-user-email">Email:</label>
+                            <input type="email" class="form-control" id="create-user-email" name="create-user-email" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="create-user-password">Password</label>
+                            <input type="password" class="form-control" id="create-user-password" name="create-user-password" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="create-user-button" class="btn btn-success">{{"Submit" | translate}}</button>
+                        <button type="button" class="btn btn-danger close-create-user" >{{"Cancel" | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <!-- MODIFIED TO INCLUDE CREATE USER FOR VIEW MODE END-->
+
+    <!-- MODIFIED TO INCLUDE MANAGE URL LIST FOR VIEW MODE START -->
+
+    <div class="modal fade" id="urlList" role="dialog" ng-controller="editorControl">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 140%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{"URLList" | translate}}</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped left-box-table" ng-table="urlListTable">
+                        <tr>
+                            <th style="text-align: center;">Sl No</th>
+                            <th style="text-align: center;">Date</th>
+                            <th style="text-align: center;">Project Name</th>
+                            <th style="text-align: center;">URL</th>
+                            <th>Copy</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tr ng-repeat="response in getUrl track by $index">
+                            <td style="text-align: center;">{{ $index + 1 }}</td>
+                            <td style="text-align: center;">{{ response.created }}</td>
+                            <td style="text-align: center;">{{ response.data.info.name }}</td>
+                            <td style="text-align: center;" id="{{response._id}}">{{ response.viewUrl }}</td>
+                            
+                            <td>
+                                <button  class="btn-info fa fa-copy" title="Copy URL" aria-hidden="true" ng-click = copyToClipboard(response._id)></button>
+                            </td>
+                            <!-- <td></td> -->
+                            <td>
+                                <button style="text-align: center;" class="btn-danger fa fa-times" title="Delete this entry" id="deleteUrl" aria-hidden="true" ng-click=deleteUrl(response.viewId)></button>
+                            </td>
+                           
+                        </tr>
+                    </table>
+                </div>
+                <!-- <div class="modal-footer"-->
+                    <!--button id="urlListBtn" type="button" class="btn btn-success fa fa-refresh" ng-click=getUrlList(); style="display: none;"></button -->
+                    <div class="modal-footer">
+                        <button id="urlListBtn" type="button" title="Refresh List" class="btn btn-success fa fa-refresh" ng-click=getUrlList();></button>
+                        <!--button id="manageModalCancel" type="button" class="btn btn-danger" data-dismiss="modal">{{"Cancel" | translate}}<button-->
+                    </div>
+                    <!--button id="manageModalCancel" type="button" class="btn btn-danger" data-dismiss="modal">{{"Cancel" | translate}}</!--button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODIFIED TO INCLUDE MANAGE URL LIST FOR VIEW MODE END -->
+
+    <!-- MODIFIED TO INCLUDE MANAGE API DATA LIST FOR VIEW MODE START -->
+
+    <div class="modal fade" id="apiList" role="dialog" ng-controller="editorControl">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 140%">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{"ApiDataList" | translate}}</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped left-box-table" ng-table="urlListTable">
+                        <tr>
+                            <th style="text-align: center;">Sl No</th>
+                            <th style="text-align: center;">Project Name</th>
+                            <th style="text-align: center;">Access Key</th>
+                            <th style="text-align: center;">API URL</th>
+                            <th>Copy</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tr ng-repeat="response in getUrl track by $index">
+                           
+                            <td style="text-align: center;">{{$index + 1}}</td>
+                            <td style="text-align: center;">{{ response.data.info.name }}</td>
+                            <td style="text-align: center;">{{ response.data.info.user_id }}</td>
+                            <td style="text-align: center;" id="{{response._id+'view'}}">{{ editorapi + 'viewmode/' + response._id}}</td>
+                            <td>
+                                <button style="text-align: center;" class="btn-info fa fa-copy" title="Copy API URL" aria-hidden="true" ng-click = "copyToClipboard(response._id + 'view')"></button>
+                            </td>
+                            <!-- <td></td> -->
+                            <td>
+                                <button style="text-align: center;" class="btn-danger fa fa-times" title="Delete this entry" id="deleteUrl" aria-hidden="true" ng-click=deleteUrl(response.viewId)></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- <div class="modal-footer"-->
+                    <!--button id="urlListBtn" type="button" class="btn btn-success fa fa-refresh" ng-click=getUrlList(); style="display: none;"></button -->
+                    <div class="modal-footer">
+                        <button id="apiDataListBtn" type="button" title="Refresh List" class="btn btn-success fa fa-refresh" ng-click=getUrlList();></button>
+                        <!--button id="manageModalCancel" type="button" class="btn btn-danger" data-dismiss="modal">{{"Cancel" | translate}}<button-->
+                    </div>
+                    <!--button id="manageModalCancel" type="button" class="btn btn-danger" data-dismiss="modal">{{"Cancel" | translate}}</!--button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODIFIED TO INCLUDE MANAGE API DATA LIST FOR VIEW MODE END -->
+
+    <!-- MODIFIED TO INCLUDE MANAGE USER FOR VIEW MODE START -->
+
+    <div class="modal fade" id="manageUserModal" role="dialog" ng-controller="editorControl">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{"ManageUsers" | translate}}</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped left-box-table" ng-table="manageUserTable">
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>API Key</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="user in getUsers track by $index">
+                        <td>{{$index + 1}}</td>
+                        <td>{{ user.firstname }} {{ user.lastname }} </td>
+                        <td>{{ user.email }}</td>
+                        <td>{{user.owner_id}}</td>
+                        <td>
+                            <button class="btn-danger fa fa-times" id="deleteUser" aria-hidden="true" ng-click=deleteUser($index)></button>
+                        </td>
+                    </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button id="viewmodeUsers" type="button" class="btn btn-success fa fa-refresh" ng-click=getUserData($index);></button>
+                    <button id="manageModalCancel" type="button" class="btn btn-danger" data-dismiss="modal">{{"Cancel" | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODIFIED TO INCLUDE MANAGE USER FOR VIEW MODE END -->
+
+    <!-- MATTERPORT TAGS LIST MODELS MODAL END-->
+    <!--div class="modal fade" id="matterportTags" role="dialog">
+        <div class="modal-dialog account-modal">
+            <div class="modal-content model_width">
+                <div class="modal-header model_color">
+                    <div class="bootstrap-dialog-header">
+                        <div class="bootstrap-dialog-close-button" style="display: block;">
+                            <button type="button" class="close" data-dismiss="modal">�</button>
+                        </div>
+                        <div class="bootstrap-dialog-title" id="">
+                            <h3><i class="fa fa-tags" style="font-size:30px"></i> {{"Matterport Tags" | translate }} </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                <div id='mainbody'>
+                   
+                </div>
+                
+                <div class="modal-footer">
+                    < <div class="modal-footer"> -->
+                        <!--button class="btn btn-danger btn-sm" data-dismiss="modal">
+                            <i class="fa fa-close"></i> {{"Close"  |translate}}
+                        </button-->
+                    <!-- </div> >
+                </div>
+            </div>
+        </div> 
+    </div-->
+
+    <!-- SCREENSHOT LIST MODELS MODAL END-->
+
+    <!-- MODIFIED TO INCLUDE PROJECT CLONE START-->
+    <div class="modal fade" id="proj3d-clone" role="dialog">
+        <form id="clone-project-details-form" name="clone-proj-modal-form" data-toggle="validator" data-disable="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{"Clonecurrentprojectwithadifferentname" | translate }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--form name="save-proj-modal-form" id="save-project-details-form" data-toggle="validator"-->
+                        <div class="form-group">
+                            <label for="proj-clone-name">{{"ProjectName" | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-clone-name" name="project_clone_name" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-clone-desc">{{"Description" | translate}}</label>
+                            <input type="textarea" class="form-control" rows="5" id="proj-clone-desc" name="project_clone_desc" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-clone-loc">{{"ProjectLocation"  | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-clone-loc" name="project_clone_location" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-clone-company">{{"Company" | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-clone-company" name="project_clone_company" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proj-clone-company-contact">{{"Email" | translate}}:</label>
+                            <input type="email" class="form-control" id="proj-clone-company-contact" name="project_clone_company_contact" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <!--/form-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="clone-nobasemodel-button" class="btn btn-success">{{"Clone" | translate}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{"Cancel" | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <!-- MODIFIED TO INCLUDE PROJECT CLONE END-->
+
+    <!-- MODIFIED TO INCLUDE NEW PROJECT MODAL START-->
+    <div class="modal fade" id="new-project-3d" role="dialog">
+        <form id="create-project-details-form" name="create-proj-modal-form" data-toggle="validator" data-disable="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">{{"CreateNewProject" | translate}}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <!--form name="save-proj-modal-form" id="save-project-details-form" data-toggle="validator"-->
+                        <div class="form-group">
+                            <label for="proj-name">{{"ProjectName" | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-name" name="project_name" required="">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-desc">{{"Description" | translate}}:</label>
+                            <textarea class="form-control" rows="5" id="proj-desc" required=""></textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-loc">{{"ProjectLocation" | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-loc" name="project_location" required="">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-company">{{"Company" | translate}}:</label>
+                            <input type="text" class="form-control" id="proj-company" name="project_company" required="">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-company-contact">{{"Email" | translate}}:</label>
+                            <input type="email" class="form-control" id="proj-company-contact" name="project_company_contact" required="">
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj-base-modal">{{"Chooseabasemodelfortheproject" | translate}}</label>
+                            <input type="file" class="form-control" id="proj-base-modal" name="project_base_modal" value="Base Modal" required="">
+                            <div class="help-block with-errors"></div>{{"Optimal Size : Below 50MB" | translate}}
+                        </div>
+                        <!--/form-->
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" id="submit-project" type="submit" accept=".zip">{{"Create" | translate}}</button>
+                        <button class="btn btn-danger" id="cancel-project" data-dismiss="modal">{{"Cancel" | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- MODIFIED TO INCLUDE NEW PROJECT MODAL END-->
+
+    <!-- MODIFIED TO INCLUDE PUBLISH PROJECT MODAL START-->
+    <div class="modal fade" id="publish-project" role="dialog">
+        <form id="publish-project-details-form" class="form-horizontal" name="publish-proj-modal-form" data-disable="true">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title"><span class="fa fa-share-alt" style="font-size: 35px;"></span> {{"Createashareablelinktomyproject" | translate }}</h3>
+                    </div>
+                    <div class="modal-body publish-modal-tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" data-target="#default-setting">{{"Defaultsettings" | translate }}</a></li>
+                            <li><a data-toggle="tab" data-target="#advanced-setting">{{"Advancedsettings"| translate}}</a></li>
+                        </ul>
+                        
+                        <div class="tab-content">
+                            <div id="default-setting" class="tab-pane fade in active">
+                                <!--h3>Default settings</h3-->
+                            </div>
+                            <div id="advanced-setting" class="tab-pane fade">
+                                <!--h3>Advanced settings</h3-->
+                                <div id='publish-modal-body'>
+                                    <div id="publish-options">
+                                        <div class="text-center">
+                                            <h4><span class="fa fa-gears"></span>  {{"Optionalsettingsforthelink" | translate}}</h4>
+                                        </div>
+                                        <div class="form-group">        
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" id="clone-allowed" name="clone_allowed"> {{"Allowotherstoclonethisproject?" | translate}}?</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">        
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" id="expiry-needed" name="expiry_needed"> {{"Expirydateneeded?" | translate}}?</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="expire-after">{{"Expireafter" | translate}} :</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" class="form-control" id="expire-after" placeholder="Specify a number" name="expire_after">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <select class="form-control" id="publish-expiry-criteria">
+                                                    <option>{{"Days" | translate}}</option>
+                                                    <option>{{"Hours" | translate}}</option>
+                                                    <option>{{"Minutes"|  translate}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center" id="publish-modal-shareable-link">
+                            <h4><span class="fa fa-link"></span> {{"ShareableLink" | translate }}</h4>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" id="published-link" name="published_link" placeholder="link not generated yet" readonly>
+                            </div>    
+                            <button class="btn btn-primary" id="publish-copy-clipbrd">{{"Copytoclipboard" | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" id="publish-gen-btn"><span class="fa fa-share-alt-square" style="font-size: 25px;"></span> {{"GenerateLink" | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- MODIFIED TO INCLUDE PUBLISH PROJECT MODAL END-->
+    <!-- MODIFIED TO INCLUDE PUBLISH SVG MODAL START-->
+        <div class="modal fade" id="publish-svg" role="dialog">
+            <form id="publish-svg-details-form" class="form-horizontal" name="publish-svg-modal-form" data-disable="true">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title"><span class="fa fa-share-alt" style="font-size: 35px;"></span>
+                               </h3>
+                        </div>
+                        <div class="modal-body publish-modal-tabs">
+                            
+                                <div class="text-center" id="publish-modal-shareable-link">
+                                <h4><span class="fa fa-link">{{"ShareableLink" | translate }}</span></h4>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control" id="published-svg-link" name="published_link"
+                                         readonly>
+                                </div>
+                                <button class="btn btn-primary"
+                                    id="publish-svg-copy-clipbrd">{{"Copytoclipboard" | translate}}</button>
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+            </form>
+        </div>
+    <!-- MODIFIED TO INCLUDE PUBLISH SVG MODAL END-->
+   
+    <script>
+        window.URL = window.URL || window.webkitURL;
+        window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+
+        Number.prototype.format = function() {
+            return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        };
+
+        /*MODIFIED FOR SMALL PLAYER DIV START*/
+        /*var outerDiv = document.createElement('div');
+        outerDiv.id = 'player_wrapper';
+        outerDiv.style = 'display:none';
+        outerDiv.className += 'ui-widget-content';
+        outerDiv.innerHTML = '<strong style="text-align:center;">Simulated view of the selected camera</strong>';
+
+        var playerDiv = document.createElement('div');
+        playerDiv.id = 'player_preview';
+        outerDiv.appendChild(playerDiv);
+        document.getElementById('editorElement').appendChild(outerDiv);*/
+        /*MODIFIED FOR SMALL PLAYER DIV END*/
+        var languageData = new language();
+        //console.log(languageData.lngdata);
+        var multipleLanguage = languageData.lngdata
+        var config = new mainconfig()
+        var editor = new Editor(config , multipleLanguage);
+
+        var logger = new Logger();
+		logger.setReqPath( editor.api );
+        var oExplorer = new ObjectExplorer( editor );
+        //
+        //Floorplan view flag value 
+        var floorplanViews = {"Top" : 1 , "Left" : 2, "Right" : 3, "Bottom" : 4, "Front" : 5 , "Back" : 6 };
+
+        /**********MODIFIED TO ADD TAG DETAILS BUTTON START**********/
+        var inp = new UI.InputWithLabel('cam-location-input', 'Camera location');
+        editor.camLocModal = new UI.bootstrapModal('', 'cam-location-modal', 'Specify where the camera is placed', inp.dom, 'Save', 'Cancel');
+        document.getElementById('editorElement').appendChild(editor.camLocModal.dom);
+        /**********MODIFIED TO ADD TAG DETAILS BUTTON END**********/
+        var menubar = new Menubar(editor);
+        //document.body.appendChild( menubar.dom );
+        document.getElementById('editorElement').appendChild(menubar.dom);
+
+        var viewport = new Viewport(editor);
+        editor.viewportHandle = viewport;
+        //document.body.appendChild( viewport.dom );
+        document.getElementById('editorElement').appendChild(viewport.dom);
+
+        //Sidebar for View Mode Start
+
+        /*if( localStorage.getItem("viewmode") != "undefined" && localStorage.getItem("viewmode") == "true") {
+
+            var viewModeSidebar = new Sidebar(editor);
+            var container = new UI.Panel();
+            container.setId( 'viewSidebar' );
+            document.getElementById('editorElement').appendChild(container.dom);
+                    
+            var scene = new UI.Span().add(
+                new Sidebar.Scene( editor ),
+                new Sidebar.Properties( editor ),
+                new Sidebar.Animation( editor ), 
+                new Sidebar.Script( editor )
+            );
+                    
+            scene.setDisplay( '' );
+            container.add( scene );
+            document.getElementById('editorElement').appendChild(viewModeSidebar.dom);
+            
+            
+        }else{
+            var sidebar = new Sidebar(editor);
+            document.body.appendChild( sidebar.dom );
+            document.getElementById('editorElement').appendChild(sidebar.dom);
+        }*/
+
+        //Sidebar for view mode end//
+        var sidebar = new Sidebar(editor);
+        document.body.appendChild( sidebar.dom );
+        document.getElementById('editorElement').appendChild(sidebar.dom)
+        //var zoom = new Zoom(editor);
+        //document.body.appendChild( sidebar.dom );
+        //document.getElementById('editorElement').appendChild(zoom.dom);
+
+        var script = new Script(editor);
+        //document.body.appendChild( script.dom );
+        document.getElementById('editorElement').appendChild(script.dom);
+
+        var player = new Player(editor);
+        //document.body.appendChild( player.dom );
+        document.getElementById('editorElement').appendChild(player.dom);
+
+        /*var toolbar = new Toolbar( editor );
+        document.body.appendChild( toolbar.dom );*/
+
+        /*var menubar = new Menubar( editor );
+        document.body.appendChild( menubar.dom );*/
+
+        /*var sidebar = new Sidebar( editor );
+        document.body.appendChild( sidebar.dom );*/
+
+        var toolbar = new Toolbar(editor);
+        //document.body.appendChild( toolbar.dom );
+        document.getElementById('editorElement').appendChild(toolbar.dom);
+
+        //New viewport controls
+        var vControls = new ViewportControls( editor );
+        var zoom = new Zoom.operation( editor );
+
+        //Modified for CubeAxisHelper start
+        var fLoader = new THREE.FontLoader(), font, cubeAxisHelper;
+        fLoader.load(
+            // resource URL
+            'assets/js/3d/fonts/helvetiker_regular.typeface.json',
+
+            // onLoad callback
+            function ( loadedFont ) {
+                font = loadedFont;
+                cubeAxisHelper = new CubeAxisHelper( editor.camera, loadedFont, document.getElementById( 'viewport' ) );
+                editor.cubeAxisHelper = cubeAxisHelper;
+            },
+
+            // onProgress callback
+            function ( xhr ) {
+                //console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+            },
+
+            // onError callback
+            function ( err ) {
+                console.log( err );
+            }
+        );
+        //Modified for CubeAxisHelper end
+
+        /*MODIFIED TO INCLUDE MEASUREMENT TOOL START*/
+        var measurement = new Measurement(editor);
+        var areaMeasurement = new AreaMeasurements( editor );
+        editor.lengthMeasurement = measurement;
+        editor.areaMeasurement = areaMeasurement;
+        var commonControls = new CommonControls(editor);
+        editor.commonMeasurements = commonControls;
+        var customizedRotation = new CustomizedRotation(editor);
+        editor.customizedRotation = customizedRotation;
+        var twodmeasurement = new twoDMeasurement(editor);
+        editor.twodmeasurement = twodmeasurement;
+
+        //Modified for Network Cabling Start
+        var networking = new Networking( editor );
+        editor.networking = networking;
+        //Modified for Network Cabling End
+
+        //Modified for Auto-Routing Start
+        var autoRouting = new AutoRouting( editor );
+        editor.autoRouting = autoRouting;
+        //Modified for Auto-Routing End
+
+
+        //Modified for UI Additional Controls Start
+        var uiAdditionalControls = new UIAdditionalControls( editor );
+        //Modified for UI Additional Controls End
+
+        //document.body.appendChild( toolbar.dom );
+        //measurement.dom.style.display = "none";
+        
+        //document.getElementById( 'measurement' ).style.display = "none";
+        
+        //document.getElementById('editorElement').appendChild(measurement.dom);
+        /*MODIFIED TO INCLUDE MEASUREMENT TOOL END*/
+        /*Reset Button*/
+
+        var resetOption = new ResetButton(editor);
+        //document.getElementById('editorElement').appendChild(resetOption.dom);
+
+        /*Reset button End*/
+        /*Reset Button*/
+
+        var freezButton = new FreezButton(editor);
+        //document.getElementById('editorElement').appendChild(freezButton.dom);
+
+        /*Reset button End*/
+        /*2D view button on the left side*/
+
+        var twodviewbtn = new TwodView(editor);
+        //document.getElementById('editorElement').appendChild(twodviewbtn.dom);
+
+        /*2D view button on the left side End*/
+
+        var modal = new UI.Modal();
+        //document.body.appendChild( modal.dom );
+        document.getElementById('editorElement').appendChild(modal.dom);
+
+
+        /*MODIFIED TO INCLUDE PROGRESSBAR START*/
+        var editorHtml = document.getElementById('editorElement');
+
+        editor.progressBar = new UI.CreateProgress(0, 100, 'progress-content');
+
+        editorHtml.appendChild(editor.progressBar.dom);
+
+        editor.progressBar.init();
+        /*MODIFIED TO INCLUDE PROGRESSBAR END*/
+        THREE.Cache.enabled = false;
+
+        //MODIFIED FOR MULTIPLE SIMULATION START
+        var rendererEngine = new RendererEngine( editor );
+        var simulationManager = new SimulationManager( editor );
+        var theatreMode = new TheatreMode( editor );
+        
+        var imageTracer = new ImageTracer();
+
+        var lockCamera = new LockCamera( editor );
+        //var vControls = new ViewportControls( editor );
+        //MODIFIED FOR MULTIPLE SIMULATION END
+
+        editor.rotationControls = new RotationControls( editor );
+        editor.translationControls = new TranslationControls( editor );
+        
+        /*get current positon */
+
+        editor.currentPosition  = new CurrentPossition ( editor );
+        editor.currentPosition.create();
+        
+        editor.setTheme(editor.config.getKey('theme'));
+
+        editor.storage.init(function() {
+
+            editor.storage.get(function(state) {
+
+                if (isLoadingFromHash) return;
+
+                if (state !== undefined) {
+
+                    editor.fromJSON(state);
+
+                }
+
+                var selected = editor.config.getKey('selected');
+
+                if (selected !== undefined) {
+
+                    editor.selectByUuid(selected);
+
+                }
+
+            });
+
+            //
+
+            var timeout;
+
+            function saveState(scene) {
+
+                if (editor.config.getKey('autosave') === false) {
+
+                    return;
+
+                }
+
+                clearTimeout(timeout);
+
+                timeout = setTimeout(function() {
+
+                    editor.signals.savingStarted.dispatch();
+
+                    timeout = setTimeout(function() {
+
+                        editor.storage.set(editor.toJSON());
+
+                        editor.signals.savingFinished.dispatch();
+
+                    }, 100);
+
+                }, 1000);
+
+            };
+
+            var signals = editor.signals;
+
+            signals.geometryChanged.add(saveState);
+            signals.objectAdded.add(saveState);
+            signals.objectChanged.add(saveState);
+            signals.objectRemoved.add(saveState);
+            signals.materialChanged.add(saveState);
+            signals.sceneBackgroundChanged.add(saveState);
+            signals.sceneFogChanged.add(saveState);
+            signals.sceneGraphChanged.add(saveState);
+            signals.scriptChanged.add(saveState);
+            signals.historyChanged.add(saveState);
+
+            signals.showModal.add(function(content) {
+
+                modal.show(content);
+
+            });
+
+        });
+
+        //
+
+        document.addEventListener('dragover', function(event) {
+
+            event.preventDefault();
+            event.dataTransfer.dropEffect = 'copy';
+
+        }, false);
+
+        document.addEventListener('drop', function(event) {
+
+            event.preventDefault();
+
+            if (event.dataTransfer.files.length > 0) {
+
+                editor.loader.loadFile(event.dataTransfer.files[0]);
+
+            }
+
+        }, false);
+
+        document.addEventListener('keydown', function(event) {
+            
+            //Modified to avoid keydown events on text areas start
+            if( event.target instanceof HTMLInputElement || event.target instanceof HTMLTableCellElement || event.target instanceof HTMLTextAreaElement ){
+
+                return;
+
+            }
+            //Modified to avoid keydown events on text areas end
+
+            switch (event.keyCode) {
+
+                /*	case 8: // backspace
+
+					event.preventDefault(); // prevent browser back
+                */
+                case 46: // delete
+
+                    var object = editor.selected;
+                    var referenceObject;
+
+                    var re = /^AreaMeasureMarker[1-4]/g;
+                    var reMarker = /^(NetworkMarker[\d+])/g;
+                    var twoDMarkers = /^(TwoDMeasureMarker[\d+])/g;
+
+                     if (object.type == "Group" && (object.children[0] instanceof THREE.Mesh)){
+                        if ( editor.camLock == true ) {
+                            document.getElementById( 'move_with_model' ).click();
+                        }
+                    }
+                    if( re.test( object.name ) && ( object.parent.name === "AreaSelectionRectangle" ) ) {
+
+                        return null;
+
+                    }
+
+                    else if( ( object.name === 'StartMeasurementMarker' || object.name === 'EndMeasurementMarker' ) && object.parent.name === "MeasurementConnectionLine" ) {
+
+                        return null;
+
+                    }
+
+                    else if( reMarker.test( object.name ) && ( object.parent.name === "NetworkingCable" ) ) {
+
+                        return null;
+
+                    }
+
+                    else if( twoDMarkers.test( object.name ) && ( object.parent.name === "2DMeasurement" ) ) {
+
+                        return null;
+
+                    }
+
+                /*MODIFIED FOR REMOVING CAMERA */
+                var delete_index = editor.camera_array.indexOf(object);
+                /*MODIFIED FOR REMOVING CAMERA */
+
+                if (confirm(editor.languageData.Delete  + object.name + '?') === false) return;
+
+                
+                /* Delete the camera generating Point*/
+                if (object.name == "cameraGeneratingSprite"){
+
+                    editor.execute(new RemoveObjectCommand(editor.cameraGenerateLine.line));
+                    editor.setCamera = 0;
+                    editor.setCameraRotation = 1;
+                    editor.targetLocked = !editor.targetLocked;
+                
+                }
+
+                /* Delete the camera generating Point*/
+                /*Delete the camera Reference Point*/
+                if (object instanceof THREE.PerspectiveCamera) {
+
+                    if(editor.scene.userData.cameraList){
+
+                        var newarray = editor.scene.userData.cameraList[object.uuid];
+                        var currentCameraBadgeNumber = object.badgeText;
+                        delete editor.scene.userData.cameraList[object.uuid];
+                    }
+                    
+                    editor.cameraDeletedNumber.push(object.badgeText);
+                    editor.cameraDeletedNumber.sort(function(a, b) {
+                    return b - a;
+                    });
+                    
+                    if (object.userData.objectUuid != "notset") {
+
+                        if (confirm(editor.languageData.ReferencePointalsoDeleted ) === false) {
+
+                            //editor.cameraDeletedNumber.pop();
+                            editor.cameraDeletedNumber.splice( editor.cameraDeletedNumber.indexOf(currentCameraBadgeNumber), 1 );
+                            if(editor.scene.userData.cameraList){
+                                editor.scene.userData.cameraList[object.uuid] = newarray;
+                            } 
+                        
+                            return;
+
+                        } else {
+
+                            editor.scene.traverse(function(child) {
+                                if (child.uuid === object.userData.objectUuid) {
+
+                                    referenceObject = child;
+
+                                    if(editor.allReferencePoint.indexOf(child) != -1){
+
+                                        var indexOfObject = editor.allReferencePoint.indexOf(child);
+                                        editor.allReferencePoint.splice( indexOfObject , 1 );
+                
+                                    }
+
+                                }
+                            });
+
+                        }
+                    }
+                    simulationManager.handleStop( object );
+                }
+
+                /*Delete the camera Reference Point End*/
+
+                /* For update camera while removing the Reference Point*/
+                if (object.camerauuid !== undefined) {
+                    var cameraReference;
+                    var userData;
+                    var flagUpdate = false;
+                    var line;
+
+                    editor.scene.traverse(function(child) {
+
+                        if (child.uuid === object.camerauuid) {
+                            cameraReference = child;
+                            if (confirm(editor.languageData.ReferencePointofthe + child.name ) === false) return;
+                            userData = { "location": child.userData.location, "cameraBrand": child.userData.cameraBrand, "cameraModel": child.userData.cameraModel, "objectUuid": "notset", "reference": new THREE.Vector3(0, 0, 0), "threeDModelType": child.userData.threeDModelType, "alignment" : child.userData.alignment, "tiltRotationValue": child.userData.tiltRotationValue, "panRotationValue": child.userData.panRotationValue, "rollRotationValue": child.userData.rollRotationValue, "flipped" : child.userData.flipped };
+                            flagUpdate = true;
+
+                            if( object.userData.checkLOSFlag ){
+
+                                if( object.userData.checkLOSFlag === 'set' ){
+
+                                    var lineuid = object.userData.lineUUID;     
+                                    line = editor.scene.getObjectByProperty( 'uuid', lineuid);  
+                                    line.traverse( function( child ){
+
+                                    if( child instanceof THREE.Sprite && child.name === "RefCamLineValueBadge" ){
+
+                                        var childIndex = editor.refCamBadge.indexOf( child );
+                                        if( child != -1 ){
+
+                                            editor.refCamBadge.splice( childIndex, 1 );
+
+                                        }
+
+                                        line.remove( child );
+
+                                    }
+
+                                } );  
+                                
+                                object.userData.checkLOSFlag = "notset";
+                                delete object.userData.lineUUID;
+                                editor.signals.sceneGraphChanged.dispatch();        
+
+                                }
+
+                            }
+
+                            if( object.userData.checkDetailsFlag ){
+
+                                if( object.userData.checkDetailsFlag === 'set' ){
+
+                                    var refPointName = object.name;
+                                    var camNum = refPointName.slice( 14 );
+                                    var detailsTable = document.querySelector( '#cam__ref__mobilewindow__' + object.uuid );
+                                    detailsTable.style.display = 'none';
+                                    object.userData.checkDetailsFlag = "hidden";
+
+                                }
+
+                            }
+
+                            if(editor.allReferencePoint.indexOf(object) != -1){
+
+                            var indexOfObject = editor.allReferencePoint.indexOf(object);
+                            editor.allReferencePoint.splice( indexOfObject , 1 );
+
+                            }
+                        }
+                    });
+
+                    if( line != undefined && line != null ){
+                        
+                        editor.execute( new RemoveObjectCommand( line ) );
+
+                    }
+
+                    if (flagUpdate) {
+
+                        editor.execute(new SetValueCommand(cameraReference, 'userData', userData));
+                        editor.selected = object;
+
+                    } else return;
+
+                }
+                /* For update camera while removing the Reference Point End*/
+
+                var parent = object.parent;
+                if (parent === undefined) return; // avoid deleting the camera or scene
+
+                editor.execute(new RemoveObjectCommand(object));
+                /*Delete the refrence Point*/
+                if (referenceObject != null) {
+
+                    if( referenceObject.userData.checkLOSFlag ){
+
+                        if( referenceObject.userData.checkLOSFlag === 'set' ){
+
+                            var lineuid = referenceObject.userData.lineUUID;    
+                            var line = editor.scene.getObjectByProperty( 'uuid', lineuid); 
+                            line.traverse( function( child ){
+
+                                if( child instanceof THREE.Sprite && child.name === "RefCamLineValueBadge" ){
+
+                                    var childIndex = editor.refCamBadge.indexOf( child );
+                                    if( child != -1 ){
+
+                                        editor.refCamBadge.splice( childIndex, 1 );
+
+                                    }
+
+                                    line.remove( child );
+
+                                }
+
+                            } );
+
+                            referenceObject.userData.checkLOSFlag = "notset";
+                            delete referenceObject.userData.lineUUID;
+                            editor.execute( new RemoveObjectCommand( line ) );   
+                            editor.signals.sceneGraphChanged.dispatch();                         
+
+                        }
+
+                    }
+
+                    if( referenceObject.userData.checkDetailsFlag ){
+
+                        if( referenceObject.userData.checkDetailsFlag === 'set' ){
+
+                            var refPointName = referenceObject.name;
+                            var camNum = refPointName.slice( 14 );
+                            var detailsTable = document.querySelector( '#cam__ref__mobilewindow__' + referenceObject.uuid );
+                            detailsTable.style.display = 'none';
+                            referenceObject.userData.checkDetailsFlag = "hidden";
+
+                        }
+
+                    }
+
+                    editor.execute(new RemoveObjectCommand(referenceObject));
+                    referenceObject = null;
+                }
+
+                /*MODIFIED FOR REMOVING CAMERA */
+                editor.camera_array.splice(delete_index, 1);
+                var count = 0;
+                editor.scene.traverse(function(child) {
+
+                    if (child instanceof THREE.PerspectiveCamera) {
+                        count = count + 1;
+
+                    }
+                });
+                if (count == 0) {
+
+                    editor.cameracount = 1;
+                }
+
+
+                /*MODIFIED FOR REMOVING CAMERA */
+
+                    break;
+
+                case 90: // Register Ctrl-Z for Undo, Ctrl-Shift-Z for Redo
+
+                    if (event.ctrlKey && event.shiftKey) {
+
+                        editor.redo();
+
+                    } else if (event.ctrlKey) {
+
+                        editor.undo();
+
+                    }
+
+                    break;
+
+                case 87: // Register W for translation transform mode
+
+                    editor.signals.transformModeChanged.dispatch('translate');
+                    editor.translationControls.show();
+                    editor.rotationControls.hide();
+
+                    break;
+
+                case 69: // Register E for rotation transform mode
+
+                    //editor.signals.transformModeChanged.dispatch('rotate');
+                    //Replaced default rotation controls with new RotationControls
+                    if( editor.theatreMode == true ) {
+
+                    toastr.info( editor.languageData.DefaultRotationControlsisDisabledinTheatreMode );
+                    return;
+
+                    }
+                    editor.rotationControls.show();
+                    editor.translationControls.hide();
+                    document.getElementById( 'toolbar-translate' ).classList.remove( 'selected' );
+                    document.getElementById( 'toolbar-rotate' ).classList.remove( 'selected' );
+                    document.getElementById( 'toolbar-scale' ).classList.remove( 'selected' );
+                    document.getElementById( 'toolbar-rotate' ).classList.add( 'selected' );
+
+                    break;
+
+                case 82: // Register R for scaling transform mode
+
+                    editor.signals.transformModeChanged.dispatch('scale');
+                    editor.rotationControls.hide();
+                    editor.translationControls.hide();
+
+                    break;
+
+                case 37: //left <-
+
+                    if( event.shiftKey ){
+                        if( simulationManager.liveCameras.length != 0 ){
+                            
+                            var light;
+                            var liveCamera = simulationManager.liveCameras[0];
+                            var camera = simulationManager.screens[liveCamera].camera;
+                            camera.traverse( ( child ) => {
+
+                                if( child instanceof THREE.SpotLight )
+                                    light = child;
+                                } )
+                            
+                        }
+                        if( light )
+                            light.position.x -= 1;
+                    }
+                    //Floorpan view Anti-Clockwise change 90 degree Ctrl+Left Arrow Start
+                   
+                    else if( event.ctrlKey ){
+                        
+                        var viewCamera = editor.camera;
+                        var cameraRotationValue = viewCamera.rotation.z;
+                        if(editor.isFloorplanViewActive === true && editor.type2dView == floorplanViews["Top"]){
+                
+                            if( cameraRotationValue - THREE.Math.degToRad(90) <= THREE.Math.degToRad(-360)){
+
+                                editor.execute( new SetRotationCommand( viewCamera, new THREE.Euler( -1.5708, 0, 0 ) ) );
+                                
+                            }
+                            else{
+
+                                cameraRotationValue = cameraRotationValue - THREE.Math.degToRad( 90 ); 
+                                editor.execute( new SetRotationCommand( viewCamera, new THREE.Euler( -1.5708, 0, cameraRotationValue ) ) );
+
+                            }
+                            viewCamera.matrixAutoUpdate = true;
+                            editor.signals.sceneGraphChanged.dispatch();      
+                                    
+                        }
+                                
+                    }
+                    
+                    //Floorpan view Anti-Clockwise change 90 degree Ctrl+Left Arrow End
+
+                    else if( editor.selected != null || editor.selectedView == false ){
+                        if( editor.selectedView ){
+                            event.preventDefault();
+                            var moveDistance = 1;
+                            editor.selected.translateX(-moveDistance );
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                        else{
+                            if(editor.type2dView ==1 ||  editor.type2dView == 5 ||  editor.type2dView == 6){
+
+                               // editor.selected = editor.camera
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionX = editor.camera.position.x;
+                                if( editor.type2dView == 6 ){
+
+                                   currentCameraPossitionX = currentCameraPossitionX - 1;
+                                }
+                                else {
+
+                                     currentCameraPossitionX = currentCameraPossitionX + 1;
+                                }
+                               
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3(currentCameraPossitionX, editor.camera.position.y, editor.camera.position.z)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            } 
+                            else if(editor.type2dView == 2 || editor.type2dView == 3 || editor.type2dView == 4){
+
+                                //editor.selected = editor.camera
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionZ = editor.camera.position.z;
+                                if(editor.type2dView ==2 ){
+                                    currentCameraPossitionZ = currentCameraPossitionZ + 1;
+                                }
+                                else{
+                                   
+                                    currentCameraPossitionZ = currentCameraPossitionZ - 1;
+                                }
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3(editor.camera.position.x, editor.camera.position.y, currentCameraPossitionZ)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            }
+                            
+                            
+                        }
+                    }
+
+                    break;
+
+                case 38: //UP ^
+                   
+                    if( event.shiftKey ){
+                        if( simulationManager.liveCameras.length != 0 ){
+                            
+                            var light;
+                            var liveCamera = simulationManager.liveCameras[0];
+                            var camera = simulationManager.screens[liveCamera].camera;
+                            camera.traverse( ( child ) => {
+
+                                if( child instanceof THREE.SpotLight )
+                                    light = child;
+                                } )
+                            
+                        }
+                        if( light )
+                            light.position.z -= 1;
+                    }   
+
+                    else if(editor.selected != null || editor.selectedView == false){
+                        if(editor.selectedView){
+
+                            event.preventDefault();
+                            var moveDistance = 1;
+                            editor.selected.translateZ( -moveDistance );
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                        else{
+                            if(editor.type2dView ==1){
+
+                               // editor.selected = editor.camera
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionZ = editor.camera.position.z;
+                                currentCameraPossitionZ = currentCameraPossitionZ + 1;
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3(editor.camera.position.x,editor.camera.position.y, currentCameraPossitionZ)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            }
+                            else if(editor.type2dView ==2 || editor.type2dView ==3 || editor.type2dView == 6  || editor.type2dView == 5 ){
+
+                              //  editor.selected = editor.camera
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionY = editor.camera.position.y;
+                                currentCameraPossitionY = currentCameraPossitionY - 1;
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3(editor.camera.position.x, currentCameraPossitionY , editor.camera.position.z)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            }
+                            else if(editor.type2dView == 4 ){
+
+                              //  editor.selected = editor.camera
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionX = editor.camera.position.x;
+                                currentCameraPossitionX = currentCameraPossitionX - 1;
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3( currentCameraPossitionX , editor.camera.position.y , editor.camera.position.z)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            }
+                        }
+                        
+                    }
+
+                    break;  
+
+                case 39: //right arrow ->
+
+                    if( event.shiftKey ){
+                        if( simulationManager.liveCameras.length != 0 ){
+                            
+                            var light;
+                            var liveCamera = simulationManager.liveCameras[0];
+                            var camera = simulationManager.screens[liveCamera].camera;
+                            camera.traverse( ( child ) => {
+
+                                if( child instanceof THREE.SpotLight )
+                                    light = child;
+                                } )
+                            
+                        }
+                        if( light )
+                            light.position.x += 1;
+                    }   
+
+                    //Floorpan view Clockwise change 90 degree Ctrl+Right Arrow start
+                    else if( event.ctrlKey ){
+                        
+                        var viewCamera = editor.camera;
+                        var cameraRotationValue = viewCamera.rotation.z;
+                        if(editor.isFloorplanViewActive === true && editor.type2dView == floorplanViews["Top"]){
+                
+                            if( cameraRotationValue + THREE.Math.degToRad(90) >= THREE.Math.degToRad(360)){
+
+                                editor.execute( new SetRotationCommand( viewCamera, new THREE.Euler( -1.5708, 0, 0 ) ) );
+                                
+                                
+                            }
+                            else{
+
+                                cameraRotationValue = cameraRotationValue + THREE.Math.degToRad( 90 ); 
+                                editor.execute( new SetRotationCommand( viewCamera, new THREE.Euler( -1.5708, 0, cameraRotationValue ) ) );
+                                
+
+                            }
+                            viewCamera.matrixAutoUpdate = true;
+                            editor.signals.sceneGraphChanged.dispatch();
+                                    
+                        }
+                                
+                    }
+                    //Floorpan view Clockwise change 90 degree Ctrl+Right Arrow End
+
+                    else if(editor.selected != null  || editor.selectedView == false){
+
+                        if(editor.selectedView){
+                            event.preventDefault();
+                            var moveDistance = 1;
+                            editor.selected.translateX(moveDistance );
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                        else{
+
+                            if(editor.type2dView ==1 ||  editor.type2dView ==6 ||  editor.type2dView == 5 ){
+
+                                //editor.selected = editor.camera
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionX = editor.camera.position.x;
+                                if(  editor.type2dView ==1   ||  editor.type2dView == 5  ){
+
+                                     currentCameraPossitionX = currentCameraPossitionX - 1 ;
+                                }
+                                else {
+
+                                    currentCameraPossitionX = currentCameraPossitionX + 1 ;
+                                }
+                               
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3( currentCameraPossitionX,  editor.camera.position.y, editor.camera.position.z)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch(editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            }
+                            else if(editor.type2dView ==2 || editor.type2dView ==3 || editor.type2dView == 4 ){
+
+                               // editor.selected = editor.camera
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionZ = editor.camera.position.z;
+                                if(editor.type2dView ==2 ){
+                                    currentCameraPossitionZ = currentCameraPossitionZ - 1;
+                                }
+                                else{
+                                   
+                                    currentCameraPossitionZ = currentCameraPossitionZ + 1;
+                                }
+                              
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3(editor.camera.position.x, editor.camera.position.y, currentCameraPossitionZ)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            }
+                        }
+                    }   
+
+                    break;  
+
+                case 40: //down arrow
+                    
+                    if( event.shiftKey ){
+                        if( simulationManager.liveCameras.length != 0 ){
+                            
+                            var light;
+                            var liveCamera = simulationManager.liveCameras[0];
+                            var camera = simulationManager.screens[liveCamera].camera;
+                            camera.traverse( ( child ) => {
+
+                                if( child instanceof THREE.SpotLight )
+                                    light = child;
+                                } )
+                            
+                        }
+                        if( light )
+                            light.position.z += 1;
+                    }   
+
+                    else if( editor.selected != null  || editor.selectedView == false ){
+                        if( editor.selectedView ){
+                            event.preventDefault();
+                            var moveDistance = 1; // 200 pixels per second
+                            editor.selected.translateZ(moveDistance );
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                        else{
+                            if(editor.type2dView ==1){
+
+                               
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionZ = editor.camera.position.z;
+                                currentCameraPossitionZ = currentCameraPossitionZ - 1;
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3(editor.camera.position.x,editor.camera.position.y, currentCameraPossitionZ)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+                            }
+                            else if(editor.type2dView ==2 || editor.type2dView ==3 || editor.type2dView == 5 || editor.type2dView == 6){
+
+                              
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionY = editor.camera.position.y;
+                                currentCameraPossitionY = currentCameraPossitionY + 1;
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3(editor.camera.position.x, currentCameraPossitionY, editor.camera.position.z)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+
+                            }
+
+                            else if( editor.type2dView == 4 ) {
+
+                                editor.camera.matrixAutoUpdate = true;
+                                var currentCameraPossition = editor.camera.position;
+                                var currentCameraPossitionX = editor.camera.position.x;
+                                currentCameraPossitionX = currentCameraPossitionX + 1;
+                                event.preventDefault();
+                                editor.execute(new SetPositionCommand(editor.camera, new THREE.Vector3( currentCameraPossitionX ,editor.camera.position.y, editor.camera.position.z)));
+                                var moveDistance = 1;
+                                editor.signals.objectChanged.dispatch( editor.camera );
+                                editor.camera.matrixAutoUpdate = false;
+
+                            }
+                        }
+                    }
+
+                    break;
+
+                case 74: //j
+                
+                if( simulationManager.liveCameras.length != 0 ){
+
+                    event.preventDefault();
+                    var liveCamera = simulationManager.liveCameras[0];
+                    var rotStep = simulationManager.screens[liveCamera].rotStep;
+                    var camera = simulationManager.screens[liveCamera].camera;
+                    camera.rotateOnAxis( new THREE.Vector3(0,1,0), THREE.Math.degToRad(rotStep) );
+                    editor.signals.sceneGraphChanged.dispatch();
+
+                }
+                break;
+
+                case 76: //l
+
+                if( simulationManager.liveCameras.length != 0 ){
+
+                    event.preventDefault();
+                    var liveCamera = simulationManager.liveCameras[0];
+                    var rotStep = simulationManager.screens[liveCamera].rotStep;
+                    var camera = simulationManager.screens[liveCamera].camera;
+                    camera.rotateOnAxis( new THREE.Vector3(0,-1,0), THREE.Math.degToRad(rotStep) );
+                    editor.signals.sceneGraphChanged.dispatch();
+
+                }
+                break;
+
+                case 73: //i
+
+                if( simulationManager.liveCameras.length != 0 ){
+
+                    event.preventDefault();
+                    var liveCamera = simulationManager.liveCameras[0];
+                    var rotStep = simulationManager.screens[liveCamera].rotStep;
+                    var camera = simulationManager.screens[liveCamera].camera;
+                    camera.rotateOnAxis( new THREE.Vector3(1,0,0), THREE.Math.degToRad(rotStep) );
+                    editor.signals.sceneGraphChanged.dispatch();
+
+                }
+                break;
+
+                case 77: //m
+
+                if( simulationManager.liveCameras.length != 0 ){
+
+                    event.preventDefault();
+                    var liveCamera = simulationManager.liveCameras[0];
+                    var rotStep = simulationManager.screens[liveCamera].rotStep;
+                    var camera = simulationManager.screens[liveCamera].camera;
+                    camera.rotateOnAxis( new THREE.Vector3(-1,0,0), THREE.Math.degToRad(rotStep) );
+                    editor.signals.sceneGraphChanged.dispatch();
+
+                }
+                break;
+
+                case 85: //u
+
+                if( simulationManager.liveCameras.length != 0 ){
+
+                    event.preventDefault();
+                    var liveCamera = simulationManager.liveCameras[0];
+                    var rotStep = simulationManager.screens[liveCamera].rotStep;
+                    var camera = simulationManager.screens[liveCamera].camera;
+                    camera.rotateOnAxis( new THREE.Vector3(0,0,1), THREE.Math.degToRad(rotStep) );
+                    editor.signals.sceneGraphChanged.dispatch();
+
+                }
+                break;
+
+                case 79: //o
+
+                if( simulationManager.liveCameras.length != 0 ){
+
+                    event.preventDefault();
+                    var liveCamera = simulationManager.liveCameras[0];
+                    var rotStep = simulationManager.screens[liveCamera].rotStep;
+                    var camera = simulationManager.screens[liveCamera].camera;
+                    camera.rotateOnAxis( new THREE.Vector3(0,0,-1), THREE.Math.degToRad(rotStep) );
+                    editor.signals.sceneGraphChanged.dispatch();
+
+                }
+                break;
+                /* Commented here to implement roll, pan and tilt for current live camers
+                case 74: //j
+
+                    if(editor.selected != null ){
+                        if( editor.selectedView ){
+                            event.preventDefault();
+                            editor.selected.rotateOnAxis( new THREE.Vector3(0,1,0), 0.5);
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                    }
+
+                    break;  
+
+                case 76: //l
+                    if(editor.selected != null){
+                        if( editor.selectedView ){
+                            event.preventDefault();
+                            editor.selected.rotateOnAxis( new THREE.Vector3(0,1,0), -0.5);
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                    }
+                    break;
+
+                case 73: //i
+
+                    if(editor.selected != null){
+                        if( editor.selectedView ){   
+
+                            event.preventDefault();     
+                            editor.selected.rotateOnAxis( new THREE.Vector3(1,0,0), 0.5)
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                    }
+
+                    break;	
+
+                case 75: //k
+
+                    if(editor.selected != null){  
+                        if( editor.selectedView ){
+                            event.preventDefault();  
+                            editor.selected.rotateOnAxis( new THREE.Vector3(1,0,0), -0.5);
+                            editor.signals.objectChanged.dispatch( editor.selected );
+                        }
+                    } */
+
+                    break;
+            }
+
+        }, false);
+
+        /*MODIFIED FOR ADDING DOUBLE CLICK EVENT IN EDITOR FOR CAMERA PLAY START*/
+        /*document.addEventListener( 'dblclick', function ( event ) {
+
+        	event.preventDefault();
+        	if(editor.selected instanceof THREE.PerspectiveCamera)
+        	{
+        		alert("Double clicked on a camera");
+        		return;
+        	}
+        	else
+        	{
+        		alert("Please click on a camera and then select this option to view the simulation!");
+        		return;
+        	}
+
+        }, false );*/
+        /*MODIFIED FOR ADDING DOUBLE CLICK EVENT IN EDITOR FOR CAMERA PLAY END*/
+
+        function onWindowResize(event) {
+
+            editor.signals.windowResize.dispatch();
+
+        }
+
+        window.addEventListener('resize', onWindowResize, false);
+
+        onWindowResize();
+
+        //
+
+        var isLoadingFromHash = false;
+        var hash = window.location.hash;
+
+        if (hash.substr(1, 5) === 'file=') {
+
+            var file = hash.substr(6);
+
+            if (confirm('Any unsaved data will be lost. Are you sure?')) {
+
+                var loader = new THREE.FileLoader();
+                loader.crossOrigin = '';
+                loader.load(file, function(text) {
+
+                    editor.clear();
+                    editor.fromJSON(JSON.parse(text));
+
+                });
+
+                isLoadingFromHash = true;
+
+            }
+
+        }
+
+        /*
+        window.addEventListener( 'message', function ( event ) {
+
+        	editor.clear();
+        	editor.fromJSON( event.data );
+
+        }, false );
+        */
+
+        // VR
+
+        var groupVR;
+
+        // TODO: Use editor.signals.enteredVR (WebVR 1.0)
+
+        editor.signals.enterVR.add(function() {
+
+            if (groupVR === undefined) {
+
+                groupVR = new THREE.HTMLGroup(viewport.dom);
+                editor.sceneHelpers.add(groupVR);
+
+                var mesh = new THREE.HTMLMesh(sidebar.dom);
+                mesh.position.set(15, 0, 15);
+                mesh.rotation.y = -0.5;
+                groupVR.add(mesh);
+
+                var signals = editor.signals;
+
+                function updateTexture() {
+
+                    mesh.material.map.update();
+
+                }
+
+                signals.objectSelected.add(updateTexture);
+                signals.objectAdded.add(updateTexture);
+                signals.objectChanged.add(updateTexture);
+                signals.objectRemoved.add(updateTexture);
+                signals.sceneGraphChanged.add(updateTexture);
+                signals.historyChanged.add(updateTexture);
+
+            }
+
+            groupVR.visible = true;
+
+        });
+
+        editor.signals.exitedVR.add(function() {
+
+            if (groupVR !== undefined) groupVR.visible = false;
+
+        });
+
+        /*MODIFIED TO ADD AN OVERLAY UNTIL PAGE LOAD START*/
+        var adjustEditorWindow = function() {
+
+            setTimeout(function() {
+                onWindowResize();
+            }, 500);
+            setTimeout(function() {
+                $(".loader").fadeOut("slow");
+                if( fromSharedUrl ){
+
+                    editor.loader.loadSharedUrl( publishData.urlId );
+                    fromSharedUrl = false;
+
+                }
+            }, 1000);
+
+        }
+        adjustEditorWindow();
+        oExplorer.generateTree( editor.scene );//Added to generate the initial object tree
+        /*MODIFIED TO ADD AN OVERLAY UNTIL PAGE LOAD END*/
+
+        //setTimeout(function(){ onWindowResize();}, 500);
+
+        //View Mode Starts//
+        if( localStorage.getItem("viewmode") == "true") {
+
+            $('#add_editor').hide();
+            $('.viewport-controls').hide();
+            $('.viewModeTab').hide();
+            $('#toolbar').hide();
+
+            var syncViewModeUrl = new Promise( (resolve, reject) => {
+
+                resolve(localStorage.getItem('viewmodeProjectId'));
+
+            } )
+           
+            syncViewModeUrl.then( (viewModeProjectId) => {
+                console.log(viewModeProjectId)
+                $.ajax({
+                url: editor.api + 'viewmode/load/'+ viewModeProjectId ,
+                type: 'GET',
+                dataType: 'json',
+                headers:{
+                    accesskey:localStorage.getItem("owner_id")
+                },
+                success: function(response) {
+                    
+                    if(response == null || response == {} || response == []){
+
+                        toastr.info("You cannot view the project! Contact Admin")
+                        return;
+                    }
+                    project = response;                  
+                    
+
+                    //Project upload progress Bar 
+
+                    editor.progressBar.updateProgress(editor.languageData.Initializing, 0.0);
+                    editor.progressBar.show();
+                    editor.progressBar.updateProgress( editor.languageData.UploadingProject, 0.20);
+
+                    //Project JSON Loading process
+
+                    editor.loader.openProject({status: 'modified', body: project});
+                    editor.activeProject = project;
+                    document.getElementById('project-title-3d').innerHTML = project.name;
+
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+            });    
+
+
+            } )      
+        } else if( localStorage.getItem("matterport_user") == "true" && localStorage.getItem("matterport_access_count") == 1) {
+
+            localStorage.setItem("matterport_access_count", 2);
+      
+            var syncViewModeUrl = new Promise( (resolve, reject) => {
+
+                resolve(localStorage.getItem('model_id'));
+
+            } )
+
+            syncViewModeUrl.then( (model_id) => {
+                console.log(model_id)
+                $.ajax({
+                    url: editor.api + 'matterport/models/find/' + model_id,
+                    type: 'GET',
+                    dataType: 'json',
+                    
+                    success: function(response) {
+                        let objFile = response.objFile.toString()
+                        let mtlFile = response.mtlFile.toString()
+                        let modelId = response.modelId.toString()
+                        editor.scene.userData.matterportParameters = {info: response.modelData}
+                        editor.progressBar.updateProgress(editor.languageData.Initializing, 0.0);
+                        editor.progressBar.show();
+                        editor.progressBar.updateProgress( editor.languageData.UploadingProject, 0.20);
+
+                        editor.loader.loadObjMtl("matterport", editor.modelPath + modelId + '/', objFile, editor.modelPath + modelId + '/', mtlFile );
+                    
+                        
+                        if(response == null || response == {} || response == []){
+
+                            toastr.info("You cannot view the project! Contact Admin")
+                            return;
+                        }
+                    },
+                    error: function(err) {
+                        toastr.error("Invalid URL Specified")
+                    }
+                });    
+
+} )      
+}
+    </script>
+</div>

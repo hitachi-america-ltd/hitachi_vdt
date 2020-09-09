@@ -1,0 +1,108 @@
+<div>
+		<div  ng-controller="signupctrl" >
+		   <nav class="navbar navbar-inverse">
+			  <div>
+				 <div class="navbar-header">
+						<a class="navbar-brand " style = "margin-top :2px;" href="#/"> <img src = './assets/img/3DEZ-Red.png' height="50"></a>
+						<a class="navbar-brand " style = "font-size : 24px !important ;margin-top: 16px !important;" href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a>
+				 </div>
+				 <ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+					   <a class="dropdown-toggle" data-toggle="dropdown" href="">{{"select language" | translate}}
+					   <span class="caret"></span></a>
+					   <ul class="dropdown-menu">
+						  <li><a href="" ng-click ="changeLanguage('en')">{{"english" | translate }}</a></li>
+						  <li><a href="" ng-click ="changeLanguage('jp')"; >{{"japaneses" | translate }}</a></li>
+					   </ul>
+					</li>
+					<li><a href="#signup"><i class="fa  fa-user "></i> {{"Signup" | translate }}</a></li>
+					<li><a href="#login"><i class="fa  fa-sign-in"></i> {{"Login" | translate }}</a></li>
+				 </ul>
+			  </div>
+		   </nav>
+		   <!--sign up -->
+		   <div class="cards container col-md-4 col-sm-12 col-xs-12 cards push-md-5 shadow-effects" style="background-color: white; ">
+			  <div class="cards-block">
+				 <!--Header-->
+				 <div class="forms-header blue-gradient">
+					<h3><i class="fa fa-user"></i> {{"Register"| translate }} </h3>
+				 </div>
+				 <!--Body-->
+				 <form name="myForm">
+					<div class="md-forms">
+					   <i class="fa fa-user prefix" ></i>
+					   <input type="text" name="fname" class="prem forms-control" style="font-size: 16px;margin-top: 1%" id="form3" placeholder="{{'First name' | translate }}"  ng-model="firstname"   ng-maxlength="30" required="required">
+					   <span style="color:red; margin-left:10%" ng-show="myForm.fname.$dirty && myForm.fname.$invalid" class="">
+					   <span ng-show="myForm.fname.$error.maxlength">{{"First name is required!" | translate }}</span>
+					   </span>
+					   <label for="form3" ></label>
+					</div>
+					<div class="md-forms">
+					   <i class="fa fa-user prefix"></i>
+					   <input type="text" name="secnd_name" class="prem forms-control" style="font-size: 16px; margin-top: 1%"    placeholder=" {{'Last Name' | translate }}"  ng-model="lastname"  ng-minlength="1" ng-maxlength="30" required="required">
+					   <span style="color:red; margin-left:10%" ng-show="myForm.secnd_name.$dirty && myForm.secnd_name.$invalid" class="">
+					   <span ng-show="myForm.secnd_name.$error.minlength ||myForm.secnd_name.$error.maxlength" class="">{{"Last name is required!" | translate  }}</span>
+					   </span>
+					   <label for="form3" ></label>
+					</div>
+					<div class="md-forms">
+					   <i class="fa fa-phone prefix"></i>
+					   <input type="text" name="number_mob" class="prem" id="phone" style="font-size: 16px;margin-top: 1%"  class="forms-control" ng-model="Mobileup"  required="required">
+					   <label for="form2"></label>
+					</div>
+					<div class="md-forms">
+					   <i class="fa fa-envelope prefix"></i>
+					   <input type="email" name="input" class="prem forms-control" style="font-size: 16px;margin-top: 1%" id="form2" placeholder = " {{'Your E-mail' | translate }}" ng-model="emailup"  required="required">
+					   <span style="color:red; margin-left:10%" ng-show="myForm.input.$dirty && myForm.input.$invalid" class="">{{'Email is required!' | translate }}</span>
+					   <span ng-show="email_span"  style="color:red;margin-left: 10%;">{{"Not a Valid IdNot a Valid Id" | translate}}</span>
+					   <label for="form2"></label>
+					</div>
+					<div class="md-forms">
+					   <i class="fa fa-lock prefix"></i>
+					   <input type="password" id="form4" style="font-size: 16px;margin-top: 1%"  class="prem" placeholder="{{'Your password' | translate}} " class="forms-control" ng-model="passwordup">
+					   <label for="form4"></label>
+					</div>
+					<div class="md-forms">
+					   <i class="fa fa-lock prefix"></i>
+					   <input type="password"  style="font-size: 16px;margin-top: 1%"  class="prem" placeholder="{{'Confirm Password'  | translate }}" class="forms-control" ng-model="c_passwordup">
+					   <span ng-show="span_conform"  style="color:red;margin-left: 10%;">re enter the password</span>	
+					   <label for="form4"></label>
+					</div>
+					<div class="text-center">
+					   <span style="color:red;margin-left: 10%;font-size:16px;" ng-show="invalidemails">{{"Email already used!" | translate }}</span></br>
+					   <button class="btns btns-indigo" style="font-size:18px"  ng-disabled="myForm.$invalid" ng-click="signup_fun()">{{"Signup" | translate}}</button>
+					   <hr>
+					   <fieldset class="forms-group">
+					   </fieldset>
+					</div>
+				 </form >
+			  </div>
+		   </div>
+		   <!-- signup end -->
+		</div>
+	 </div>
+	 <script>
+		$( document ).ready(function() {
+		$("#phone").intlTelInput({
+		  allowDropdown: true,
+		 // autoHideDialCode: false,
+		 // autoPlaceholder: "off",
+		 // dropdownContainer: "body",
+		 // excludeCountries: ["us"],
+		  formatOnDisplay: true,
+		 // geoIpLookup: function(callback) {
+		 //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+		 //     var countryCode = (resp && resp.country) ? resp.country : "";
+		 //     callback(countryCode);
+		 //   });
+		 // },
+		initialCountry: "JP",
+		 // nationalMode: false,
+		 // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+		 // placeholderNumberType: "MOBILE",
+		 // preferredCountries: ['cn', 'jp'],
+		 // separateDialCode: true,
+		 utilsScript: "assets/js/utils.js"
+		});
+		});
+	 </script>

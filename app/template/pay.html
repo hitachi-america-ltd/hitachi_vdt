@@ -1,0 +1,54 @@
+<div ng-controller="ptrl">
+		<nav class="navbar navbar-inverse">
+			 <div>
+					<div class="navbar-header">
+							<a class="navbar-brand " style = "margin-top :2px;" href="#/"> <img src = './assets/img/3DEZ-Red.png' height="50"></a>
+							<a class="navbar-brand " style = "font-size : 24px !important ;margin-top: 16px !important;" href="#/">{{"HITACHI DESIGN SIMULATOR PLATFORM" | translate}}</a>
+					</div>
+					<ul class="nav navbar-nav navbar-right">
+						 <li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="">{{"select language" | translate}}
+								<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									 <li><a href="" ng-click ="changeLanguage('en')">{{"english" | translate }}</a></li>
+									 <li><a href="" ng-click ="changeLanguage('jp')"; >{{"japaneses" | translate }}</a></li>
+								</ul>
+						 </li>
+						 <!--li><a href="#signup"><i class="fa  fa-user "></i> {{"Signup" | translate }}</a></li -->
+						 <li><a href="#login"><i class="fa  fa-sign-in"></i> {{"Login" | translate }}</a></li>
+					</ul>
+			 </div>
+		</nav>
+		<!-- log in -->
+		<div class="cards container col-md-4 col-sm-12 col-xs-12 cards push-md-5 shadow-effects"  style="background-color: white; " >
+			 <div class="cards-block">
+					<!--Header-->
+					<div class="forms-header blue-gradient">
+						 <h3><i class="fa fa-lock"></i> {{"Payment Coming Soon" | translate}}</h3>
+					</div>
+					<!--Body-->
+					<div class="md-forms">
+						 <i class="fa fa-credit-card prefix"></i>
+						 <input class="prem" style="font-size: 16px;margin-top: 1%"  type="text" id="form4" placeholder="{{'card number' | translate }}" class="forms-control" disabled >
+						 <label for="form4"></label>
+					</div>
+					<div class="md-forms">
+						 <i class="fa fa-calendar prefix"></i>
+						 <input class="prem" style="font-size: 16px;margin-top: 1%"  type="password" id="form4" placeholder="{{'mm/yy' | translate}}" class="forms-control"  disabled>
+						 <label for="form4"></label>
+					</div>
+					<div class="md-forms">
+						 <i class="fa fa-lock prefix"></i>
+						 <input class="prem" style="font-size: 16px;margin-top: 1%"  type="password" id="form4" placeholder="{{'Password' | translate }}" class="forms-control" disabled >
+						 <label for="form4"></label>
+					</div>
+					<div class="text-center">
+						 <button class="btns btns-indigo  btns-indigo"  style="font-size:18px" ng-click="pay()"> {{"Finish" |translate }} </button>
+						 <hr>
+						 <label class="forms-group">
+						 </label>
+					</div>
+			 </div>
+		</div>
+		<!-- login end -->
+ </div>
